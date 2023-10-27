@@ -25,7 +25,7 @@ public class ArticleServiceImpl implements ArticleService{
 
 
 	@Override
-	public Article ReadArticle(int article_id) {
+	public Article readArticle(int article_id) {
 		articleDao.updateViewCnt(article_id);
 		return articleDao.selectById(article_id);
 	}
@@ -50,11 +50,6 @@ public class ArticleServiceImpl implements ArticleService{
 	@Override
 	public void deleteArticle(int article_id) {
 		articleDao.deleteArticle(article_id);
-	}
-
-	@Override
-	public void updateViewCnt(int article_id) {
-		articleDao.updateViewCnt(article_id);
 	}
 
 

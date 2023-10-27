@@ -8,7 +8,7 @@ public interface ArticleService {
 	
 	List<Article> getArticleList();
 		
-	Article ReadArticle(int article_id);
+	Article readArticle(int article_id);
 	
 	Article searchArticleById(int article_id);
 		
@@ -18,6 +18,5 @@ public interface ArticleService {
 	
 	void deleteArticle(int article_id);
 
-	void updateViewCnt(int article_id);
-	
+
 }

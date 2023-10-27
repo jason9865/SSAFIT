@@ -37,7 +37,7 @@ public class ArticleController {
 	
 	private final ArticleService articleService;
 	private final CommentService commentService;
-	
+
 	@Autowired
 	public ArticleController(ArticleService articleService, CommentService commentService) {
 		this.articleService = articleService;
@@ -46,7 +46,7 @@ public class ArticleController {
 	
 	@GetMapping("/{articleId}")
 	public String showArticle(@PathVariable int articleId, Model model) {
-		Article article = articleService.ReadArticle(articleId);
+		Article article = articleService.readArticle(articleId);
 		List<Comment> commentList = commentService.getList(articleId);
 		model.addAttribute(article);
 		model.addAttribute(commentList);

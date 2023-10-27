@@ -96,7 +96,7 @@
  		where id=#{id};
  	</update>
 
-	<update id="updateViewCnt" parameterType="Article">
+	<update id="updateViewCnt" parameterType="int">
 		UPDATE article
 		SET view_cnt = view_cnt + 1
 		WHERE id=#{id}
