@@ -1,0 +1,359 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    box-sizing: border-box;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+a{
+    text-decoration: none;
+}
+
+header {
+    display: flex;
+    background-color: #252B48;
+    color: aliceblue;
+    padding: 30px;
+}
+
+header > h2 {
+    padding-left: 100px;
+}
+
+header > form {
+    position: absolute;
+    right: 0;
+    padding-right: 400px;
+}
+
+nav {
+    position: absolute;
+    right: 0;
+    padding-right: 180px;
+}
+
+nav > ul {
+    display: flex;
+}
+
+topbar {
+    padding: 100px;
+}
+
+topbar > ul {
+    display: flex;
+    justify-content: center;
+}
+
+nav > ul > li > a {
+    text-decoration: none;
+    color: aliceblue;
+    padding-left: 10px;
+}
+
+topbar > ul > li > a {
+    text-decoration: none;
+    color: black;
+    padding-right: 30px;
+}
+
+main > section {
+    padding-bottom: 30px;
+}
+
+main > section > ul {
+    display: flex;
+    justify-content: space-around;
+    flex-flow: wrap;
+}
+
+main > section > ul > li > ul {
+    text-align: center;
+}
+
+footer {
+    padding: 30px;
+    background-color: #252B48;
+    color: aliceblue;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+}
+
+main > section > ul > li > ul > input {
+    background-color: blue;
+    color: aliceblue;
+    border: none;
+    width: 80px;
+    height: 30px;
+}
+
+footer > ul {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+footer > ul > li > a {
+    text-decoration: none;
+    color: aliceblue;
+    padding-right: 30px;
+}
+
+img {
+    width : 500px;
+    height: 500px;
+}
+
+.product-type {
+    font-size: small;
+}
+
+.product-name {
+    font-weight: 1000;
+}
+
+.product-price {
+    color: blue;
+}
+
+.product-detail {
+    background-color: white;
+    width: 400px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 30px;
+    text-align: center;
+}
+
+.detail-main > section {
+    /* border: 1px solid red; */
+    flex-basis: 70%;
+}
+
+.detail-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* padding-left: 300px; /
+    / padding-right: 300px; */
+    padding-top: 100px;
+    padding-bottom: 124px;
+}
+
+.detail-main > h2 {
+    padding-bottom: 20px;
+    font-size: 35px;
+}
+
+.detail-main .video-area content {
+
+    height: 40vh;
+}
+
+.detail-main > article {
+    float: right;
+    /* border: 1px solid blue; */
+    border-radius: 30px;
+    flex-basis: 40%;
+    background-color: rgb(241, 240, 240);
+}
+
+.detail-main > article > ul {
+    padding-top: 100px;
+    padding-left: 30px;
+}
+
+.detail-main > article > ul > li {
+    margin-bottom: 10px;
+}
+
+.detail-main > article > form {
+    /* position: absolute; /
+    / right: 300px; */
+    padding-left: 110px;
+}
+
+#review-area {
+    /* border: 1px solid red; */
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; 
+    max-height: calc(100vh - 300px); 
+    overflow-y: auto; 
+    background-color: #F7E987;
+}
+
+#review-area > h3 {
+    border-bottom: 1px solid rgb(190, 184, 184);
+    padding-bottom: 5px;
+}
+
+.review-write-form {
+    padding-top: 3px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+.review-ul {
+    display: flex;
+    flex-direction: column;
+}
+
+.review-display {
+    padding-bottom: 10px;
+}
+
+.review-submit-btn {
+    /* margin-top: 10px; */
+    margin-right: 60px;
+}
+
+.review-delete-btn {
+    position: absolute;
+    right: 30%;
+}
+
+.review-delete-btn:hover {
+    background-color:#002ead;
+    transition: 0.7s;
+}
+
+.review-write-form .review-input-title {
+    border-radius: 30;
+    height: 80px;
+    width: 400%;
+}
+
+.review-write-form .review-input-content {
+    border-radius: 30;
+    height: 300px;
+    width: 400%;
+}
+
+.review-write-form .review-input-title,
+.review-write-form .review-input-content {
+    margin-bottom: 30px;
+}
+
+.review-write h4 {
+    margin-right: 10px;
+}
+
+#review-register-area, #review-modify-area, #review-detail-area {
+    /* border: 1px solid red; */
+    width: 100%;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#review-register-area, #review-detail-area topbar {
+    padding: 0;
+}
+
+.review-detail-content-area {
+    display: flex;
+    flex-direction: column;
+}
+
+.review-display {
+    display: flex;
+
+}
+
+.review-display > li {
+    padding-right: 13px;
+}
+
+.review-display .review-author {
+    font-weight: 1000;
+}
+
+.review-display > input {
+    background-color: #5B9A8B;
+    color: white;
+    border-radius: 30px;
+}
+
+.review-ul {
+    padding: 20px 0 20px 0;
+}
+
+.review-input-form {
+    width: 700px;
+}
+
+
+
+
+
+
+
+
+/* 소영 추가 */
+.search-back{
+    width: 100%;
+    background-color: #F7E987;
+}
+.search-box {
+    width: 1000px;
+    margin: 0 auto;
+    padding: 50px 0;
+}
+.review-box {
+    width: 1000px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+.card2 {
+    text-align: center;
+}
+
+.title {
+    text-align: center;
+    font-weight: 900;
+    padding: 20px 0;
+    color: #fff;
+    border-bottom: 3px solid #fff;
+}
+.video-back{
+    background-color: #5B9A8B;
+    padding-top: 30px;
+    padding-bottom: 150px;
+}
+.video-wrap {
+    width: 1200px;
+    margin: 0 auto;
+}
+.video{
+    padding-top: 30px;
+}
+.card-body2 h5{
+    font-size: 16px;
+}
+.card-body2 p{
+    font-size: 14px;
+}
+.logo{
+    font-weight: 900;
+}
+.review-title{
+    padding: 15px 40px;
+    background-color: #5B9A8B;
+    color: #fff;
+    border-radius: 30px;
+    font-weight: 650;
+    font-size: 20px;
+}
+.review-area{
+    padding-top: 30px;
+}
+/* 소영 추가 끝 */

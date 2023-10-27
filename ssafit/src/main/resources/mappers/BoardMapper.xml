@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.ws.model.dao.BoardDao">
+	<resultMap type="Board" id="boardMap">
+		<result column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="description" property="description"/>
+		<result column="created_at" property="createdAt"/>
+	</resultMap>
+	
+	<select id="selectAll" resultMap="boardMap">
+		SELECT * 
+		FROM board;
+	</select>
+	
+	<select id="selectOne" resultMap="boardMap" parameterType="int">
+		SELECT *
+		FROM board
+		WHERE id=#{id};
+	</select>
+	
+	<insert id="insertBoard" parameterType="Board">
+		INSERT INTO 
+		board(name,description,created_at)
+		VALUES(#{name},#{description},now());
+	</insert>
+	
+	<update id="updateBoard" parameterType="Board">
+		UPDATE board
+		SET name=#{name}, description=#{description}, created_at=NOW();
+		WHERE id=#{id};
+	</update>
+	
+	<delete id="deleteBoard" parameterType="int">
+		DELETE FROM board
+		WHERE id=#{id};
+	</delete>
+	
+
+	
+</mapper>

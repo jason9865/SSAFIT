@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.ws.model.dao.UserDao">
+	<resultMap type="User" id="userMap">
+		<result column="user_seq" property="userSeq"/>
+		<result column="id" property="id"/>
+		<result column="user_pwd" property="userPwd"/>
+		<result column="user_name" property="userName"/>
+		<result column="nickname" property="nickName"/>
+		<result column="user_rank" property="userRank"/>
+		<result column="email" property="email"/>
+		<result column="joined_at" property="joinedAt"/>
+	</resultMap>
+	
+	
+	<select id="selectAll" resultMap="userMap">
+		SELECT *
+		FROM user;
+	</select>
+	
+	<select id="selectByUserSeq" resultMap="userMap">
+		SELECT * 
+		FROM user
+		WHERE user_seq=#{userSeq};
+	</select>
+	
+	<select id="selectByUserId" resultMap="userMap" parameterType="String">
+		SELECT *
+		FROM user
+		WHERE id=#{id};
+	</select>
+	
+	<select id="selectByName" resultMap="userMap" parameterType="String">
+		SELECT *
+		FROM user
+		WHERE user_name LIKE
+		CONCAT('%',#{userName},'%')
+		;
+	</select>
+	
+	<!-- 동적 쿼리 작성 => 관리자랑 일반유저 분리 -->
+	<insert id="insertUser" parameterType="User">
+		INSERT INTO user (id,user_pwd,user_name,nickname,user_rank, email,joined_at)
+		VALUES(#{id},#{userPwd},#{userName},#{nickName},1,#{email},now())
+	</insert>
+	
+	<update id="updateUser" parameterType="User">
+		UPDATE user
+		SET id=#{id}, user_pwd=#{userPwd}, user_name=#{userName}, 
+		user_rank=#{userRank}, nickname=#{nickName}, email=#{email}
+		WHERE user_seq=#{userSeq};
+	</update>
+	
+	<delete id="deleteUser" parameterType="int">
+		DELETE FROM user
+		WHERE user_seq = #{userSeq};
+	</delete>
+
+</mapper>

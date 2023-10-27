@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.ssafy.ws.model.dao.CommentDao">
+
+ 	<resultMap type="Comment" id="commentMap">
+ 		<result column="id" property="id"/>
+ 		<result column="content" property="content"/>
+ 		<result column="user_seq" property="userSeq"/>
+ 		<result column="article_id" property="articleId"/>
+ 		<result column="board_id" property="boardId"/>
+ 		<result column="lft" property="lft"/>
+ 		<result column="rgt" property="rgt"/>
+ 		<result column="depth" property="depth"/>
+ 		<result column="created_at" property="createdAt"/>
+		<association property="userTable" resultMap="userMap"/>
+	</resultMap>
+
+	<resultMap type="User" id="userMap">
+		<result column="user_seq" property="userSeq"/>
+		<result column="id" property="id"/>
+		<result column="user_pwd" property="userPwd"/>
+		<result column="user_name" property="userName"/>
+		<result column="nickName" property="nickName"/>
+		<result column="user_rank" property="userRank"/>
+		<result column="email" property="email"/>
+		<result column="joined_at" property="joinedAt"/>
+	</resultMap>
+
+	<select id="selectAll" resultMap="commentMap">
+ 		SELECT *
+ 		FROM comment c
+		JOIN user u
+		ON c.user_seq = u.user_seq
+		;
+ 	</select>
+ 
+ 	<select id="selectOne" resultMap="commentMap">
+ 		SELECT *
+ 		FROM comment
+ 		WHERE id = #{id}
+ 	</select>
+ 	
+ 	<update id="insertComment" parameterType="Comment">
+ 		INSERT INTO 
+ 		comment (content,user_seq,article_id,board_id,created_at)
+ 		values(#{content},#{userSeq},#{articleId},#{boardId},now());
+ 	</update>
+ 	
+ 	<delete id="deleteComment" parameterType="int">
+ 		DELETE FROM comment
+ 		WHERE id=#{id};
+ 	</delete>
+ 	
+
+ 	
+ </mapper>

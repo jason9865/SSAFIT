@@ -1,0 +1,148 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: aliceblue;
+}
+
+header {
+    display: flex;
+    background-color: black;
+    color: aliceblue;
+    padding: 30px;
+}
+
+header > h2 {
+    padding-left: 100px;
+}
+
+.content-user-list h1 {
+    text-align: center;
+}
+
+nav {
+    position: absolute;
+    right: 0;
+    padding-right: 180px;
+}
+
+nav > ul {
+    display: flex;
+}
+
+nav > ul > li > a {
+    text-decoration: none;
+    color: aliceblue;
+    padding-left: 10px;
+}
+
+.login-page {
+    width: 360px;
+    padding: 7% 0 0;
+    margin: auto;
+}
+
+.form {
+    position: relative;
+    z-index: 1;
+    background: #ffffff;
+    max-width: 360px;
+    margin: 0 auto 100px;
+    padding: 45px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.form input {
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.form button {
+    margin: 0 0 15px;
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    background: #5B9A8B;
+    width: 100%;
+    border: 0;
+    padding: 15px;
+    color: #ffffff;
+    font-size: 14px;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+    cursor: pointer;
+}
+.form button:hover,
+.form button:active,
+.form button:focus {
+    background: #434949;
+}
+.form .message {
+    margin: 15px 0 0;
+    color: #b3b3b3;
+    font-size: 12px;
+}
+.form .message a {
+    color: rgb(81, 87, 81);
+    text-decoration: none;
+}
+
+.login-area {
+    position: relative;
+    z-index: 1;
+    max-width: 100%;
+    margin: 0 auto;
+    height: auto;
+    min-height: 100%;
+    padding-bottom: 70px;
+}
+
+.content-user-list-ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.list-item {
+    margin: 10px;
+}
+
+.user-info {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+footer {
+    padding: 30px;
+    background-color: black;
+    color: aliceblue;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+}
+
+footer > ul {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+footer > ul > li > a {
+    text-decoration: none;
+    color: aliceblue;
+    padding-right: 30px;
+}
