@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="com.ssafy.ws">
+	<logger name="com.ssafit.ws">
 		<level value="info" />
 	</logger>
 	
