@@ -8,15 +8,15 @@ public interface ArticleService {
 	
 	List<Article> getArticleList();
 		
-	Article readArticle(int article_id);
+	Article readArticle(int articleId);
 	
-	Article searchArticleById(int article_id);
+	Article searchArticleById(int articleId);
 		
 	boolean writeArticle(Article article);
 	
 	boolean modifyArticle(Article article);
 	
-	boolean deleteArticle(int article_id);
+	boolean deleteArticle(int articleId);
 
 
 }

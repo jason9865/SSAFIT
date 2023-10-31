@@ -23,7 +23,7 @@ public interface ArticleDao {
 	int deleteArticle(int id);
 	
 	// 조회 수 증가
-	void updateViewCnt(int id);
+	void updateViewCnt(int articleId);
 	
 	// 좋아요 증가(좋아요 등록)
 	void addLike();

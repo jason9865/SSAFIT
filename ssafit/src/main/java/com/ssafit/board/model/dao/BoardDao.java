@@ -14,6 +14,6 @@ public interface BoardDao {
 	
 	int updateBoard(Board board);
 	
-	int deleteBoard(int id);
+	int deleteBoard(int boardId);
 	
 }

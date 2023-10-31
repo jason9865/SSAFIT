@@ -1,16 +1,16 @@
 package com.ssafit.board.model.dto;
 
 public class Board {
-	int id;
+	int boardId;
 	String name;
 	String description;
 	String createdAt;
 	
-	public int getId() {
-		return id;
+	public int getBoardId() {
+		return boardId;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setBoardId(int boardId) {
+		this.boardId = boardId;
 	}
 	public String getName() {
 		return name;

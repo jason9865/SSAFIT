@@ -5,7 +5,7 @@
  <mapper namespace="com.ssafit.comment.model.dao.CommentDao">
 
  	<resultMap type="Comment" id="commentMap">
- 		<result column="id" property="id"/>
+ 		<result column="id" property="commentId"/>
  		<result column="content" property="content"/>
  		<result column="user_seq" property="userSeq"/>
  		<result column="article_id" property="articleId"/>
@@ -19,7 +19,7 @@
 
 	<resultMap type="User" id="userMap">
 		<result column="user_seq" property="userSeq"/>
-		<result column="id" property="id"/>
+		<result column="id" property="userId"/>
 		<result column="user_pwd" property="userPwd"/>
 		<result column="user_name" property="userName"/>
 		<result column="nickName" property="nickName"/>
@@ -30,9 +30,7 @@
 
 	<select id="selectAll" resultMap="commentMap">
  		SELECT
-			*,
-			c.id as id,
-			u.id as id
+			*
  		FROM comment c
 		JOIN user u
 		ON c.user_seq = u.user_seq
@@ -42,7 +40,7 @@
  	<select id="selectOne" resultMap="commentMap">
  		SELECT *
  		FROM comment
- 		WHERE id = #{id}
+ 		WHERE id = #{commentId}
  	</select>
  	
  	<update id="insertComment" parameterType="Comment">
@@ -53,7 +51,7 @@
  	
  	<delete id="deleteComment" parameterType="int">
  		DELETE FROM comment
- 		WHERE id=#{id};
+ 		WHERE id=#{commentId};
  	</delete>
  	
 

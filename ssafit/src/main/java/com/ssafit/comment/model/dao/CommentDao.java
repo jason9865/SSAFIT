@@ -8,19 +8,19 @@ public interface CommentDao {
 	
 	List<Comment> selectAll();
 	
-	Comment selectOne(int id);
+	Comment selectOne(int commentId);
 	
 	int insertComment(Comment comment);
 	
 	int updateComment(Comment comment);
 	
-	int deleteComment(int id);
+	int deleteComment(int commentId);
 	
-	void addLike(int id);
+	void addLike(int commentId);
 	
-	void addDislike(int id);
+	void addDislike(int commentId);
 	
-	int selectLike(int id);
+	int selectLike(int commentId);
 	
-	int selectDislike(int id);
+	int selectDislike(int commentId);
 }

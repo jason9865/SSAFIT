@@ -8,12 +8,12 @@ public interface BoardService {
 	
 	List<Board> getList();
 	
-	Board getBoard(int id);
+	Board getBoard(int boardId);
 	
 	boolean registBoard(Board board);
 	
 	boolean modifyBoard(Board board);
 	
-	boolean deleteBoard(int id);
+	boolean deleteBoard(int boardId);
 	
 }

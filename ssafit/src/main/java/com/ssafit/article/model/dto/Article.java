@@ -4,7 +4,7 @@ import com.ssafit.board.model.dto.Board;
 import com.ssafit.user.model.dto.User;
 
 public class Article {
-	int id;
+	int articleId;
 	String title;
 	String content;
 	int boardId;
@@ -19,11 +19,11 @@ public class Article {
 	Board boardTable;
 	
 
-	public int getId() {
-		return id;
+	public int getArticleId() {
+		return articleId;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setArticleId(int articleId) {
+		this.articleId = articleId;
 	}
 	public String getTitle() {
 		return title;
@@ -100,7 +100,7 @@ public class Article {
 	}
 	@Override
 	public String toString() {
-		return "Article [id=" + id + ", title=" + title + ", content=" + content + ", boardId=" + boardId
+		return "Article [articleId=" + articleId + ", title=" + title + ", content=" + content + ", boardId=" + boardId
 				+ ", userSeq=" + userSeq + ", viewCnt=" + viewCnt + ", lft=" + lft + ", rgt=" + rgt + ", depth=" + depth
 				+ ", createdAt=" + createdAt + ", modifiedAt=" + modifiedAt + ", userTable=" + userTable
 				+ ", boardTable=" + boardTable + "]";

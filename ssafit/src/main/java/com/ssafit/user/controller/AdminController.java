@@ -37,7 +37,7 @@ public class AdminController {
 
     @GetMapping("/board")
     @ApiOperation(value="게시판 리스트", notes="관리자 계정만 접근 가능합니다.")
-    public ResponseEntity<List<Board>> adminBoard(Model model) {
+    public ResponseEntity<List<Board>> adminBoard() {
         List<Board> boardList = boardService.getList();
         return new ResponseEntity<List<Board>>(boardList, HttpStatus.OK);
     }
@@ -45,14 +45,14 @@ public class AdminController {
 
     @GetMapping("/article")
     @ApiOperation(value="게시글 리스트", notes="관리자 계정만 접근 가능합니다.")
-    public ResponseEntity<List<Article>> adminArticle(Model model) {
+    public ResponseEntity<List<Article>> adminArticle() {
         List<Article> articleList = articleService.getArticleList();
         return new ResponseEntity<List<Article>>(articleList,HttpStatus.OK);
     }
 
     @GetMapping("/user")
     @ApiOperation(value="유저 리스트", notes="관리자 계정만 접근 가능합니다.")
-    public ResponseEntity<List<User>> adminUser(Model model) {
+    public ResponseEntity<List<User>> adminUser() {
         List<User> userList = userService.getList().stream()
                 .filter(u -> u.getUserRank()<2)
                 .collect(Collectors.toList());

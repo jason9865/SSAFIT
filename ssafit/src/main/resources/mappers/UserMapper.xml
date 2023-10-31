@@ -5,7 +5,7 @@
 <mapper namespace="com.ssafit.user.model.dao.UserDao">
 	<resultMap type="User" id="userMap">
 		<result column="user_seq" property="userSeq"/>
-		<result column="id" property="id"/>
+		<result column="id" property="userId"/>
 		<result column="user_pwd" property="userPwd"/>
 		<result column="user_name" property="userName"/>
 		<result column="nickname" property="nickName"/>
@@ -29,7 +29,7 @@
 	<select id="selectByUserId" resultMap="userMap" parameterType="String">
 		SELECT *
 		FROM user
-		WHERE id=#{id};
+		WHERE id=#{userId};
 	</select>
 	
 	<select id="selectByName" resultMap="userMap" parameterType="String">
@@ -43,12 +43,12 @@
 	<!-- 동적 쿼리 작성 => 관리자랑 일반유저 분리 -->
 	<insert id="insertUser" parameterType="User">
 		INSERT INTO user (id,user_pwd,user_name,nickname,user_rank, email,joined_at)
-		VALUES(#{id},#{userPwd},#{userName},#{nickName},1,#{email},now())
+		VALUES(#{userId},#{userPwd},#{userName},#{nickName},1,#{email},now())
 	</insert>
 	
 	<update id="updateUser" parameterType="User">
 		UPDATE user
-		SET id=#{id}, user_pwd=#{userPwd}, user_name=#{userName}, 
+		SET id=#{userId}, user_pwd=#{userPwd}, user_name=#{userName},
 		user_rank=#{userRank}, nickname=#{nickName}, email=#{email}
 		WHERE user_seq=#{userSeq};
 	</update>

@@ -8,8 +8,12 @@ public interface VideoDao {
 
     List<Video> selectAll();
 
-    Video selectById(int id);
+    Video selectById(int videoId);
 
-    int updateViewCnt(int id);
+    int updateViewCnt(int videoId);
+
+    int updateVideo(Video video);
+
+    int deleteVideo(int videoId);
 
 }

@@ -24,14 +24,14 @@ public class ArticleServiceImpl implements ArticleService {
 
 
 	@Override
-	public Article readArticle(int article_id) {
-		articleDao.updateViewCnt(article_id);
-		return articleDao.selectById(article_id);
+	public Article readArticle(int articleId) {
+		articleDao.updateViewCnt(articleId);
+		return articleDao.selectById(articleId);
 	}
 	
 	@Override
-	public Article searchArticleById(int article_id) {
-		return articleDao.selectById(article_id);
+	public Article searchArticleById(int articleId) {
+		return articleDao.selectById(articleId);
 	}
 	
 
@@ -46,8 +46,8 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	public boolean deleteArticle(int article_id) {
-		return articleDao.deleteArticle(article_id) > 0;
+	public boolean deleteArticle(int articleId) {
+		return articleDao.deleteArticle(articleId) > 0;
 	}
 
 

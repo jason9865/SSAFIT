@@ -49,9 +49,9 @@ public class BoardController {
 	
 	@GetMapping("/board/{id}")
 	@ApiOperation(value="게시판 별 게시글", notes="게시판 별 게시글을 보여줍니다.")
-	public ResponseEntity<List<Article>> boardDetail(@PathVariable("id") int id) {
+	public ResponseEntity<List<Article>> boardDetail(@PathVariable("id") int boardId) {
 		List<Article> articleList = articleService.getArticleList().stream().
-				filter(a -> a.getBoardId() == id).
+				filter(a -> a.getBoardId() == boardId).
 				collect(Collectors.toList());
 
 		return new ResponseEntity<List<Article>>(articleList,HttpStatus.OK);
@@ -60,8 +60,8 @@ public class BoardController {
 //	@GetMapping("/board/{id}/delete")
 	@DeleteMapping("/board/{id}/delete")
 	@ApiOperation(value="게시판 삭제", notes="관리자 계정만 사용가능합니다.")
-	public ResponseEntity<Boolean> deleteBoard(@PathVariable("id") int id) {
-		boolean isDeleted = boardService.deleteBoard(id);
+	public ResponseEntity<Boolean> deleteBoard(@PathVariable("id") int boardId) {
+		boolean isDeleted = boardService.deleteBoard(boardId);
 		if (!isDeleted)
 			return new ResponseEntity<Boolean>(isDeleted,HttpStatus.NO_CONTENT);
 		return new ResponseEntity<Boolean>(isDeleted,HttpStatus.ACCEPTED);

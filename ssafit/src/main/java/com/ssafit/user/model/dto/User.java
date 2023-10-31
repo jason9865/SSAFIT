@@ -2,7 +2,7 @@ package com.ssafit.user.model.dto;
 
 public class User {
 	int userSeq;
-	String id;
+	String userId;
 	String userPwd;
 	String userName;
 	String nickName;
@@ -16,11 +16,11 @@ public class User {
 	public void setUserSeq(int userSeq) {
 		this.userSeq = userSeq;
 	}
-	public String getId() {
-		return id;
+	public String getUserId() {
+		return userId;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	public String getUserPwd() {
 		return userPwd;
@@ -61,7 +61,7 @@ public class User {
 	
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", userPwd=" + userPwd + ", userName=" + userName + ", nickName=" + nickName
+		return "User [userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName + ", nickName=" + nickName
 				+ ", email=" + email + ", userRank=" + userRank + ", joinedAt=" + joinedAt + "]";
 	}
 	

@@ -12,7 +12,7 @@ public interface UserDao {
 	User selectByUserSeq(int userSeq);
 	
 	// id로 유저 찾기
-	User selectByUserId(String id);
+	User selectByUserId(String userId);
 	
 	// 이름으로 유저 찾기
 	User selectByName(String name);

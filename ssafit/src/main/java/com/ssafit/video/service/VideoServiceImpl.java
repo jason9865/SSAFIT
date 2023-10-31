@@ -23,9 +23,9 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public Video searchVideoById(int id) {
-        videoDao.updateViewCnt(id);
-        return videoDao.selectById(id);
+    public Video searchVideoById(int videoId) {
+        videoDao.updateViewCnt(videoId);
+        return videoDao.selectById(videoId);
     }
 
 

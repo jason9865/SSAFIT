@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public User login(User user) {
-		User temp = userDao.selectByUserId(user.getId());
+		User temp = userDao.selectByUserId(user.getUserId());
 		if (temp != null && temp.getUserPwd().equals(user.getUserPwd()))
 			return temp;
 		return null;

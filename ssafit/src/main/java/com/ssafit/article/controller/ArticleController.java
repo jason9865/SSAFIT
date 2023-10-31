@@ -36,10 +36,17 @@ public class ArticleController {
 		this.articleService = articleService;
 		this.commentService = commentService;
 	}
+
+	@GetMapping
+	@ApiOperation(value="게시글 전체 조회", notes="모든 게시글을 보여줍니다.")
+	public ResponseEntity<List<Article>> showAllArticles() {
+		List<Article> articleList = articleService.getArticleList();
+		return new ResponseEntity<List<Article>>(articleList,HttpStatus.OK);
+	}
 	
 	@GetMapping("/{articleId}")
 	@ApiOperation(value="게시글 조회", notes="게시글과 댓글을 보여줍니다.")
-	public ResponseEntity<Map<String,Object>> showArticle(@PathVariable int articleId, Model model) {
+	public ResponseEntity<Map<String,Object>> showArticle(@PathVariable int articleId) {
 		Map<String,Object> map = new HashMap<>();
 
 		Article article = articleService.readArticle(articleId);

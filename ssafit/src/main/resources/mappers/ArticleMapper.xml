@@ -6,7 +6,7 @@
  <mapper namespace="com.ssafit.article.model.dao.ArticleDao">
  
  	<resultMap type="Article" id="articleMap">
- 		<result column="id" property="id"/>
+ 		<result column="id" property="articleId"/>
  		<result column="title" property="title"/>
  		<result column="content" property="content"/>
  		<result column="board_id" property="boardId"/>
@@ -23,7 +23,7 @@
 
  	
   	<resultMap type="Board" id="boardMap">
-		<result column="id" property="id"/>
+		<result column="id" property="boardId"/>
 		<result column="name" property="name"/>
 		<result column="description" property="description"/>
 		<result column="created_at" property="createdAt"/>
@@ -31,7 +31,7 @@
 	
 	<resultMap type="User" id="userMap">
 		<result column="user_seq" property="userSeq"/>
-		<result column="id" property="id"/>
+		<result column="id" property="userId"/>
 		<result column="user_pwd" property="userPwd"/>
 		<result column="user_name" property="userName"/>
 		<result column="nickName" property="nickName"/>
@@ -52,7 +52,10 @@
 <!-- 			a.modified_at,-->
 <!-- 			u.user_name,-->
 <!-- 			u.nickName-->
-			*
+			*,
+			a.id as articleId,
+			b.id as boardId,
+			u.id as userId
 		FROM 
 			board b
 		    RIGHT JOIN article a
@@ -72,7 +75,10 @@
 <!-- 			a.view_cnt,-->
 <!-- 			u.user_name,-->
 <!-- 			u.nickName-->
-			*
+			*,
+			a.id as articleId,
+			b.id as boardId,
+			u.id as userId
 		FROM
 			article a
 		    RIGHT JOIN
@@ -82,7 +88,7 @@
 		    user u
 		    on a.user_seq = u.user_seq
 		WHERE
-			a.id = #{id}
+			a.id = #{articleId}
 		;
  	</select>
  	
@@ -95,19 +101,19 @@
  	<update id="updateArticle" parameterType="Article">
  		UPDATE article
  		SET title=#{title}, content=#{content}, modified_at=now()
- 		where id=#{id};
+ 		where id=#{articleId};
  	</update>
 
 	<update id="updateViewCnt" parameterType="int">
 		UPDATE article
 		SET view_cnt = view_cnt + 1
-		WHERE id=#{id}
+		WHERE id=#{articleId}
 		;
 	</update>
  	
  	<delete id="deleteArticle" parameterType="int">
  		DELETE FROM article
- 		WHERE id=#{id};
+ 		WHERE id=#{articleId};
  	</delete>
 
  	

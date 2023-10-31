@@ -1,7 +1,7 @@
 package com.ssafit.video.model.dto;
 
 public class Video {
-    int id;
+    int videoId;
     String title;
     String part;
     String channelName;
@@ -9,12 +9,12 @@ public class Video {
     int viewCnt;
     String createdAt;
 
-    public int getId() {
-        return id;
+    public int getVideoId() {
+        return videoId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setVideoId(int id) {
+        this.videoId = videoId;
     }
 
     public String getTitle() {
@@ -68,7 +68,7 @@ public class Video {
     @Override
     public String toString() {
         return "Video{" +
-                "id=" + id +
+                "videoId=" + videoId +
                 ", title='" + title + '\'' +
                 ", part='" + part + '\'' +
                 ", channelName='" + channelName + '\'' +

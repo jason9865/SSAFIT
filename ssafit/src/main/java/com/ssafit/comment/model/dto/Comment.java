@@ -3,7 +3,7 @@ package com.ssafit.comment.model.dto;
 import com.ssafit.user.model.dto.User;
 
 public class Comment {
-	int id;
+	int commentId;
 	String content;
 	int userSeq;
 	int articleId;
@@ -14,11 +14,11 @@ public class Comment {
 	String createdAt;
 	User userTable;
 
-	public int getId() {
-		return id;
+	public int getCommentId() {
+		return commentId;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setCommentId(int commentId) {
+		this.commentId = commentId;
 	}
 	
 	public String getContent() {
@@ -79,7 +79,7 @@ public class Comment {
 	@Override
 	public String toString() {
 		return "Comment{" +
-				"id=" + id +
+				"commentId=" + commentId +
 				", content='" + content + '\'' +
 				", userSeq=" + userSeq +
 				", articleId=" + articleId +

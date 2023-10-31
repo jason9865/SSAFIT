@@ -1,15 +1,15 @@
 package com.ssafit.comment.model.dto;
 
 public class CommentDislike {
-	int id;
+	int commentDisLikeId;
 	int userSeq;
 	int commentId;
 	
-	public int getId() {
-		return id;
+	public int getCommentDisLikeId() {
+		return commentDisLikeId;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setCommentDisLikeId(int id) {
+		this.commentDisLikeId = commentDisLikeId;
 	}
 	public int getUserSeq() {
 		return userSeq;

@@ -23,8 +23,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public Board getBoard(int id) {
-		return boardDao.selectOne(id);
+	public Board getBoard(int boardId) {
+		return boardDao.selectOne(boardId);
 	}
 
 	@Override
@@ -38,8 +38,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public boolean deleteBoard(int id) {
-		return boardDao.deleteBoard(id) > 0;
+	public boolean deleteBoard(int boardId) {
+		return boardDao.deleteBoard(boardId) > 0;
 	}
 
 }

@@ -6,7 +6,7 @@
 <mapper namespace="com.ssafit.video.model.dao.VideoDao">
 
     <resultMap type="Video" id="videoMap">
-        <result column="id" property="id"/>
+        <result column="id" property="videoId"/>
         <result column="title" property="title"/>
         <result column="channel_name" property="channelName"/>
         <result column="url" property="url"/>
@@ -24,15 +24,21 @@
         SELECT *
         FROM video
         WHERE
-            id = #{id}
+            id = #{videoId}
         ;
     </select>
     <insert id="insertVideo" parameterType="video">
         INSERT INTO
         video(title,part,channel,name,url)
-        VALUES(#
-
+        VALUES(#{title}, #{part}, #{channel}, #{name},#{url})
+        ;
     </insert>
+
+    <delete id="deleteVideo" parameterType="int">
+        DELETE FROM video
+        WHERE id=#{videoId}
+        ;
+    </delete>
 
     <update id="updateViewCnt" parameterType="int">
         UPDATE video
@@ -40,6 +46,7 @@
         WHERE id = #{id}
         ;
     </update>
+
 
 
 

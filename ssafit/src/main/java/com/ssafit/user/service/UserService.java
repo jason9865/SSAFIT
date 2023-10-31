@@ -10,7 +10,7 @@ public interface UserService {
 	
 	User searchByUserSeq(int userSeq);
 	
-	User searchByUserId(String id);
+	User searchByUserId(String userId);
 	
 	User searchByName(String name);
 	
