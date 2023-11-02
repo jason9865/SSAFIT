@@ -1,4 +1,4 @@
-USE ssafy_ws;
+USE ssafit_db;
 
 SELECT 
 	*

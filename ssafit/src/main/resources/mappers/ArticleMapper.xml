@@ -6,7 +6,7 @@
  <mapper namespace="com.ssafit.article.model.dao.ArticleDao">
  
  	<resultMap type="Article" id="articleMap">
- 		<result column="id" property="articleId"/>
+ 		<result column="article_id" property="articleId"/>
  		<result column="title" property="title"/>
  		<result column="content" property="content"/>
  		<result column="board_id" property="boardId"/>
@@ -23,7 +23,7 @@
 
  	
   	<resultMap type="Board" id="boardMap">
-		<result column="id" property="boardId"/>
+		<result column="board_id" property="boardId"/>
 		<result column="name" property="name"/>
 		<result column="description" property="description"/>
 		<result column="created_at" property="createdAt"/>
@@ -31,7 +31,7 @@
 	
 	<resultMap type="User" id="userMap">
 		<result column="user_seq" property="userSeq"/>
-		<result column="id" property="userId"/>
+		<result column="user_id" property="userId"/>
 		<result column="user_pwd" property="userPwd"/>
 		<result column="user_name" property="userName"/>
 		<result column="nickName" property="nickName"/>
@@ -42,24 +42,11 @@
  	
  	<select id="selectAll" resultMap="articleMap">
  		SELECT 
-<!-- 			a.id,-->
-<!-- 			a.title,-->
-<!-- 			a.content,-->
-<!-- 			a.board_id,-->
-<!-- 			a.user_seq,-->
-<!-- 			a.view_cnt,-->
-<!-- 			a.created_at,-->
-<!-- 			a.modified_at,-->
-<!-- 			u.user_name,-->
-<!-- 			u.nickName-->
-			*,
-			a.id as articleId,
-			b.id as boardId,
-			u.id as userId
-		FROM 
+ 			*
+		FROM
 			board b
 		    RIGHT JOIN article a
-		    ON b.id = a.board_id
+		    ON b.board_id = a.board_id
 		    LEFT JOIN user u
 			ON a.user_seq = u.user_seq
 		;
@@ -75,20 +62,17 @@
 <!-- 			a.view_cnt,-->
 <!-- 			u.user_name,-->
 <!-- 			u.nickName-->
-			*,
-			a.id as articleId,
-			b.id as boardId,
-			u.id as userId
+			*
 		FROM
 			article a
 		    RIGHT JOIN
 		    board b 
-		    on a.board_id = b.id
+		    on a.board_id = b.board_id
 		    LEFT JOIN 
 		    user u
 		    on a.user_seq = u.user_seq
 		WHERE
-			a.id = #{articleId}
+			a.article_id = #{articleId}
 		;
  	</select>
  	
@@ -101,19 +85,19 @@
  	<update id="updateArticle" parameterType="Article">
  		UPDATE article
  		SET title=#{title}, content=#{content}, modified_at=now()
- 		where id=#{articleId};
+ 		where article_id=#{articleId};
  	</update>
 
 	<update id="updateViewCnt" parameterType="int">
 		UPDATE article
 		SET view_cnt = view_cnt + 1
-		WHERE id=#{articleId}
+		WHERE article_id=#{articleId}
 		;
 	</update>
  	
  	<delete id="deleteArticle" parameterType="int">
  		DELETE FROM article
- 		WHERE id=#{articleId};
+ 		WHERE article_id=#{articleId};
  	</delete>
 
  	

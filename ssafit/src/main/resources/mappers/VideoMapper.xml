@@ -6,7 +6,7 @@
 <mapper namespace="com.ssafit.video.model.dao.VideoDao">
 
     <resultMap type="Video" id="videoMap">
-        <result column="id" property="videoId"/>
+        <result column="video_id" property="videoId"/>
         <result column="title" property="title"/>
         <result column="channel_name" property="channelName"/>
         <result column="url" property="url"/>
@@ -24,7 +24,7 @@
         SELECT *
         FROM video
         WHERE
-            id = #{videoId}
+            video_id = #{videoId}
         ;
     </select>
     <insert id="insertVideo" parameterType="video">
@@ -36,14 +36,14 @@
 
     <delete id="deleteVideo" parameterType="int">
         DELETE FROM video
-        WHERE id=#{videoId}
+        WHERE video_id=#{videoId}
         ;
     </delete>
 
     <update id="updateViewCnt" parameterType="int">
         UPDATE video
         SET view_cnt = view_cnt + 1
-        WHERE id = #{id}
+        WHERE video_id = #{videoId}
         ;
     </update>
 

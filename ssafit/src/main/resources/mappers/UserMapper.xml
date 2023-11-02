@@ -5,7 +5,7 @@
 <mapper namespace="com.ssafit.user.model.dao.UserDao">
 	<resultMap type="User" id="userMap">
 		<result column="user_seq" property="userSeq"/>
-		<result column="id" property="userId"/>
+		<result column="user_id" property="userId"/>
 		<result column="user_pwd" property="userPwd"/>
 		<result column="user_name" property="userName"/>
 		<result column="nickname" property="nickName"/>
@@ -29,7 +29,7 @@
 	<select id="selectByUserId" resultMap="userMap" parameterType="String">
 		SELECT *
 		FROM user
-		WHERE id=#{userId};
+		WHERE user_id=#{userId};
 	</select>
 	
 	<select id="selectByName" resultMap="userMap" parameterType="String">
