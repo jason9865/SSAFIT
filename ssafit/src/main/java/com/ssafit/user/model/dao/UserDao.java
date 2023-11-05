@@ -1,6 +1,6 @@
 package com.ssafit.user.model.dao;
 
-import com.ssafit.user.model.dto.User;
+import com.ssafit.user.model.entity.User;
 
 import java.util.List;
 

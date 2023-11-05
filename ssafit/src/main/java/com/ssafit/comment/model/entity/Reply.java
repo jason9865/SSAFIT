@@ -1,4 +1,4 @@
-package com.ssafit.comment.model.dto;
+package com.ssafit.comment.model.entity;
 
 public class Reply {
     private int replyId;

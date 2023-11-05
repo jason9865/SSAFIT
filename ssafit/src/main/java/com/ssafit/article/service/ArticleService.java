@@ -1,6 +1,6 @@
 package com.ssafit.article.service;
 
-import com.ssafit.article.model.dto.Article;
+import com.ssafit.article.model.entity.Article;
 
 import java.util.List;
 

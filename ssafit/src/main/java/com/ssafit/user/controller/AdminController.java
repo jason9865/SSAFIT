@@ -1,8 +1,8 @@
 package com.ssafit.user.controller;
 
-import com.ssafit.article.model.dto.Article;
-import com.ssafit.board.model.dto.Board;
-import com.ssafit.user.model.dto.User;
+import com.ssafit.article.model.entity.Article;
+import com.ssafit.board.model.entity.Board;
+import com.ssafit.user.model.entity.User;
 import com.ssafit.article.service.ArticleService;
 import com.ssafit.board.service.BoardService;
 import com.ssafit.user.service.UserService;
@@ -11,7 +11,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

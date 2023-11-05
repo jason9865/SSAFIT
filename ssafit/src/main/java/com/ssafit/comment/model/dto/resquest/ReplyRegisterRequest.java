@@ -1,4 +1,4 @@
-package com.ssafit.comment.model.dto;
+package com.ssafit.comment.model.dto.resquest;
 
 
 public class ReplyRegisterRequest {
@@ -15,7 +15,4 @@ public class ReplyRegisterRequest {
         return content;
     }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
 }

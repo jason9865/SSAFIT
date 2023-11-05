@@ -1,19 +1,18 @@
 package com.ssafit.comment.service;
 
-import com.ssafit.board.model.dao.BoardDao;
 import com.ssafit.comment.model.dao.CommentDao;
 import com.ssafit.comment.model.dao.ReplyDao;
-import com.ssafit.comment.model.dto.Comment;
-import com.ssafit.comment.model.dto.Reply;
-import com.ssafit.comment.model.dto.ReplyModifyRequest;
-import com.ssafit.comment.model.dto.ReplyRegisterRequest;
+import com.ssafit.comment.model.dto.response.ReplyResponse;
+import com.ssafit.comment.model.entity.Comment;
+import com.ssafit.comment.model.entity.Reply;
+import com.ssafit.comment.model.dto.resquest.ReplyModifyRequest;
+import com.ssafit.comment.model.dto.resquest.ReplyRegisterRequest;
 import com.ssafit.user.model.dao.UserDao;
-import com.ssafit.user.model.dto.User;
+import com.ssafit.user.model.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.*;
 
@@ -40,10 +39,11 @@ public class ReplyServiceImpl implements  ReplyService{
     }
 
     @Override
-    public List<Reply> getReplyByComment(int commentId) {
-        System.out.println(replyDao.selectAll());
+    public List<ReplyResponse> getReplyByComment(int commentId) {
+        Comment comment = commentDao.selectOne(commentId);
         return replyDao.selectAll().stream()
                 .filter(r -> r.getCommentId() == commentId)
+                .map(ReplyResponse::from)
                 .collect(toList())
                 ;
     }
@@ -85,8 +85,13 @@ public class ReplyServiceImpl implements  ReplyService{
     }
 
     @Override
-    public boolean removeReply(int replyId) {
+    public boolean removeReply(final int replyId, final int userSeq) {
+        final User user = userDao.selectByUserSeq(userSeq);
+        final Reply reply = findReply(replyId);
+
+
         return replyDao.deleteReply(replyId) > 0;
     }
+
 
 }

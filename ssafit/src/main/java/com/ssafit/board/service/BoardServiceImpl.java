@@ -1,7 +1,7 @@
 package com.ssafit.board.service;
 
 import com.ssafit.board.model.dao.BoardDao;
-import com.ssafit.board.model.dto.Board;
+import com.ssafit.board.model.entity.Board;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

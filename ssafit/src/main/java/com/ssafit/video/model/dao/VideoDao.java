@@ -1,6 +1,6 @@
 package com.ssafit.video.model.dao;
 
-import com.ssafit.video.model.dto.Video;
+import com.ssafit.video.model.entity.Video;
 
 import java.util.List;
 

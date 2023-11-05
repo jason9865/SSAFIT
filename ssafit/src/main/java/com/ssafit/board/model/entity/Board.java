@@ -1,4 +1,4 @@
-package com.ssafit.board.model.dto;
+package com.ssafit.board.model.entity;
 
 public class Board {
 	private int boardId;

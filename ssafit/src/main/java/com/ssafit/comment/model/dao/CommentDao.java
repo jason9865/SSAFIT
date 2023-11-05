@@ -1,6 +1,6 @@
 package com.ssafit.comment.model.dao;
 
-import com.ssafit.comment.model.dto.Comment;
+import com.ssafit.comment.model.entity.Comment;
 
 import java.util.List;
 

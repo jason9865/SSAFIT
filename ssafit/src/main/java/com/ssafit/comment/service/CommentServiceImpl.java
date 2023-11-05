@@ -1,7 +1,7 @@
 package com.ssafit.comment.service;
 
 import com.ssafit.comment.model.dao.CommentDao;
-import com.ssafit.comment.model.dto.Comment;
+import com.ssafit.comment.model.entity.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

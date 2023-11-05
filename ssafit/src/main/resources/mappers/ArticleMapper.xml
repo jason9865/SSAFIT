@@ -53,15 +53,7 @@
  	</select>
  	
  	<select id="selectById" parameterType="int" resultMap="articleMap">
-		SELECT 
-<!--			a.id,-->
-<!-- 			a.title,-->
-<!-- 			a.content,-->
-<!-- 			a.board_id,-->
-<!-- 			a.user_seq,-->
-<!-- 			a.view_cnt,-->
-<!-- 			u.user_name,-->
-<!-- 			u.nickName-->
+		SELECT
 			*
 		FROM
 			article a

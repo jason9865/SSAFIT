@@ -1,6 +1,6 @@
 package com.ssafit.board.model.dao;
 
-import com.ssafit.board.model.dto.Board;
+import com.ssafit.board.model.entity.Board;
 
 import java.util.List;
 

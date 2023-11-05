@@ -1,7 +1,7 @@
-package com.ssafit.article.model.dto;
+package com.ssafit.article.model.entity;
 
-import com.ssafit.board.model.dto.Board;
-import com.ssafit.user.model.dto.User;
+import com.ssafit.board.model.entity.Board;
+import com.ssafit.user.model.entity.User;
 
 public class Article {
 	private int articleId;

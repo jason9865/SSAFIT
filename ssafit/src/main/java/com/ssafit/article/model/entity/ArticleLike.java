@@ -1,4 +1,4 @@
-package com.ssafit.article.model.dto;
+package com.ssafit.article.model.entity;
 
 public class ArticleLike {
 	int id;

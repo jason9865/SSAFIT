@@ -1,7 +1,7 @@
 package com.ssafit.article.service;
 
 import com.ssafit.article.model.dao.ArticleDao;
-import com.ssafit.article.model.dto.Article;
+import com.ssafit.article.model.entity.Article;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

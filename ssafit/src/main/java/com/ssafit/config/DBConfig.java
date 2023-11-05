@@ -1,4 +1,4 @@
-package com.ssafit.Config;
+package com.ssafit.config;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Configuration;

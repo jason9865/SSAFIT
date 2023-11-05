@@ -1,10 +1,13 @@
 package com.ssafit.user.controller;
 
-import com.ssafit.user.model.dto.User;
+import com.ssafit.user.model.dto.request.UserLoginRequest;
+import com.ssafit.user.model.entity.User;
 import com.ssafit.user.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,39 +27,25 @@ public class UserController {
 	public UserController(UserService userService) {
 		this.userService = userService;
 	}
-	
+
 	@PostMapping("/login")
 	@ApiOperation(value="로그인을 합니다.", notes="bindingResult 추후 추가 예정")
-	public String login(Model model, User user,HttpSession session) {
-		String view = "/user/loginPage";
-		User loginUser = userService.login(user);
+	public ResponseEntity<?> login(@RequestBody UserLoginRequest loginRequest, HttpSession session) {
+		User loginUser = userService.login(loginRequest);
 		if (loginUser != null) {
 			session.setAttribute("loginUser",loginUser);
-			view = "redirect:/";
+			System.out.println(session);
+			return new ResponseEntity<User>(loginUser, HttpStatus.OK);
 		} else {
-			model.addAttribute("msg"," 로그인 실패");
+			return new ResponseEntity<Void>(HttpStatus.UNAUTHORIZED);
 		}
-		
-		return view;
 	}
-
-//	@PostMapping("/login")
-//	public ResponseEntity<?> login(User user,HttpSession session) {
-//		User loginUser = userService.login(user);
-//		if (loginUser != null) {
-//			session.setAttribute("loginUser",loginUser);
-//			return new ResponseEntity<User>(loginUser,HttpStatus.OK);
-//		} else {
-//			return new ResponseEntity<Void>(HttpStatus.UNAUTHORIZED);
-//		}
-//
-//	}
 	
 	@GetMapping("/logout")
 	@ApiOperation(value="로그아웃", notes="로그아웃 기능 구현")
-	public String logout(HttpSession session) {
+	public ResponseEntity<Void> logout(HttpSession session) {
 		session.invalidate();
-		return "redirect:/";
+		return ResponseEntity.ok().build();
 	}
 	
 	@PostMapping("/signup")
@@ -113,22 +102,5 @@ public class UserController {
 	}
 
 
-	///////////////////
-	// jsp를 위한 메서드
-	@GetMapping("/login")
-	public String loginPage() {
-		return "/user/loginPage";
-	}
-	@GetMapping("/myPage/{userSeq}/update")
-	public String updatePage(@PathVariable("userSeq") int userSeq, Model model) {
-		model.addAttribute("user",userService.searchByUserSeq(userSeq));
-		return "/user/updatePage";
-	}
-
-	@GetMapping("/signup")
-	@ApiOperation(value="비디오 조회", notes="검색조건 추후 추가 예정")
-	public String registPage() {
-		return "/user/signupPage";
-	}
 
 }

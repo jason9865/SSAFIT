@@ -1,20 +1,20 @@
 package com.ssafit.comment.controller;
 
 
-import com.ssafit.comment.model.dto.LoginUser;
-import com.ssafit.comment.model.dto.Reply;
-import com.ssafit.comment.model.dto.ReplyRegisterRequest;
-import com.ssafit.comment.model.dto.ReplyModifyRequest;
+import com.ssafit.comment.model.dto.response.ReplyResponse;
+import com.ssafit.comment.model.entity.Reply;
+import com.ssafit.comment.model.dto.resquest.ReplyRegisterRequest;
+import com.ssafit.comment.model.dto.resquest.ReplyModifyRequest;
 import com.ssafit.comment.service.ReplyService;
+import com.ssafit.user.model.entity.User;
 import io.swagger.annotations.Api;
-import io.swagger.models.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.ListResourceBundle;
 
 
 @RestController
@@ -33,8 +33,10 @@ public class ReplyController {
     public ResponseEntity<Boolean> registerReply(
             @RequestBody ReplyRegisterRequest replyRegisterRequest,
             @PathVariable final int commentId,
-            int userSeq // 추후 @LoginUser로 대체할 예정(Session에서 가져옴)
+            HttpSession session
             ) {
+        User loginUser = (User)session.getAttribute("loginUser");
+        int userSeq = loginUser.getUserSeq();
         boolean isRegistered = replyService.writeReply(replyRegisterRequest, commentId, userSeq);
         if (!isRegistered)
             return new ResponseEntity<Boolean>(isRegistered, HttpStatus.NO_CONTENT);
@@ -43,7 +45,7 @@ public class ReplyController {
 
     @GetMapping("/{commentId}")
     public ResponseEntity<?> getReplyList(@PathVariable final int commentId){
-        return new ResponseEntity<List<Reply>>(replyService.getReplyByComment(commentId),HttpStatus.OK);
+        return new ResponseEntity<List<ReplyResponse>>(replyService.getReplyByComment(commentId),HttpStatus.OK);
     }
 
     @PutMapping("/{replyId}")
@@ -56,5 +58,16 @@ public class ReplyController {
             return new ResponseEntity<Boolean>(isModified,HttpStatus.NO_CONTENT);
         return new ResponseEntity<Boolean>(isModified, HttpStatus.OK);
     }
+
+    @DeleteMapping("/{replyId}")
+    public ResponseEntity<Boolean> deleteReply(
+            @PathVariable final int replyId,
+            final int userSeq){
+        boolean isDeleted = replyService.removeReply(replyId, userSeq);
+        if (!isDeleted)
+            return new ResponseEntity<Boolean>(isDeleted,HttpStatus.NO_CONTENT);
+        return new ResponseEntity<Boolean>(isDeleted, HttpStatus.OK);
+    }
+
 
 }

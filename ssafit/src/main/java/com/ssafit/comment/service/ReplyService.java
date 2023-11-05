@@ -1,8 +1,9 @@
 package com.ssafit.comment.service;
 
-import com.ssafit.comment.model.dto.Reply;
-import com.ssafit.comment.model.dto.ReplyModifyRequest;
-import com.ssafit.comment.model.dto.ReplyRegisterRequest;
+import com.ssafit.comment.model.dto.response.ReplyResponse;
+import com.ssafit.comment.model.entity.Reply;
+import com.ssafit.comment.model.dto.resquest.ReplyModifyRequest;
+import com.ssafit.comment.model.dto.resquest.ReplyRegisterRequest;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ public interface ReplyService {
 
     List<Reply> getReplyList();
 
-    List<Reply> getReplyByComment(int commentId);
+    List<ReplyResponse> getReplyByComment(int commentId);
 
     Reply findReply(int replyId);
 
@@ -20,6 +21,6 @@ public interface ReplyService {
 
     boolean modifyReply(final ReplyModifyRequest replyModifyRequest, final int replyId, final int userSeq);
 
-    boolean removeReply(int replyId);
+    boolean removeReply(final int replyId, final int userSeq);
 
 }

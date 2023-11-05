@@ -1,6 +1,6 @@
-package com.ssafit.comment.model.dto;
+package com.ssafit.comment.model.entity;
 
-import com.ssafit.user.model.dto.User;
+import com.ssafit.user.model.entity.User;
 
 public class Comment {
 	private int commentId;

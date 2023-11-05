@@ -1,4 +1,4 @@
-package com.ssafit.video.model.dto;
+package com.ssafit.video.model.entity;
 
 public class Video {
     int videoId;

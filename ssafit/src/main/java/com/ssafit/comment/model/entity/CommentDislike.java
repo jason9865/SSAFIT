@@ -1,15 +1,15 @@
-package com.ssafit.comment.model.dto;
+package com.ssafit.comment.model.entity;
 
-public class CommentLike {
-	private int commentLikeId;
+public class CommentDislike {
+	private int commentDisLikeId;
 	private int userSeq;
 	private int commentId;
 	
-	public int getCommentLikeId() {
-		return commentLikeId;
+	public int getCommentDisLikeId() {
+		return commentDisLikeId;
 	}
-	public void setCommentLikeId(int commentLikeId) {
-		this.commentLikeId = commentLikeId;
+	public void setCommentDisLikeId(int id) {
+		this.commentDisLikeId = commentDisLikeId;
 	}
 	public int getUserSeq() {
 		return userSeq;
@@ -26,6 +26,8 @@ public class CommentLike {
 	
 	@Override
 	public String toString() {
-		return "CommentLike [userSeq=" + userSeq + ", commentId=" + commentId + "]";
+		return "CommentDislike [userSeq=" + userSeq + ", commentId=" + commentId + "]";
 	}
+
+	
 }

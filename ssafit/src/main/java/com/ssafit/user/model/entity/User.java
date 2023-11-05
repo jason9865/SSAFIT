@@ -1,4 +1,4 @@
-package com.ssafit.user.model.dto;
+package com.ssafit.user.model.entity;
 
 public class User {
 	private int userSeq;

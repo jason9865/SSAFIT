@@ -1,7 +1,8 @@
 package com.ssafit.user.service;
 
 import com.ssafit.user.model.dao.UserDao;
-import com.ssafit.user.model.dto.User;
+import com.ssafit.user.model.dto.request.UserLoginRequest;
+import com.ssafit.user.model.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,9 +55,9 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public User login(User user) {
-		User temp = userDao.selectByUserId(user.getUserId());
-		if (temp != null && temp.getUserPwd().equals(user.getUserPwd()))
+	public User login(UserLoginRequest loginRequest) {
+		User temp = userDao.selectByUserId(loginRequest.getUserId());
+		if (temp != null && temp.getUserPwd().equals(loginRequest.getUserPwd()))
 			return temp;
 		return null;
 	}

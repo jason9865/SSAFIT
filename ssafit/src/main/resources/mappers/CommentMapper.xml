@@ -50,6 +50,7 @@
 		UPDATE comment
 		SET
 			content = #{content},
+			created_at = now()
 		WHERE comment_id = #{commentId}
 		;
 	</update>

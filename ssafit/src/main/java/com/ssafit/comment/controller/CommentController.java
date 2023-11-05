@@ -1,13 +1,12 @@
 package com.ssafit.comment.controller;
 
-import com.ssafit.comment.model.dto.Comment;
+import com.ssafit.comment.model.entity.Comment;
 import com.ssafit.comment.service.CommentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

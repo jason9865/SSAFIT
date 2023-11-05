@@ -1,7 +1,7 @@
 package com.ssafit.video.service;
 
 import com.ssafit.video.model.dao.VideoDao;
-import com.ssafit.video.model.dto.Video;
+import com.ssafit.video.model.entity.Video;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

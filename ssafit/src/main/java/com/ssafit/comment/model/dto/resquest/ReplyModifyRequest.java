@@ -1,4 +1,4 @@
-package com.ssafit.comment.model.dto;
+package com.ssafit.comment.model.dto.resquest;
 
 
 public class ReplyModifyRequest {

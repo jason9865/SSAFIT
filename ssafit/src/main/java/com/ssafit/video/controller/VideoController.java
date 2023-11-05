@@ -1,6 +1,6 @@
 package com.ssafit.video.controller;
 
-import com.ssafit.video.model.dto.Video;
+import com.ssafit.video.model.entity.Video;
 import com.ssafit.video.service.VideoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

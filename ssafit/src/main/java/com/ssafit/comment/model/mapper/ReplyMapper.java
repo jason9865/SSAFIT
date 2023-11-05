@@ -1,10 +1,11 @@
 package com.ssafit.comment.model.mapper;
 
-import com.ssafit.comment.model.dto.Reply;
+import com.ssafit.comment.model.entity.Reply;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
+// 아직 안 씀 -> 쓸까말까
 @Mapper
 public interface ReplyMapper {
     List<Reply> selectAll();

@@ -4,34 +4,25 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="com.ssafit.comment.model.dao.ReplyDao">
 
-	<resultMap type="Reply" id="ReplyMap">
-		<result column="reply_id" property="replyId"/>
-		<result column="comment_id" property="commentId"/>
-		<result column="content" property="content"/>
-		<result column="user_seq" property="userSeq"/>
-		<result column="created_at" property="createdAt"/>
-	</resultMap>
-
-
 	<insert id="insertReply" parameterType="Reply">
 		INSERT INTO reply (content, user_seq, comment_id)
 		VALUES(#{content}, #{userSeq}, #{commentId})
 		;
 	</insert>
 
-	<select id="selectAll" resultMap="ReplyMap">
+	<select id="selectAll" resultType="Reply">
 		SELECT *
 		FROM reply
 		;
 	</select>
 
-	<select id="selectReply"  resultMap="ReplyMap">
+	<select id="selectReply"  resultType="Reply">
 		SELECT *
 		FROM reply
 		WHERE reply_id = #{replyId}
 	</select>
 
-	<select id="selectReplyByUser" resultMap="ReplyMap">
+	<select id="selectReplyByUser" resultType="Reply">
 		SELECT *
 		FROM reply
 		WHERE user_seq = #{userSeq}
@@ -42,6 +33,7 @@
 		UPDATE reply
 		SET
 			content = #{content}
+			created_at = now()
 		WHERE reply_id = #{replyId}
 		;
 	</update>
