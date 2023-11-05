@@ -1,9 +1,9 @@
 package com.ssafit.comment.model.dto;
 
 public class CommentDislike {
-	int commentDisLikeId;
-	int userSeq;
-	int commentId;
+	private int commentDisLikeId;
+	private int userSeq;
+	private int commentId;
 	
 	public int getCommentDisLikeId() {
 		return commentDisLikeId;

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/article/{articleId}/comments")
+@RequestMapping("/comment")
 @Api(tags="댓글(리뷰) 컨트롤러")
 public class CommentController {
 
@@ -24,16 +24,16 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    @GetMapping
+    @GetMapping("/{articleId}")
     @ApiOperation(value="댓글 리스트 조회", notes="모든 댓글을 보여줍니다.")
     public ResponseEntity<?> showCommentsById(@PathVariable int articleId){
         List<Comment> commentList = commentService.getList(articleId);
         return new ResponseEntity<List<Comment>>(commentList,HttpStatus.OK);
     }
 
-    @PostMapping("/write")
+    @PostMapping("/{articleId}")
     @ApiOperation(value="댓글 작성", notes="로그인한 사용자만 댓글작성이 가능합니다.")
-    public ResponseEntity<Boolean> writeComments(@PathVariable int articleId, @RequestBody Comment comment){
+    public ResponseEntity<Boolean> registerComments(@PathVariable int articleId, @RequestBody Comment comment){
 
         boolean isWritten = commentService.writeComment(comment);
         if (!isWritten)
@@ -42,9 +42,9 @@ public class CommentController {
     }
 
 //    @GetMapping("/remove/{commentId}")
-    @DeleteMapping("/remove/{commentId}")
+    @DeleteMapping("/{commentId}")
     @ApiOperation(value="댓글 삭제", notes="로그인 유저만 사용 가능합니다.")
-    public ResponseEntity<Boolean> removeComment(@PathVariable int articleId,@PathVariable int commentId) {
+    public ResponseEntity<Boolean> deleteComment(@PathVariable int articleId,@PathVariable int commentId) {
         boolean isDeleted = commentService.removeComment(commentId);
         if (!isDeleted)
             return new ResponseEntity<Boolean>(isDeleted,HttpStatus.NO_CONTENT);

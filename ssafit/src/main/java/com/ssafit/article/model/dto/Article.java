@@ -4,19 +4,16 @@ import com.ssafit.board.model.dto.Board;
 import com.ssafit.user.model.dto.User;
 
 public class Article {
-	int articleId;
-	String title;
-	String content;
-	int boardId;
-	int userSeq;
-	int viewCnt;
-	int lft;
-	int rgt;
-	int depth;
-	String createdAt;
-	String modifiedAt;
-	User userTable;
-	Board boardTable;
+	private int articleId;
+	private String title;
+	private String content;
+	private int boardId;
+	private int userSeq;
+	private int viewCnt;
+	private String createdAt;
+	private String modifiedAt;
+	private User userTable;
+	private Board boardTable;
 	
 
 	public int getArticleId() {
@@ -55,24 +52,6 @@ public class Article {
 	public void setViewCnt(int viewCnt) {
 		this.viewCnt = viewCnt;
 	}
-	public int getLft() {
-		return lft;
-	}
-	public void setLft(int lft) {
-		this.lft = lft;
-	}
-	public int getRgt() {
-		return rgt;
-	}
-	public void setRgt(int rgt) {
-		this.rgt = rgt;
-	}
-	public int getDepth() {
-		return depth;
-	}
-	public void setDepth(int depth) {
-		this.depth = depth;
-	}
 	public String getCreatedAt() {
 		return createdAt;
 	}
@@ -101,7 +80,7 @@ public class Article {
 	@Override
 	public String toString() {
 		return "Article [articleId=" + articleId + ", title=" + title + ", content=" + content + ", boardId=" + boardId
-				+ ", userSeq=" + userSeq + ", viewCnt=" + viewCnt + ", lft=" + lft + ", rgt=" + rgt + ", depth=" + depth
+				+ ", userSeq=" + userSeq + ", viewCnt=" + viewCnt
 				+ ", createdAt=" + createdAt + ", modifiedAt=" + modifiedAt + ", userTable=" + userTable
 				+ ", boardTable=" + boardTable + "]";
 	}

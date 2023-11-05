@@ -10,9 +10,6 @@
  		<result column="user_seq" property="userSeq"/>
  		<result column="article_id" property="articleId"/>
  		<result column="board_id" property="boardId"/>
- 		<result column="lft" property="lft"/>
- 		<result column="rgt" property="rgt"/>
- 		<result column="depth" property="depth"/>
  		<result column="created_at" property="createdAt"/>
 		<association property="userTable" resultMap="userMap"/>
 	</resultMap>
@@ -42,16 +39,25 @@
  		FROM comment
  		WHERE comment_id = #{commentId}
  	</select>
- 	
- 	<update id="insertComment" parameterType="Comment">
+
+ 	<insert id="insertComment" parameterType="Comment">
  		INSERT INTO 
  		comment (content,user_seq,article_id,board_id,created_at)
  		values(#{content},#{userSeq},#{articleId},#{boardId},now());
- 	</update>
+ 	</insert>
+
+	<update id="updateComment" parameterType="Comment">
+		UPDATE comment
+		SET
+			content = #{content},
+		WHERE comment_id = #{commentId}
+		;
+	</update>
  	
  	<delete id="deleteComment" parameterType="int">
  		DELETE FROM comment
- 		WHERE comment_id=#{commentId};
+ 		WHERE comment_id=#{commentId}
+		;
  	</delete>
  	
 

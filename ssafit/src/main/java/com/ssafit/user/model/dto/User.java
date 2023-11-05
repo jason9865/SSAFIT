@@ -1,14 +1,14 @@
 package com.ssafit.user.model.dto;
 
 public class User {
-	int userSeq;
-	String userId;
-	String userPwd;
-	String userName;
-	String nickName;
-	String email;
-	int userRank; // 관리자 or 유저
-	String joinedAt;
+	private int userSeq;
+	private String userId;
+	private String userPwd;
+	private String userName;
+	private String nickName;
+	private String email;
+	private int userRank; // 관리자 or 유저
+	private String joinedAt;
 	
 	public int getUserSeq() {
 		return userSeq;

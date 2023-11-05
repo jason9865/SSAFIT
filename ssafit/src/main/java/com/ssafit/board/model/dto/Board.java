@@ -1,10 +1,10 @@
 package com.ssafit.board.model.dto;
 
 public class Board {
-	int boardId;
-	String name;
-	String description;
-	String createdAt;
+	private int boardId;
+	private String name;
+	private String description;
+	private String createdAt;
 	
 	public int getBoardId() {
 		return boardId;

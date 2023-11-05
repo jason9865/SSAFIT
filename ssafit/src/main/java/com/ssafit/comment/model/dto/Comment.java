@@ -3,16 +3,13 @@ package com.ssafit.comment.model.dto;
 import com.ssafit.user.model.dto.User;
 
 public class Comment {
-	int commentId;
-	String content;
-	int userSeq;
-	int articleId;
-	int boardId;
-	int lft;
-	int rgt;
-	int depth;
-	String createdAt;
-	User userTable;
+	private int commentId;
+	private String content;
+	private int userSeq;
+	private int articleId;
+	private int boardId;
+	private String createdAt;
+	private User userTable;
 
 	public int getCommentId() {
 		return commentId;
@@ -45,24 +42,6 @@ public class Comment {
 	public void setBoardId(int boardId) {
 		this.boardId = boardId;
 	}
-	public int getLft() {
-		return lft;
-	}
-	public void setLft(int lft) {
-		this.lft = lft;
-	}
-	public int getRgt() {
-		return rgt;
-	}
-	public void setRgt(int rgt) {
-		this.rgt = rgt;
-	}
-	public int getDepth() {
-		return depth;
-	}
-	public void setDepth(int depth) {
-		this.depth = depth;
-	}
 	public String getCreatedAt() {
 		return createdAt;
 	}
@@ -84,9 +63,6 @@ public class Comment {
 				", userSeq=" + userSeq +
 				", articleId=" + articleId +
 				", boardId=" + boardId +
-				", lft=" + lft +
-				", rgt=" + rgt +
-				", depth=" + depth +
 				", createdAt='" + createdAt + '\'' +
 				", userTable=" + userTable +
 				'}';

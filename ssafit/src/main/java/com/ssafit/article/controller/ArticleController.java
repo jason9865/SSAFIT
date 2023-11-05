@@ -57,8 +57,6 @@ public class ArticleController {
 	}
 	
 
-	
-
 	@PostMapping("/regist")
 	@ApiOperation(value="게시글 등록", notes="로그인 계정만 사용가능합니다.")
 	public ResponseEntity<Boolean> registArticle(@RequestBody Article article) {
