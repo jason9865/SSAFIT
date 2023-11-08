@@ -1,5 +1,6 @@
 package com.ssafit.article.service;
 
+import com.ssafit.article.model.dto.response.ArticleResponse;
 import com.ssafit.article.model.entity.Article;
 
 import java.util.List;
@@ -7,8 +8,8 @@ import java.util.List;
 public interface ArticleService {
 	
 	List<Article> getArticleList();
-		
-	Article readArticle(int articleId);
+
+	ArticleResponse readArticle(int articleId);
 	
 	Article searchArticleById(int articleId);
 		

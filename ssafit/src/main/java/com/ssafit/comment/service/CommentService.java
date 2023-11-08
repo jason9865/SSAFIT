@@ -1,5 +1,7 @@
 package com.ssafit.comment.service;
 
+import com.ssafit.comment.model.dto.resquest.CommentModifyRequest;
+import com.ssafit.comment.model.dto.resquest.CommentRegistRequest;
 import com.ssafit.comment.model.entity.Comment;
 
 import java.util.List;
@@ -10,9 +12,9 @@ public interface CommentService {
 
     Comment getComment(int id);
 
-    boolean writeComment(Comment comment);
+    boolean writeComment(CommentRegistRequest request, int articleId, int userSeq);
 
-    boolean modifyComment(Comment comment);
+    boolean modifyComment(CommentModifyRequest request, int commentId, int userSeq);
 
     boolean removeComment(int id);
 

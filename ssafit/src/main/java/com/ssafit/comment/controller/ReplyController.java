@@ -52,7 +52,9 @@ public class ReplyController {
     public ResponseEntity<Boolean> modifyReply(
             @PathVariable final int replyId,
             @RequestBody final ReplyModifyRequest replyModifyRequest,
-            final int userSeq) {
+            HttpSession session) {
+        User loginUser = (User)session.getAttribute("loginUser");
+        int userSeq = loginUser.getUserSeq();
         boolean isModified = replyService.modifyReply(replyModifyRequest,replyId,userSeq);
         if (!isModified)
             return new ResponseEntity<Boolean>(isModified,HttpStatus.NO_CONTENT);
@@ -62,7 +64,10 @@ public class ReplyController {
     @DeleteMapping("/{replyId}")
     public ResponseEntity<Boolean> deleteReply(
             @PathVariable final int replyId,
-            final int userSeq){
+            HttpSession session){
+        User loginUser = (User)session.getAttribute("loginUser");
+        int userSeq = loginUser.getUserSeq();
+
         boolean isDeleted = replyService.removeReply(replyId, userSeq);
         if (!isDeleted)
             return new ResponseEntity<Boolean>(isDeleted,HttpStatus.NO_CONTENT);

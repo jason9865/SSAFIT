@@ -1,5 +1,6 @@
 package com.ssafit.article.controller;
 
+import com.ssafit.article.model.dto.response.ArticleResponse;
 import com.ssafit.article.model.entity.Article;
 import com.ssafit.article.service.ArticleService;
 import com.ssafit.comment.model.entity.Comment;
@@ -37,27 +38,24 @@ public class ArticleController {
 
 	@GetMapping
 	@ApiOperation(value="게시글 전체 조회", notes="모든 게시글을 보여줍니다.")
-	public ResponseEntity<List<Article>> showAllArticles() {
+	public ResponseEntity<List<Article>> getAllArticles() {
 		List<Article> articleList = articleService.getArticleList();
 		return new ResponseEntity<List<Article>>(articleList,HttpStatus.OK);
 	}
 	
 	@GetMapping("/{articleId}")
 	@ApiOperation(value="게시글 조회", notes="게시글과 댓글을 보여줍니다.")
-	public ResponseEntity<Map<String,Object>> showArticle(@PathVariable int articleId) {
-		Map<String,Object> map = new HashMap<>();
+	public ResponseEntity<ArticleResponse> getArticle(@PathVariable int articleId) {
 
-		Article article = articleService.readArticle(articleId);
-		List<Comment> commentList = commentService.getList(articleId);
-		map.put("article",article);
-		map.put("commentList",commentList);
-		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
+		ArticleResponse articleResponse = articleService.readArticle(articleId);
+		return new ResponseEntity<ArticleResponse>(articleResponse, HttpStatus.OK);
 	}
 	
 
 	@PostMapping("/regist")
 	@ApiOperation(value="게시글 등록", notes="로그인 계정만 사용가능합니다.")
-	public ResponseEntity<Boolean> registArticle(@RequestBody Article article) {
+	public ResponseEntity<Boolean> registArticle(
+			@RequestBody Article article) {
 		boolean isRegistered = articleService.writeArticle(article);
 		if (!isRegistered)
 			return new ResponseEntity<Boolean>(isRegistered,HttpStatus.NO_CONTENT);

@@ -1,6 +1,7 @@
 package com.ssafit.user.controller;
 
 import com.ssafit.user.model.dto.request.UserLoginRequest;
+import com.ssafit.user.model.dto.response.UserResponse;
 import com.ssafit.user.model.entity.User;
 import com.ssafit.user.service.UserService;
 import io.swagger.annotations.Api;
@@ -31,11 +32,10 @@ public class UserController {
 	@PostMapping("/login")
 	@ApiOperation(value="로그인을 합니다.", notes="bindingResult 추후 추가 예정")
 	public ResponseEntity<?> login(@RequestBody UserLoginRequest loginRequest, HttpSession session) {
-		User loginUser = userService.login(loginRequest);
+		UserResponse loginUser = userService.login(loginRequest);
 		if (loginUser != null) {
 			session.setAttribute("loginUser",loginUser);
-			System.out.println(session);
-			return new ResponseEntity<User>(loginUser, HttpStatus.OK);
+			return new ResponseEntity<UserResponse>(loginUser, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<Void>(HttpStatus.UNAUTHORIZED);
 		}

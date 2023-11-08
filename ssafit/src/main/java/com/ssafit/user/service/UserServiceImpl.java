@@ -2,21 +2,19 @@ package com.ssafit.user.service;
 
 import com.ssafit.user.model.dao.UserDao;
 import com.ssafit.user.model.dto.request.UserLoginRequest;
+import com.ssafit.user.model.dto.response.UserResponse;
 import com.ssafit.user.model.entity.User;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 	
 	private final UserDao userDao;
-	
-	@Autowired
-	public UserServiceImpl(UserDao userDao) {
-		this.userDao = userDao;
-	}
 	
 	@Override
 	public List<User> getList() {
@@ -55,10 +53,10 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public User login(UserLoginRequest loginRequest) {
+	public UserResponse login(UserLoginRequest loginRequest) {
 		User temp = userDao.selectByUserId(loginRequest.getUserId());
 		if (temp != null && temp.getUserPwd().equals(loginRequest.getUserPwd()))
-			return temp;
+			return UserResponse.from(temp);
 		return null;
 	}
 

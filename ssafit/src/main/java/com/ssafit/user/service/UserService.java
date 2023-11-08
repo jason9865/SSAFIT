@@ -1,6 +1,7 @@
 package com.ssafit.user.service;
 
 import com.ssafit.user.model.dto.request.UserLoginRequest;
+import com.ssafit.user.model.dto.response.UserResponse;
 import com.ssafit.user.model.entity.User;
 
 import java.util.List;
@@ -21,6 +22,6 @@ public interface UserService {
 	
 	void removeUser(int userSeq);
 	
-	User login(UserLoginRequest loginRequest);
+	UserResponse login(UserLoginRequest loginRequest);
 	
 }

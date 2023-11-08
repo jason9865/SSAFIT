@@ -11,18 +11,6 @@
  		<result column="article_id" property="articleId"/>
  		<result column="board_id" property="boardId"/>
  		<result column="created_at" property="createdAt"/>
-		<association property="userTable" resultMap="userMap"/>
-	</resultMap>
-
-	<resultMap type="User" id="userMap">
-		<result column="user_seq" property="userSeq"/>
-		<result column="user_id" property="userId"/>
-		<result column="user_pwd" property="userPwd"/>
-		<result column="user_name" property="userName"/>
-		<result column="nickName" property="nickName"/>
-		<result column="user_rank" property="userRank"/>
-		<result column="email" property="email"/>
-		<result column="joined_at" property="joinedAt"/>
 	</resultMap>
 
 	<select id="selectAll" resultMap="commentMap">

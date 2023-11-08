@@ -1,60 +1,23 @@
 package com.ssafit.comment.model.entity;
 
+import lombok.*;
+
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Reply {
     private int replyId;
     private String content;
     private int userSeq;
     private int commentId;
     private String createdAt;
-    
-    public int getReplyId() {
-        return replyId;
-    }
 
-    public void setReplyId(int replyId) {
+    @Builder
+    public Reply(
+            final int replyId, final String content, final int userSeq, final int commentId, final String createdAt) {
         this.replyId = replyId;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
         this.content = content;
-    }
-
-    public int getUserSeq() {
-        return userSeq;
-    }
-
-    public void setUserSeq(int userSeq) {
         this.userSeq = userSeq;
-    }
-
-    public int getCommentId() {
-        return commentId;
-    }
-
-    public void setCommentId(int commentId) {
         this.commentId = commentId;
-    }
-
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
-    }
-
-    @Override
-    public String toString() {
-        return "Reply{" +
-                "replyId=" + replyId +
-                ", content='" + content + '\'' +
-                ", userSeq=" + userSeq +
-                ", commentId=" + commentId +
-                ", createdAt='" + createdAt + '\'' +
-                '}';
     }
 }

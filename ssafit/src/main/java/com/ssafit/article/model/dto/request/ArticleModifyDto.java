@@ -1,2 +1,12 @@
-package com.ssafit.article.model.dto.request;public class ArticleModifyDto {
+package com.ssafit.article.model.dto.request;
+
+import lombok.*;
+
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class ArticleModifyDto {
+    private int articleId;
+
 }

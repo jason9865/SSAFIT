@@ -2,21 +2,18 @@ package com.ssafit.board.service;
 
 import com.ssafit.board.model.dao.BoardDao;
 import com.ssafit.board.model.entity.Board;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class BoardServiceImpl implements BoardService {
 
 	private final BoardDao boardDao;
-	
-	@Autowired
-	public BoardServiceImpl(BoardDao boardDao) {
-		this.boardDao = boardDao;
-	}
-	
+
 	@Override
 	public List<Board> getList() {
 		return boardDao.selectAll();

@@ -1,21 +1,22 @@
 package com.ssafit.article.service;
 
 import com.ssafit.article.model.dao.ArticleDao;
+import com.ssafit.article.model.dto.response.ArticleResponse;
 import com.ssafit.article.model.entity.Article;
+import com.ssafit.user.model.dao.UserDao;
+import com.ssafit.user.model.entity.User;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ArticleServiceImpl implements ArticleService {
 	
 	private final ArticleDao articleDao;
-	
-	@Autowired
-	public ArticleServiceImpl(ArticleDao articleDao) {
-		this.articleDao = articleDao;
-	}
+	private final UserDao userDao;
 	
 	@Override
 	public List<Article> getArticleList() {
@@ -23,13 +24,15 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 
-	@Override
-	public Article readArticle(int articleId) {
+	@Override // 조회 수 증가 O
+	public ArticleResponse readArticle(int articleId) {
+		Article article = searchArticleById(articleId);
 		articleDao.updateViewCnt(articleId);
-		return articleDao.selectById(articleId);
+		User user = userDao.selectByUserSeq(article.getUserSeq());
+		return ArticleResponse.of(article,user);
 	}
 	
-	@Override
+	@Override // 조회 수 증가 X
 	public Article searchArticleById(int articleId) {
 		return articleDao.selectById(articleId);
 	}

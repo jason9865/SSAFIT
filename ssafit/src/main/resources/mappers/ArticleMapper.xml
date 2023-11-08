@@ -4,7 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
  <mapper namespace="com.ssafit.article.model.dao.ArticleDao">
- 
+
  	<resultMap type="Article" id="articleMap">
  		<result column="article_id" property="articleId"/>
  		<result column="title" property="title"/>
@@ -12,33 +12,30 @@
  		<result column="board_id" property="boardId"/>
  		<result column="user_seq" property="userSeq"/>
  		<result column="view_cnt" property="viewCnt"/>
- 		<result column="lft" property="lft"/>
- 		<result column="rgt" property="rgt"/>
-		<result column="depth" property="depth"/>
  		<result column="created_at" property="createdAt"/>
  		<result column="modified_at" property="modifiedAt"/>
- 		<association property="userTable" resultMap="userMap"/>
- 		<association property="boardTable" resultMap="boardMap"/>
+<!-- 		<association property="userTable" resultMap="userMap"/>-->
+<!-- 		<association property="boardTable" resultMap="boardMap"/>-->
  	</resultMap>
 
- 	
-  	<resultMap type="Board" id="boardMap">
-		<result column="board_id" property="boardId"/>
-		<result column="name" property="name"/>
-		<result column="description" property="description"/>
-		<result column="created_at" property="createdAt"/>
-	</resultMap> 
-	
-	<resultMap type="User" id="userMap">
-		<result column="user_seq" property="userSeq"/>
-		<result column="user_id" property="userId"/>
-		<result column="user_pwd" property="userPwd"/>
-		<result column="user_name" property="userName"/>
-		<result column="nickName" property="nickName"/>
-		<result column="user_rank" property="userRank"/>
-		<result column="email" property="email"/>
-		<result column="joined_at" property="joinedAt"/>
-	</resultMap> 
+
+<!--  	<resultMap type="Board" id="boardMap">-->
+<!--		<result column="board_id" property="boardId"/>-->
+<!--		<result column="name" property="name"/>-->
+<!--		<result column="description" property="description"/>-->
+<!--		<result column="created_at" property="createdAt"/>-->
+<!--	</resultMap>-->
+
+<!--	<resultMap type="User" id="userMap">-->
+<!--		<result column="user_seq" property="userSeq"/>-->
+<!--		<result column="user_id" property="userId"/>-->
+<!--		<result column="user_pwd" property="userPwd"/>-->
+<!--		<result column="user_name" property="userName"/>-->
+<!--		<result column="nickName" property="nickName"/>-->
+<!--		<result column="user_rank" property="userRank"/>-->
+<!--		<result column="email" property="email"/>-->
+<!--		<result column="joined_at" property="joinedAt"/>-->
+<!--	</resultMap>-->
  	
  	<select id="selectAll" resultMap="articleMap">
  		SELECT 

@@ -1,39 +1,19 @@
 package com.ssafit.comment.model.dto.response;
 
 import com.ssafit.comment.model.entity.Reply;
+import com.ssafit.user.model.entity.User;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ReplyResponse {
     private int replyId;
     private int userSeq;
     private String content;
     private String createdAt;
-
-    public ReplyResponse(){
-
-    }
-
-    public ReplyResponse(int replyId, int userSeq, String content, String createdAt) {
-        this.replyId = replyId;
-        this.userSeq = userSeq;
-        this.content = content;
-        this.createdAt = createdAt;
-    }
-
-    public int getReplyId() {
-        return replyId;
-    }
-
-    public int getUserSeq() {
-        return userSeq;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public String getCreatedAt() {
-        return createdAt;
-    }
 
 
 
