@@ -9,13 +9,13 @@ import java.util.List;
 
 public interface ReplyService {
 
-    List<Reply> getReplyList();
+    List<ReplyResponse> getReplyList();
 
     List<ReplyResponse> getReplyByComment(int commentId);
 
-    Reply findReply(int replyId);
+    ReplyResponse getReply(int replyId);
 
-    Reply findUserReply(int userSeq);
+    List<ReplyResponse> getUserReplies(int userSeq);
 
     boolean writeReply(final ReplyRegisterRequest replyRegisterRequest, final int commentId, final int userSeq);
 

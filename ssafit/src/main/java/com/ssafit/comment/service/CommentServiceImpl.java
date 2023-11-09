@@ -5,6 +5,7 @@ import com.ssafit.article.model.entity.Article;
 import com.ssafit.board.model.dao.BoardDao;
 import com.ssafit.board.model.entity.Board;
 import com.ssafit.comment.model.dao.CommentDao;
+import com.ssafit.comment.model.dto.response.CommentResponse;
 import com.ssafit.comment.model.dto.resquest.CommentModifyRequest;
 import com.ssafit.comment.model.dto.resquest.CommentRegistRequest;
 import com.ssafit.comment.model.entity.Comment;
@@ -26,17 +27,22 @@ public class CommentServiceImpl implements CommentService {
     private final ArticleDao articleDao;
 
     @Override
-    public List<Comment> getList(int article_id) {
+    public List<CommentResponse> getList(int article_id) {
+
         return commentDao.selectAll()
                 .stream()
                 .filter(c -> c.getArticleId() == article_id)
+                .map(c -> new CommentResponse(c,
+                        userDao.selectByUserSeq(c.getUserSeq())))
                 .collect(Collectors.toList())
                 ;
     }
 
     @Override
-    public Comment getComment(int id) {
-        return commentDao.selectOne(id);
+    public CommentResponse getComment(int commentId) {
+        Comment comment = commentDao.selectOne(commentId);
+        User user = userDao.selectByUserSeq(comment.getUserSeq());
+        return new CommentResponse(commentDao.selectOne(commentId),user);
     }
 
     @Override

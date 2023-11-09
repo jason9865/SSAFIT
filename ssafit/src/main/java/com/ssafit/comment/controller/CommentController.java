@@ -1,5 +1,6 @@
 package com.ssafit.comment.controller;
 
+import com.ssafit.comment.model.dto.response.CommentResponse;
 import com.ssafit.comment.model.dto.resquest.CommentModifyRequest;
 import com.ssafit.comment.model.dto.resquest.CommentRegistRequest;
 import com.ssafit.comment.model.entity.Comment;
@@ -30,9 +31,15 @@ public class CommentController {
 
     @GetMapping("/{articleId}")
     @ApiOperation(value="댓글 리스트 조회", notes="모든 댓글을 보여줍니다.")
-    public ResponseEntity<?> showCommentsById(@PathVariable int articleId){
-        List<Comment> commentList = commentService.getList(articleId);
-        return new ResponseEntity<List<Comment>>(commentList,HttpStatus.OK);
+    public ResponseEntity<?> showCommentsByArticle(@PathVariable int articleId){
+        List<CommentResponse> commentList = commentService.getList(articleId);
+        return new ResponseEntity<List<CommentResponse>>(commentList,HttpStatus.OK);
+    }
+
+    @GetMapping("/detail/{commentId}")
+    @ApiOperation(value="댓글 1개 조회", notes="댓글 1개를 보여줍니다.")
+    public ResponseEntity<CommentResponse> commentDetail(@PathVariable int commentId) {
+        return new ResponseEntity<CommentResponse>(commentService.getComment(commentId),HttpStatus.OK);
     }
 
     @PostMapping("/{articleId}")

@@ -24,10 +24,17 @@ public class ReplyServiceImpl implements  ReplyService{
     private final ReplyDao replyDao;
     private final CommentDao commentDao;
     private final UserDao userDao;
-    
+
     @Override
-    public List<Reply> getReplyList() {
-        return replyDao.selectAll();
+    public List<ReplyResponse> getReplyList() {
+
+        return replyDao.selectAll().stream()
+                .map(reply -> new ReplyResponse(
+                        reply,
+                        userDao.selectByUserSeq(reply.getUserSeq())
+                ))
+                .collect(toList())
+                ;
     }
 
     @Override
@@ -35,18 +42,32 @@ public class ReplyServiceImpl implements  ReplyService{
         Comment comment = commentDao.selectOne(commentId);
         return replyDao.selectAll().stream()
                 .filter(r -> r.getCommentId() == commentId)
-                .map(ReplyResponse::from)
+                .map(reply -> new ReplyResponse(
+                        reply,
+                        userDao.selectByUserSeq(reply.getUserSeq())
+                ))
                 .collect(toList())
                 ;
     }
 
+
     @Override
-    public Reply findReply(int replyId) {
-        return replyDao.selectReply(replyId);
+    public ReplyResponse getReply(int replyId) {
+        Reply reply = replyDao.selectReply(replyId);
+        User user = userDao.selectByUserSeq(reply.getUserSeq());
+        return new ReplyResponse(reply,user);
     }
 
-    public Reply findUserReply(int userSeq) {
-        return replyDao.selectReplyByUser(userSeq);
+    public List<ReplyResponse> getUserReplies(int userSeq) {
+        User user = userDao.selectByUserSeq(userSeq);
+        return replyDao.selectAll().stream()
+                .filter(r -> r.getUserSeq() == userSeq)
+                .map(reply -> new ReplyResponse(
+                        reply,
+                        userDao.selectByUserSeq(reply.getUserSeq())
+                ))
+                .collect(toList())
+                ;
     }
 
 
@@ -64,7 +85,7 @@ public class ReplyServiceImpl implements  ReplyService{
     @Override
     public boolean modifyReply(final ReplyModifyRequest request, final int replyId, final int userSeq) {
         final User user = userDao.selectByUserSeq(userSeq);
-        final Reply reply = findReply(replyId);
+        final Reply reply = replyDao.selectReply(replyId);
         final Comment comment = commentDao.selectOne(reply.getCommentId());
 
 //        Reply newReply = new Reply();
@@ -73,8 +94,7 @@ public class ReplyServiceImpl implements  ReplyService{
 //        newReply.setUserSeq(user.getUserSeq());
 //        newReply.setCommentId(comment.getCommentId());
 
-        final Reply newReply =
-                Reply.builder()
+        final Reply newReply = Reply.builder()
                         .replyId(reply.getReplyId())
                         .userSeq(reply.getUserSeq())
                         .content(request.getContent())
@@ -87,8 +107,7 @@ public class ReplyServiceImpl implements  ReplyService{
     @Override
     public boolean removeReply(final int replyId, final int userSeq) {
         final User user = userDao.selectByUserSeq(userSeq);
-        final Reply reply = findReply(replyId);
-
+        final Reply reply = replyDao.selectReply(replyId);
 
         return replyDao.deleteReply(replyId) > 0;
     }

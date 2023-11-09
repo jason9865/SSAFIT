@@ -7,6 +7,6 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class ArticleModifyDto {
-    private int articleId;
-
+    private String title;
+    private String content;
 }

@@ -11,19 +11,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ReplyResponse {
     private int replyId;
-    private int userSeq;
     private String content;
     private String createdAt;
+    private int userSeq;
+    private String userId;
+    private String nickName;
 
-
-
-    public static ReplyResponse from(final Reply reply) {
-        return new ReplyResponse(
-                reply.getReplyId(),
-                reply.getUserSeq(),
-                reply.getContent(),
-                reply.getCreatedAt()
-        );
+    public ReplyResponse(Reply reply, User user) {
+        this.replyId = reply.getReplyId();
+        this.content = reply.getContent();
+        this.createdAt = reply.getCreatedAt();
+        this.userSeq = reply.getUserSeq();
+        this.userId = user.getUserId();
+        this.nickName = user.getNickName();
     }
-
 }
