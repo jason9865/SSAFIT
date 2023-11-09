@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.ssafit.comment.model.dao.ReplyDao">
+
+	<insert id="insertReply" parameterType="Reply">
+		INSERT INTO reply (content, user_seq, comment_id)
+		VALUES(#{content}, #{userSeq}, #{commentId})
+		;
+	</insert>
+
+	<select id="selectAll" resultType="Reply">
+		SELECT *
+		FROM reply
+		;
+	</select>
+
+	<select id="selectReply"  resultType="Reply">
+		SELECT *
+		FROM reply
+		WHERE reply_id = #{replyId}
+	</select>
+
+	<select id="selectReplyByUser" resultType="Reply">
+		SELECT *
+		FROM reply
+		WHERE user_seq = #{userSeq}
+		;
+	</select>
+
+	<update id="updateReply" parameterType="Reply">
+		UPDATE reply
+		SET
+			content = #{content},
+			created_at = now()
+		WHERE reply_id = #{replyId}
+		;
+	</update>
+
+	<delete id="deleteReply" parameterType="int">
+		DELETE FROM reply
+		WHERE reply_id = #{replyId}
+		;
+	</delete>
+
+ 	
+ </mapper>
