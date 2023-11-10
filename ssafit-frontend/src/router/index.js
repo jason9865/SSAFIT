@@ -3,12 +3,12 @@ import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
 import BoardView from '../views/BoardView.vue'
 import VideoView from '../views/VideoView.vue'
-import ArticleList from '../components/ArticleList.vue'
-import ArticleCreate from '../components/ArticleCreate.vue'
-import ArticleDetail from '../components/ArticleDetail.vue'
-import ArticleModify from '../components/ArticleModify.vue'
-import VideoList from '../components/VideoList.vue'
-import VideoDetail from '../components/VideoDetail.vue'
+import ArticleList from '../components/article/ArticleList.vue'
+import ArticleCreate from '../components/article/ArticleCreate.vue'
+import ArticleDetail from '../components/article/ArticleDetail.vue'
+import ArticleModify from '../components/article/ArticleModify.vue'
+import VideoList from '../components/video/VideoList.vue'
+import VideoDetail from '../components/video/VideoDetail.vue'
 
 
 const router = createRouter({

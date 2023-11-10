@@ -7,16 +7,19 @@
 </template>
   
 <script setup>
-import axios from 'axios';
 import{ref, onMounted} from 'vue';
-const articleList = ref([])
+import axios from 'axios';
+const articleList = ref([]);
+
 
 onMounted(() => {
+    console.log("페이지가 로드 되었나요??")
     axios({
         url : "http://localhost:8080/board/1",
         method : "GET"
     })
       .then((res) => {
+        console.log(res.data)
         articleList.value = res.data
       })
       .catch((err) => {
