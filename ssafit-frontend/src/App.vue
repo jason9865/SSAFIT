@@ -1,7 +1,7 @@
 <template>
   <div>
     <HeaderNav :user="user" @logout="logout" />
-    <RouterView @loing-user="loginUser"/>
+    <RouterView @login-user="loginUser"/>
     <FooterNav/>
   </div>
 </template>
@@ -30,7 +30,7 @@ const logout = () => {
 
 const loginUser = (loginUser) => {
   const API_URL = `http://localhost:8080/user/login`;
-
+  console.log(loginUser.id)
   axios({
     url : `http://localhost:8080/user/login`,
     method : "POST",
