@@ -13,7 +13,7 @@
           <tbody>
             <tr v-for="article in articleList" :key="article.articleId">
               <td>
-                <RouterLink :to="`/board/${article.boardId}/${article.articleId}`">
+                <RouterLink :to="`/board/${article.name}/${article.articleId}`">
                   {{ article.title }}
                 </RouterLink>
               </td>

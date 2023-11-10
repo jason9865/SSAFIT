@@ -9,7 +9,7 @@
           <RouterLink to="/board">커뮤니티</RouterLink>
           <RouterLink to="/login" v-if="!getUser">로그인</RouterLink>
           <span v-else>
-            <span> {{ userName }} 님 환영합니다.</span>
+            <!-- <span> {{ d}} 님 환영합니다.</span> -->
             <a href="#" class="mx-3" @click="logout">로그아웃</a>
           </span>
           <!-- <RouterLink :to="{ name: 'Regist' }">회원가입</RouterLink> -->
@@ -19,7 +19,7 @@
   </template>
 
 <script setup>
-import { computed } from "vue";
+import { ref,computed } from "vue";
 import { RouterLink } from "vue-router";
 
 const props = defineProps(["user"]);
@@ -27,7 +27,7 @@ const emits = defineEmits(["logout"]);
 
 const getUser = computed(() => !!props.user);
 
-const userName = ref(JSON.parse(localStorage.getItem("loginUser"))?.data.userName)
+// const userName = ref(JSON.parse(localStorage.getItem("loginUser"))?.data.userName)
 
 const logout = () => {
   emits("logout");
