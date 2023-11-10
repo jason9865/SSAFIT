@@ -30,6 +30,11 @@ const router = createRouter({
       component: BoardView,
       children : [
         {
+          path : "",
+          name : "ArticleList",
+          component : ArticleList,
+        },
+        {
           path : ":boardName",
           name : "ArticleList",
           component : ArticleList,
