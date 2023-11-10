@@ -31,7 +31,7 @@ const router = createRouter({
       children : [
         {
           path : "",
-          name : "ArticleList",
+          name : "ArticleList-default",
           component : ArticleList,
         },
         {
