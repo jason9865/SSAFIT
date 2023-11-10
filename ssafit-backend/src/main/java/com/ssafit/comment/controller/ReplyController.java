@@ -34,17 +34,17 @@ public class ReplyController {
     
     @PostMapping("/{commentId}")
     @ApiOperation(value="대댓글 등록", notes="대댓글을 등록합니다")
-    public ResponseEntity<Boolean> registerReply(
+    public ResponseEntity<Boolean> writeReply(
             @RequestBody ReplyRegisterRequest replyRegisterRequest,
             @PathVariable final int commentId,
             HttpSession session
             ) {
         UserResponse loginUser = (UserResponse) session.getAttribute("loginUser");
         int userSeq = loginUser.getUserSeq();
-        boolean isRegistered = replyService.writeReply(replyRegisterRequest, commentId, userSeq);
-        if (!isRegistered)
-            return new ResponseEntity<Boolean>(isRegistered, HttpStatus.NO_CONTENT);
-        return new ResponseEntity<Boolean>(isRegistered,HttpStatus.OK);
+        boolean isWritten = replyService.writeReply(replyRegisterRequest, commentId, userSeq);
+        if (!isWritten)
+            return new ResponseEntity<Boolean>(isWritten, HttpStatus.NO_CONTENT);
+        return new ResponseEntity<Boolean>(isWritten,HttpStatus.OK);
     }
 
     @GetMapping("/{commentId}")
@@ -75,16 +75,16 @@ public class ReplyController {
 
     @DeleteMapping("/{replyId}")
     @ApiOperation(value="대댓글 삭제", notes="해당 대댓글 작성자만 삭제 가능합니다.")
-    public ResponseEntity<Boolean> deleteReply(
+    public ResponseEntity<Boolean> removeReply(
             @PathVariable final int replyId,
             HttpSession session){
         UserResponse loginUser = (UserResponse) session.getAttribute("loginUser");
         int userSeq = loginUser.getUserSeq();
 
-        boolean isDeleted = replyService.removeReply(replyId, userSeq);
-        if (!isDeleted)
-            return new ResponseEntity<Boolean>(isDeleted,HttpStatus.NO_CONTENT);
-        return new ResponseEntity<Boolean>(isDeleted, HttpStatus.OK);
+        boolean isRemoved = replyService.removeReply(replyId, userSeq);
+        if (!isRemoved)
+            return new ResponseEntity<Boolean>(isRemoved,HttpStatus.NO_CONTENT);
+        return new ResponseEntity<Boolean>(isRemoved, HttpStatus.OK);
     }
 
 

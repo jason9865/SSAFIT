@@ -44,17 +44,17 @@ public class CommentController {
 
     @PostMapping("/{articleId}")
     @ApiOperation(value="댓글 작성", notes="로그인한 사용자만 댓글작성이 가능합니다.")
-    public ResponseEntity<Boolean> registComment(
+    public ResponseEntity<Boolean> writeComment(
             @RequestBody CommentRegistRequest commentRegistRequest,
             @PathVariable int articleId,
             HttpSession session){
 
         UserResponse loginUser = (UserResponse) session.getAttribute("loginUser");
         int userSeq = loginUser.getUserSeq();
-        boolean isRegisted = commentService.writeComment(commentRegistRequest,articleId, userSeq);
-        if (!isRegisted)
-            return new ResponseEntity<Boolean>(isRegisted,HttpStatus.NO_CONTENT);
-        return new ResponseEntity<Boolean>(isRegisted,HttpStatus.OK);
+        boolean isWritten = commentService.writeComment(commentRegistRequest,articleId, userSeq);
+        if (!isWritten)
+            return new ResponseEntity<Boolean>(isWritten,HttpStatus.NO_CONTENT);
+        return new ResponseEntity<Boolean>(isWritten,HttpStatus.OK);
     }
 
     @PutMapping("/{commentId}")
@@ -76,10 +76,10 @@ public class CommentController {
     @DeleteMapping("/{commentId}")
     @ApiOperation(value="댓글 삭제", notes="로그인 유저만 사용 가능합니다.")
     public ResponseEntity<Boolean> removeComment(@PathVariable int commentId) {
-        boolean isDeleted = commentService.removeComment(commentId);
-        if (!isDeleted)
-            return new ResponseEntity<Boolean>(isDeleted,HttpStatus.NO_CONTENT);
-        return new ResponseEntity<Boolean>(isDeleted,HttpStatus.OK);
+        boolean isModified = commentService.removeComment(commentId);
+        if (!isModified)
+            return new ResponseEntity<Boolean>(isModified,HttpStatus.NO_CONTENT);
+        return new ResponseEntity<Boolean>(isModified,HttpStatus.OK);
     }
 
 }

@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("/board")
 @Api(tags="게시판 컨트롤러")
 public class BoardController {
 	
@@ -28,7 +29,7 @@ public class BoardController {
 		this.articleService = articleService;
 	}
 
-	@GetMapping("/board")
+	@GetMapping
 	@ApiOperation(value="게시판 리스트", notes="게시판 전부를 보여줍니다.")
 	public ResponseEntity<List<Board>> registBoard() {
 		List<Board> boardList = boardService.getList();
@@ -36,7 +37,7 @@ public class BoardController {
 		return new ResponseEntity<List<Board>>(boardList,HttpStatus.OK);
 	}
 
-	@PostMapping("/board/regist")
+	@PostMapping("/write")
 	@ApiOperation(value="게시판 등록", notes="관리자만 등록이 가능합니다.")
 	public ResponseEntity<Boolean> regist(@RequestBody Board board) {
 		boolean isRegistered = boardService.registBoard(board);
@@ -45,9 +46,9 @@ public class BoardController {
 		return new ResponseEntity<Boolean>(isRegistered,HttpStatus.ACCEPTED);
 	}
 	
-	@GetMapping("/board/{id}")
+	@GetMapping("/{boardId}")
 	@ApiOperation(value="게시판 별 게시글", notes="게시판 별 게시글을 보여줍니다.")
-	public ResponseEntity<List<ArticleResponse>> boardDetail(@PathVariable("id") int boardId) {
+	public ResponseEntity<List<ArticleResponse>> boardDetail(@PathVariable int boardId) {
 		List<ArticleResponse> articleList = articleService.getArticleList().stream().
 				filter(a -> a.getBoardId() == boardId).
 				collect(Collectors.toList());
@@ -55,14 +56,23 @@ public class BoardController {
 		return new ResponseEntity<List<ArticleResponse>>(articleList,HttpStatus.OK);
 	}
 
+	@PutMapping("/update")
+	@ApiOperation(value="게시판 수정", notes="관리자 계정만 사용가능합니다.")
+	public ResponseEntity<Boolean> modifyBoard(@RequestBody Board board){
+		boolean isModified = boardService.modifyBoard(board);
+		if(!isModified)
+			return new ResponseEntity<Boolean>(isModified,HttpStatus.NO_CONTENT);
+		return new ResponseEntity<Boolean>(isModified,HttpStatus.ACCEPTED);
+	}
+
 //	@GetMapping("/board/{id}/delete")
-	@DeleteMapping("/board/{id}/delete")
+	@DeleteMapping("/{boardId}/delete")
 	@ApiOperation(value="게시판 삭제", notes="관리자 계정만 사용가능합니다.")
-	public ResponseEntity<Boolean> deleteBoard(@PathVariable("id") int boardId) {
-		boolean isDeleted = boardService.deleteBoard(boardId);
-		if (!isDeleted)
-			return new ResponseEntity<Boolean>(isDeleted,HttpStatus.NO_CONTENT);
-		return new ResponseEntity<Boolean>(isDeleted,HttpStatus.ACCEPTED);
+	public ResponseEntity<Boolean> removeBoard(@PathVariable int boardId) {
+		boolean isRemoved = boardService.deleteBoard(boardId);
+		if (!isRemoved)
+			return new ResponseEntity<Boolean>(isRemoved,HttpStatus.NO_CONTENT);
+		return new ResponseEntity<Boolean>(isRemoved,HttpStatus.ACCEPTED);
 	}
 
 
