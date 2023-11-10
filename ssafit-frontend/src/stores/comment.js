@@ -53,6 +53,9 @@ export const useCommentStore = defineStore('comment', () => {
             data : comment
         })
         .then((res) => {
+            es === true ?
+            alert("댓글 등록 완료") :
+            alert("댓글 등록 실패")
         })
         .catch((err) => {
             console.log(err);
@@ -71,6 +74,9 @@ export const useCommentStore = defineStore('comment', () => {
             data : comment
         })
         .then((res) => {
+            res === true ?
+            alert("댓글 수정 완료") :
+            alert("댓글 수정 실패")
         })
         .catch((err) => {
             console.log(err);
@@ -85,6 +91,9 @@ export const useCommentStore = defineStore('comment', () => {
             method : `DELETE`
         })
         .then((res)=>{
+            res === true ?
+            alert("댓글 삭제 완료") :
+            alert("댓글 삭제 실패")
         })
         .catch((err) => {
             console.log(err);
