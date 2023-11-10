@@ -5,8 +5,13 @@
           <RouterLink to="/" class="logo">SSAFIT </RouterLink>
         </div>
         <div>
-          <a href="#" v-if="getUser" @click="logout">로그아웃</a>
-          <RouterLink to="/login" v-else>로그인</RouterLink>
+          <RouterLink to="/video">운동영상</RouterLink>
+          <RouterLink to="/board">커뮤니티</RouterLink>
+          <RouterLink to="/login" v-if="!getUser">로그인</RouterLink>
+          <span v-else>
+            <span> {{ userName }} 님 환영합니다.</span>
+            <a href="#" class="mx-3" @click="logout">로그아웃</a>
+          </span>
           <!-- <RouterLink :to="{ name: 'Regist' }">회원가입</RouterLink> -->
         </div>
       </nav>
@@ -21,6 +26,8 @@ const props = defineProps(["user"]);
 const emits = defineEmits(["logout"]);
 
 const getUser = computed(() => !!props.user);
+
+const userName = ref(JSON.parse(localStorage.getItem("loginUser"))?.data.userName)
 
 const logout = () => {
   emits("logout");
