@@ -30,8 +30,15 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public boolean modifyBoard(Board board) {
-		return boardDao.updateBoard(board) > 0;
+	public boolean modifyBoard(Board board, int boardId) {
+		Board newBoard =
+				Board.builder()
+						.boardId(boardId)
+						.name(board.getName())
+						.description(board.getDescription())
+						.build();
+
+		return boardDao.updateBoard(newBoard) > 0;
 	}
 
 	@Override

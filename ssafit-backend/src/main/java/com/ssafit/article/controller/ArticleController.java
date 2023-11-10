@@ -50,7 +50,7 @@ public class ArticleController {
 	@ApiOperation(value="게시글 조회", notes="게시글과 댓글을 보여줍니다.")
 	public ResponseEntity<ArticleResponse> getArticle(@PathVariable int articleId) {
 
-		ArticleResponse articleResponse = articleService.getArticle(articleId);
+		ArticleResponse articleResponse = articleService.readArticle(articleId);
 		return new ResponseEntity<ArticleResponse>(articleResponse, HttpStatus.OK);
 	}
 	
@@ -61,7 +61,6 @@ public class ArticleController {
 			@RequestBody ArticleRegistDto articleRegistDto,
 			HttpSession session	) {
 		UserResponse loginUser = (UserResponse)session.getAttribute("loginUser");
-		System.out.println(loginUser);
 		int userSeq = loginUser.getUserSeq();
 		boolean isRegistered = articleService.writeArticle(articleRegistDto, userSeq);
 		if (!isRegistered)
