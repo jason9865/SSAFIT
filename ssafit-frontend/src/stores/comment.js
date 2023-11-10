@@ -53,7 +53,38 @@ export const useCommentStore = defineStore('comment', () => {
             data : comment
         })
         .then((res) => {
-            router.push({name : ArticleDetail})
+        })
+        .catch((err) => {
+            console.log(err);
+            alert("서버 에러!")
+        })
+    }
+
+    // 댓글 수정
+    const updateComment = function(comment) {
+        axios({
+            url : `${REST_API}/${comment.commentId}`,
+            method : 'PUT',
+            headers : {
+                'Content-Type' : `application/json`
+            },
+            data : comment
+        })
+        .then((res) => {
+        })
+        .catch((err) => {
+            console.log(err);
+            alert("서버 에러!")
+        })
+    }
+
+    // 댓글 삭제
+    const deleteComment = function(commentId) {
+        axios({
+            url : `${REST_API}/${commentId}`,
+            method : `DELETE`
+        })
+        .then((res)=>{
         })
         .catch((err) => {
             console.log(err);
@@ -66,8 +97,8 @@ export const useCommentStore = defineStore('comment', () => {
     return {
         commentList, getCommentList,
         comment, getComment,
-        createComment
+        createComment, updateComment, deleteComment
     }
     
-    }
+    
 })

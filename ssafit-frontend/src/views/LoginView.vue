@@ -29,6 +29,7 @@ const login = () => {
     id: id.value,
     password: password.value,
   };
+  console.log(user.id)
   emit("loginUser", user);
 };
 </script>
