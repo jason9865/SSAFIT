@@ -56,10 +56,10 @@ public class BoardController {
 		return new ResponseEntity<List<ArticleResponse>>(articleList,HttpStatus.OK);
 	}
 
-	@PutMapping("/update")
+	@PutMapping("/{boardId}/update")
 	@ApiOperation(value="게시판 수정", notes="관리자 계정만 사용가능합니다.")
-	public ResponseEntity<Boolean> modifyBoard(@RequestBody Board board){
-		boolean isModified = boardService.modifyBoard(board);
+	public ResponseEntity<Boolean> modifyBoard(@RequestBody Board board, @PathVariable int boardId){
+		boolean isModified = boardService.modifyBoard(board, boardId);
 		if(!isModified)
 			return new ResponseEntity<Boolean>(isModified,HttpStatus.NO_CONTENT);
 		return new ResponseEntity<Boolean>(isModified,HttpStatus.ACCEPTED);

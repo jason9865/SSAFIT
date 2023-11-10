@@ -12,7 +12,7 @@ public interface BoardService {
 	
 	boolean registBoard(Board board);
 	
-	boolean modifyBoard(Board board);
+	boolean modifyBoard(Board board, int boardId);
 	
 	boolean deleteBoard(int boardId);
 	

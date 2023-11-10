@@ -29,7 +29,7 @@
 	
 	<update id="updateBoard" parameterType="Board">
 		UPDATE board
-		SET name=#{name}, description=#{description}, created_at=NOW();
+		SET name=#{name}, description=#{description}, created_at=NOW()
 		WHERE board_id=#{boardId};
 	</update>
 	
