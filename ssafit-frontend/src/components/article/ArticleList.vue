@@ -29,10 +29,22 @@
 </template>
   
 <script setup>
-import{ref, onMounted} from 'vue';
+import{ref, onMounted } from 'vue';
 import axios from 'axios';
+import { useRoute } from 'vue-router';
+import { useBoardStore } from '@/stores/board.js'
+
+const boardStore = useBoardStore()
 const articleList = ref([]);
 
+const route = useRoute()
+const boardName = route.params.boardName
+
+const selectedBoard = () => {
+  boardStore.boardList.value.filters((board) =>{
+    board.name = boardName
+  })
+}
 
 onMounted(() => {
     console.log("페이지가 로드 되었나요??")
@@ -48,6 +60,8 @@ onMounted(() => {
         console.log(err)
         alert("서버 에러")
       })
+    
+    boardStore.getBoardList()
 })
 
 </script>
