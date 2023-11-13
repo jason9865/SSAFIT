@@ -1,6 +1,8 @@
 package com.ssafit.user.controller;
 
 import com.ssafit.user.model.dto.request.UserLoginRequest;
+import com.ssafit.user.model.dto.request.UserModifyRequest;
+import com.ssafit.user.model.dto.request.UserRegistRequest;
 import com.ssafit.user.model.dto.response.UserResponse;
 import com.ssafit.user.model.entity.User;
 import com.ssafit.user.service.UserService;
@@ -51,32 +53,30 @@ public class UserController {
 	
 	@PostMapping("/signup")
 	@ApiOperation(value="회원가입", notes="bindingResult 조건 추후 추가 예정")
-	public String regist(@ModelAttribute User user,HttpServletRequest request,Model model) {
-		if (!user.getUserPwd().equals(request.getParameter("confirmedPwd"))) {
-			model.addAttribute("msg","비밀번호를 확인하세요.");
-			return "/user/signupPage";
-		}
-		userService.registUser(user);
-		return "redirect:/";
+	public ResponseEntity<Boolean> regist(@RequestBody UserRegistRequest userRegistRequest) {
+
+		boolean isRegisted = userService.registUser(userRegistRequest);
+		if(!isRegisted)
+			return new ResponseEntity<Boolean>(isRegisted,HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<Boolean>(isRegisted,HttpStatus.OK);
 	}
 
-//	@PostMapping("/signup")
-//	public ResponseEntity<Integer> signup(@ModelAttribute User user,HttpServletRequest request,Model model){
-////		int result = userService.registUser(user);
-//
-//		// result가 0이면 등록X
-//		// result가 1이면 등록O
-//	}
+	@PutMapping("/update/{userSeq}")
+	@ApiOperation(value="유저 정보 갱신", notes="로그인 유저만 접근 가능합니다.")
+	public ResponseEntity<Boolean> updateUser(@PathVariable int userSeq, @RequestBody UserModifyRequest userModifyRequest) {
+		boolean isModified = userService.modifyUser(userModifyRequest,userSeq);
+		if(!isModified)
+			return new ResponseEntity<Boolean>(isModified,HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<Boolean>(isModified,HttpStatus.OK);
+	}
 
-//	@GetMapping("/delete/{userSeq}")
 	@DeleteMapping("/delete/{userSeq}")
 	@ApiOperation(value="유저 삭제", notes="관리자 계정만 접근 가능합니다.")
-	public String deleteUser(@PathVariable("userSeq") int userSeq, HttpServletRequest request, RedirectAttributes redirectAttributes) {
-		userService .removeUser(userSeq);
-		String referer = request.getHeader("Referer");
-		redirectAttributes.addAttribute("referer",referer);
-
-		return "redirect:/admin/user";
+	public ResponseEntity<Boolean> removeUser(@PathVariable int userSeq) {
+		boolean isRemoved = userService.removeUser(userSeq);
+		if(!isRemoved)
+			return new ResponseEntity<Boolean>(isRemoved,HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<Boolean>(isRemoved,HttpStatus.OK);
 	}
 
 	@GetMapping("/myPage/{userSeq}")
@@ -90,17 +90,7 @@ public class UserController {
 		return "/user/myPage";
 	}
 	
-	@PostMapping("/myPage/{userSeq}/update")
-	@ApiOperation(value="유저 정보 갱신", notes="로그인 유저만 접근 가능합니다.")
-	public String update(@PathVariable("userSeq") int userSeq, @ModelAttribute User user, HttpServletRequest request, Model model) {
-		if (!user.getUserPwd().equals(request.getParameter("confirmedPwd"))) {
-			model.addAttribute("msg","비밀번호를 확인하세요.");
-			return "/user/updatePage";
-		}
-		
-		userService.modifyUser(user);
-		return "redirect:/user/myPage/" + userSeq;
-	}
+
 
 
 
