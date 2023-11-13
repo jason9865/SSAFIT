@@ -29,39 +29,18 @@
 </template>
   
 <script setup>
-import{ref, onMounted } from 'vue';
+import{ref, computed, onMounted, onUpdated } from 'vue';
 import axios from 'axios';
 import { useRoute } from 'vue-router';
 import { useBoardStore } from '@/stores/board.js'
+import { isFunction } from '@vue/shared';
 
 const boardStore = useBoardStore()
-const articleList = ref([]);
-
-const route = useRoute()
-const boardName = route.params.boardName
-
-const selectedBoard = () => {
-  boardStore.boardList.value.filters((board) =>{
-    board.name = boardName
-  })
-}
+const articleList = computed(()=>boardStore.articleList)
 
 onMounted(() => {
-    console.log("페이지가 로드 되었나요??")
-    axios({
-        url : "http://localhost:8080/board/1",
-        method : "GET"
-    })
-      .then((res) => {
-        console.log(res.data)
-        articleList.value = res.data
-      })
-      .catch((err) => {
-        console.log(err)
-        alert("서버 에러")
-      })
-    
-    boardStore.getBoardList()
+  console.log("onMounted")
+  boardStore.getArticleList(1)
 })
 
 </script>
