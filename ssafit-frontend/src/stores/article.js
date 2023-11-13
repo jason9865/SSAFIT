@@ -56,8 +56,49 @@ export const useArticleStore = defineStore('article', () => {
         })
     }
 
+    const likeCount = ref('')
+    const getLikeCount = function(articleId){
+        axios({
+            url : `${REST_API}/${articleId}/like`,
+            method : "GET"
+        })
+        .then((res) => {
+            likeCount.value = res.data
+        })
+        .catch((err) => {
+            console.log(err);
+            alert("서버 에러")
+        })
+    }
+
+    const doLikeArticle = function(articleLike) {
+        axios({
+            url : `${REST_API}/${articleLike.articleId}/like`,
+            method : "POST",
+            headers : {
+                "Content-Type" : "application/json"
+            },
+            data : articleLike
+        })
+        .then((res) => {
+            res == true?
+            alert("좋아요 완료"):
+            alert("좋아요 실패");
+        })
+        .catch((err)=> {
+            console.log(err);
+            alert("서버 에러")
+        })
+    }
+
+    // const  undoLikeArticle = function(articleLikeId) {
+    //     axios({
+    //         url : 
+    //     })
+    // }
+
     return {
         article, getArticle,
-        updateArticle,deleteArticle
+        updateArticle,deleteArticle,doLikeArticle
     }
 })
