@@ -1,18 +1,18 @@
 package com.ssafit.article.service;
 
 import com.ssafit.article.model.dao.ArticleDao;
-import com.ssafit.article.model.dto.request.ArticleModifyDto;
-import com.ssafit.article.model.dto.request.ArticleRegistDto;
+import com.ssafit.article.model.dto.request.ArticleModifyRequest;
+import com.ssafit.article.model.dto.request.ArticleRegistRequest;
 import com.ssafit.article.model.dto.response.ArticleResponse;
 import com.ssafit.article.model.entity.Article;
+import com.ssafit.article.model.entity.ArticleDislike;
+import com.ssafit.article.model.entity.ArticleLike;
 import com.ssafit.user.model.dao.UserDao;
 import com.ssafit.user.model.entity.User;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.*;
 
@@ -48,7 +48,7 @@ public class ArticleServiceImpl implements ArticleService {
 	
 
 	@Override
-	public boolean writeArticle(ArticleRegistDto request,int userSeq ) {
+	public boolean writeArticle(ArticleRegistRequest request, int userSeq ) {
 		User user = userDao.selectByUserSeq(userSeq);
 		Article newArticle =
 				Article.builder()
@@ -61,7 +61,7 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	public boolean modifyArticle(ArticleModifyDto request, int articleId, int userSeq) {
+	public boolean modifyArticle(ArticleModifyRequest request, int articleId, int userSeq) {
 		Article article = articleDao.selectById(articleId);
 		User user = userDao.selectByUserSeq(article.getUserSeq());
 		Article newArticle =
@@ -82,6 +82,80 @@ public class ArticleServiceImpl implements ArticleService {
 	@Override
 	public boolean deleteArticle(int articleId) {
 		return articleDao.deleteArticle(articleId) > 0;
+	}
+
+
+	// 좋아요
+	@Override
+	public int getLikeCount(int articleId) {
+		return articleDao.selectLikeCount(articleId);
+	}
+	
+	@Override
+	public boolean addArticleLike(int articleId, int userSeq) {
+		if (!isAvailable(articleId,userSeq)){
+			System.out.println("좋아요 안 돼. 안 해줘. 돌아가.");
+			return false;
+		}
+		
+		ArticleLike articleLike =
+				ArticleLike.builder()
+						.articleId(articleId)
+						.userSeq(userSeq)
+						.build();
+		
+		return articleDao.insertLike(articleLike) > 0;
+	}
+
+	@Override
+	public boolean deleteArticleLike(int articleLikeId) {
+		return articleDao.deleteLike(articleLikeId) > 0;
+	}
+	
+	// 싫어요
+
+	@Override
+	public int getDislikeCount(int articleId){
+		return articleDao.selectDislikeCount(articleId);
+	}
+
+	@Override
+	public boolean addArticleDislike(int articleId, int userSeq) {
+		if (!isAvailable(articleId,userSeq)){
+			System.out.println("싫어요 안 돼. 안 해줘. 돌아가.");
+			return false;
+		}
+
+		ArticleDislike articleDislike =
+				ArticleDislike.builder()
+						.articleId(articleId)
+						.userSeq(userSeq)
+						.build();
+
+
+		return articleDao.insertDislike(articleDislike) > 0;
+	}
+
+
+	@Override
+	public boolean deleteArticleDislike(int articleDislikeId) {
+		return articleDao.deleteDislike(articleDislikeId) > 0;
+	}
+
+	@Override
+	public ArticleLike findArticleLike(int articleId, int userSeq) {
+		return articleDao
+				.selectArticleLike(articleId, userSeq);
+	}
+
+	@Override
+	public ArticleDislike findArticleDislike(int articleId, int userSeq) {
+		return articleDao.selectArticleDislike(articleId, userSeq);
+	}
+
+	@Override
+	public 	boolean isAvailable(int articleId, int userSeq){
+		return findArticleLike(articleId, userSeq) == null && findArticleDislike(articleId,userSeq) == null;
 	}
 
 

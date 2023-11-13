@@ -89,5 +89,69 @@
  		WHERE article_id=#{articleId};
  	</delete>
 
- 	
+	<!-- 좋아요 -->
+
+	<select id="selectArticleLike" parameterType="Map" resultType="ArticleLike">
+		SELECT *
+		FROM article_like
+		WHERE
+		article_id = #{articleId}
+		AND
+		user_seq = #{userSeq}
+		;
+	</select>
+
+
+	<select id="selectLikeCount" parameterType="int" resultType="int">
+		SELECT count(*) as likeCount
+		FROM article_like
+		WHERE
+		article_id = #{articleId}
+		;
+	</select>
+
+	<insert id="insertLike" parameterType="ArticleLike">
+		INSERT INTO article_like(user_seq, article_id)
+		VALUES(#{userSeq},#{articleId})
+		;
+	</insert>
+
+	<delete id="deleteLike" parameterType="int">
+		DELETE FROM article_like
+		WHERE article_like_id = #{articleLikeId}
+		;
+	</delete>
+
+
+	<!--싫어요-->
+	<select id="selectDislikeCount" parameterType="int" resultType="int">
+		SELECT count(*) as likeCount
+		FROM article_dislike
+		WHERE
+		article_id = #{articleId}
+		;
+	</select>
+
+	<select id="selectArticleDislike" parameterType="Map">
+		SELECT *
+		FROM article_dislike
+		WHERE
+		article_id = #{articleId}
+		AND
+		user_seq = #{userSeq}
+		;
+	</select>
+
+	<insert id="insertDislike" parameterType="ArticleDisLike">
+		INSERT INTO article_dislike(user_seq, article_id)
+		VALUES(#{userSeq},#{articleId})
+		;
+	</insert>
+
+	<delete id="deleteDislike" parameterType="int">
+		DELETE FROM article_dislike
+		WHERE article_dislike_id = #{articleDislikeId}
+		;
+	</delete>
+
  </mapper>
