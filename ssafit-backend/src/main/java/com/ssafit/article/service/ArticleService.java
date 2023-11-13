@@ -1,9 +1,10 @@
 package com.ssafit.article.service;
 
-import com.ssafit.article.model.dto.request.ArticleModifyDto;
-import com.ssafit.article.model.dto.request.ArticleRegistDto;
+import com.ssafit.article.model.dto.request.ArticleModifyRequest;
+import com.ssafit.article.model.dto.request.ArticleRegistRequest;
 import com.ssafit.article.model.dto.response.ArticleResponse;
-import com.ssafit.article.model.entity.Article;
+import com.ssafit.article.model.entity.ArticleDislike;
+import com.ssafit.article.model.entity.ArticleLike;
 
 import java.util.List;
 
@@ -15,12 +16,28 @@ public interface ArticleService {
 	
 	ArticleResponse readArticle(int articleId);
 
-	boolean writeArticle(ArticleRegistDto articleRegistDto, int userSeq);
+	boolean writeArticle(ArticleRegistRequest articleRegistRequest, int userSeq);
 
-	boolean modifyArticle(ArticleModifyDto articleModifyDto, int articleId, int userSeq);
+	boolean modifyArticle(ArticleModifyRequest articleModifyRequest, int articleId, int userSeq);
 
 	boolean deleteArticle(int articleId);
 
 
+	int getLikeCount(int articleId);
 
+	boolean addArticleLike(int articleId, int userSeq);
+
+	boolean deleteArticleLike(int articleLikeId);
+
+	int getDislikeCount(int articleId);
+
+	boolean addArticleDislike(int articleId, int userSeq);
+
+	boolean deleteArticleDislike(int articleDislikeId);
+
+	ArticleLike findArticleLike(int articleId, int userSeq);
+
+	ArticleDislike findArticleDislike(int articleId, int userSeq);
+
+	boolean isAvailable(int articleId, int userSeq);
 }

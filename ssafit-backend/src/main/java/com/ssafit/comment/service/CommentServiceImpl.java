@@ -9,6 +9,8 @@ import com.ssafit.comment.model.dto.response.CommentResponse;
 import com.ssafit.comment.model.dto.resquest.CommentModifyRequest;
 import com.ssafit.comment.model.dto.resquest.CommentRegistRequest;
 import com.ssafit.comment.model.entity.Comment;
+import com.ssafit.comment.model.entity.CommentDislike;
+import com.ssafit.comment.model.entity.CommentLike;
 import com.ssafit.user.model.dao.UserDao;
 import com.ssafit.user.model.entity.User;
 import lombok.RequiredArgsConstructor;
@@ -78,5 +80,73 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public boolean removeComment(int id) {
         return commentDao.deleteComment(id) > 0;
+    }
+
+    @Override
+    public int getLikeCount(int commentId) {
+        return commentDao.selectLikeCount(commentId);
+    }
+
+    @Override
+    public boolean addCommentLike(int commentId, int userSeq) {
+        if(!isAvailable(commentId,userSeq)) {
+            System.out.println("댓글 좋아요 안 돼. 안 해줘. 돌아가");
+            return false;
+        }
+
+        CommentLike newCommentLike =
+                CommentLike.builder()
+                        .userSeq(userSeq)
+                        .commentId(commentId)
+                        .build();
+
+        return commentDao.insertLike(newCommentLike) > 0;
+    }
+
+    @Override
+    public boolean deleteCommentLike(int commentLikeId) {
+        return commentDao.deleteLike(commentLikeId) > 0;
+    }
+
+    @Override
+    public int getDislikeCount(int commentId) {
+        return commentDao.selectDislikeCount(commentId);
+    }
+
+    @Override
+    public boolean addCommentDislike(int commentId, int userSeq) {
+        if(!isAvailable(commentId,userSeq)) {
+            System.out.println("댓글 싫어요 안 돼. 안 해줘. 돌아가");
+            return false;
+        }
+
+        CommentDislike newCommentDislike =
+                CommentDislike.builder()
+                        .commentId(commentId)
+                        .userSeq(userSeq)
+                        .build();
+
+        return commentDao.insertDislike(newCommentDislike) > 0;
+    }
+
+    @Override
+    public boolean deleteCommentDislike(int commentDislikeId) {
+        return commentDao.deleteDislike(commentDislikeId) > 0;
+    }
+
+    @Override
+    public CommentLike findCommentLike(int commentId, int userSeq) {
+        return commentDao.selectCommentLike(commentId,userSeq);
+    }
+
+    @Override
+    public CommentDislike findCommentDislike(int commentId, int userSeq) {
+        return commentDao.selectCommentDislike(commentId,userSeq);
+    }
+
+    // 좋아요와 싫어요를 둘 다 누른 적이 없어야 한다.
+    @Override
+    public boolean isAvailable(int commentId, int userSeq){
+        return findCommentLike(commentId, userSeq) == null && findCommentDislike(commentId, userSeq) == null;
     }
 }

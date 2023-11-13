@@ -48,7 +48,71 @@
  		WHERE comment_id=#{commentId}
 		;
  	</delete>
- 	
+
+	<!-- 댓글 별 좋아요 개수-->
+	<select id="selectLikeCount" parameterType="int" resultType="int">
+		SELECT count(*) FROM comment
+		WHERE comment_id = #{commentId}
+		;
+	</select>
+
+	<!-- 좋아요 row -->
+	<select id="selectCommentLike" parameterType="Map" resultType="CommentLike">
+		SELECT *
+		FROM comment_like
+		WHERE
+		comment_id = #{commentId}
+		AND
+		user_seq = #{userSeq}
+		;
+	</select>
+
+	<!-- 댓글 좋아요 누르기-->
+	<insert id="insertLike" parameterType="CommentLike">
+		INSERT INTO comment_like(user_seq, comment_id)
+		VALUES (#{userSeq}, #{commentId})
+		;
+	</insert>
+
+	<!-- 댓글 좋아요 취소-->
+	<delete id="deleteLike" parameterType="int">
+		DELETE FROM comment_like
+		WHERE comment_like_id = #{commentLikeId}
+		;
+	</delete>
+
+	<!-- 댓글 별 싫어요 개수-->
+	<select id="selectDislikeCount" parameterType="int" resultType="int">
+		SELECT count(*) FROM comment
+		WHERE comment_id = #{commentId}
+		;
+	</select>
+
+	<!-- 싫어요 row -->
+	<select id="selectCommentDislike" parameterType="Map" resultType="CommentDislike">
+		SELECT *
+		FROM comment_dislike
+		WHERE
+		comment_id = #{commentId}
+		AND
+		user_seq = #{userSeq}
+		;
+	</select>
+
+	<!-- 댓글 싫어요 누르기-->
+	<insert id="insertDislike" parameterType="CommentDislike">
+		INSERT INTO comment_dislike(user_seq, comment_id)
+		VALUES (#{userSeq}, #{commentId})
+		;
+	</insert>
+
+	<!-- 댓글 싫어요 취소-->
+	<delete id="deleteDislike" parameterType="int">
+		DELETE FROM comment_dislike
+		WHERE comment_dislike_id = #{commentDislikeId}
+		;
+	</delete>
+
 
  	
  </mapper>

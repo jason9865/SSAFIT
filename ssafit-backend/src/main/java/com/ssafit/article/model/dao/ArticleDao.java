@@ -1,6 +1,9 @@
 package com.ssafit.article.model.dao;
 
 import com.ssafit.article.model.entity.Article;
+import com.ssafit.article.model.entity.ArticleDislike;
+import com.ssafit.article.model.entity.ArticleLike;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -24,10 +27,28 @@ public interface ArticleDao {
 	
 	// 조회 수 증가
 	void updateViewCnt(int articleId);
-	
-	// 좋아요 증가(좋아요 등록)
-	void addLike();
-	
+
+	// 좋아요 확인
+	ArticleLike selectArticleLike(@Param("articleId")int articleId, @Param("userSeq")int userSeq);
+
+	// 게시글 별 좋아요 개수 확인
+	int selectLikeCount(int articleId);
+
+	// 좋아요 등록
+	int insertLike(ArticleLike articleLike);
+
+	// 좋아요 취소
+	int deleteLike(int articleLikeId);
+
+	// 게시판 별 싫어요 개수 확인
+	int selectDislikeCount(int articleId);
+
+	// 싫어요 확인
+	ArticleDislike selectArticleDislike(@Param("articleId")int articleId, @Param("userSeq")int userSeq);
+
 	// 싫어요 증가(싫어요 등록)
-	void addDislike();
+	int insertDislike(ArticleDislike articleDislike);
+
+	// 싫어요 취소
+	int deleteDislike(int articleDislikeId);
 }

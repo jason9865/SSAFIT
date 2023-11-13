@@ -10,4 +10,5 @@ class SsafitApplicationTests {
 	void contextLoads() {
 	}
 
+
 }

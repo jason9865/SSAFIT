@@ -4,7 +4,7 @@ import com.ssafit.board.model.entity.Board;
 import com.ssafit.user.model.entity.User;
 import lombok.*;
 
-@Data
+@Getter
 @NoArgsConstructor(access=AccessLevel.PROTECTED)
 public class Article {
 	private int articleId;

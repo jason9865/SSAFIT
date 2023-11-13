@@ -6,8 +6,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ArticleRegistDto {
-    private int boardId;
+public class ArticleModifyRequest {
     private String title;
     private String content;
 }
