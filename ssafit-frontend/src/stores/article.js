@@ -20,7 +20,7 @@ export const useArticleStore = defineStore('article', () => {
           })
     }
 
-    const updateArticle = function(article) {
+    const writeArticle = function(article) {
         axios({
             url : `${REST_API}/${article.articleId}`,
             method : "POST",
@@ -33,6 +33,26 @@ export const useArticleStore = defineStore('article', () => {
             res === true ?
             alert("게시글 등록 완료") :
             alert("게시글 등록 실패")
+        })
+        .catch((err) => {
+            console.log(err)
+            alert("서버 에러")
+        })
+    }
+
+    const updateArticle = function(article) {
+        axios({
+            url : `${REST_API}/${article.articleId}`,
+            method : "PUT",
+            headers : {
+                'Content-Type' : `application/json`
+            },
+            data : article
+        })
+        .then((res) =>{
+            res === true ?
+            alert("게시글 수정 완료") :
+            alert("게시글 수정 실패")
         })
         .catch((err) => {
             console.log(err)
@@ -99,6 +119,6 @@ export const useArticleStore = defineStore('article', () => {
 
     return {
         article, getArticle,
-        updateArticle,deleteArticle,doLikeArticle
+        writeArticle,deleteArticle,doLikeArticle
     }
 })

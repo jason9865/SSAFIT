@@ -2,6 +2,8 @@ package com.ssafit.user.service;
 
 import com.ssafit.user.model.dao.UserDao;
 import com.ssafit.user.model.dto.request.UserLoginRequest;
+import com.ssafit.user.model.dto.request.UserModifyRequest;
+import com.ssafit.user.model.dto.request.UserRegistRequest;
 import com.ssafit.user.model.dto.response.UserResponse;
 import com.ssafit.user.model.entity.User;
 import lombok.RequiredArgsConstructor;
@@ -36,20 +38,32 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int registUser(User user) {
-		// TODO Auto-generated method stub
-//		userDao.insertUser(user);
-		 return userDao.insertUser(user);
+	public boolean registUser(UserRegistRequest request) {
+		User newUser = User.builder()
+				.userId(request.getUserId())
+				.userPwd(request.getUserPwd())
+				.userName(request.getUserName())
+				.nickName(request.getNickName())
+				.email(request.getEmail())
+				.build();
+		return userDao.insertUser(newUser) > 0;
 	}
 
 	@Override
-	public void modifyUser(User user) {
-		userDao.updateUser(user);
+	public boolean modifyUser(UserModifyRequest request, int userSeq) {
+		User updatedUser = User.builder()
+				.userSeq(userSeq)
+				.userPwd(request.getUserPwd())
+				.userName(request.getUserName())
+				.nickName(request.getNickName())
+				.email(request.getEmail())
+				.build();
+		return userDao.updateUser(updatedUser) > 0;
 	}
 
 	@Override
-	public void removeUser(int userSeq) {
-		userDao.deleteUser(userSeq);
+	public boolean removeUser(int userSeq) {
+		return userDao.deleteUser(userSeq) > 0;
 	}
 	
 	@Override
