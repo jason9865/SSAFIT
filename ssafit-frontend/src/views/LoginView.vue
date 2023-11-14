@@ -18,18 +18,18 @@
 
 <script setup>
 import { ref } from "vue";
+import { useUserStore } from '@/stores/user.js'
 
 const id = ref("");
 const password = ref("");
 
-const emit = defineEmits(["loginUser"]);
+const store = useUserStore()
 
 const login = () => {
   let user = {
     id: id.value,
     password: password.value,
   };
-  console.log(user.id)
-  emit("loginUser", user);
+  store.login(user)
 };
 </script>

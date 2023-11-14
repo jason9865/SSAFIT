@@ -1,7 +1,7 @@
 <template>
   <div>
-    <HeaderNav :user="user" @logout="logout" />
-    <RouterView @login-user="loginUser"/>
+    <HeaderNav />
+    <RouterView />
     <FooterNav/>
   </div>
 </template>
@@ -23,37 +23,9 @@ onMounted(() => {
   }
 });
 
-const logout = () => {
-  user.value = null;
-  localStorage.removeItem("loginUser");
-};
 
-const loginUser = (loginUser) => {
-  const API_URL = `http://localhost:8080/user/login`;
-  console.log(loginUser.id)
-  axios({
-    url : `http://localhost:8080/user/login`,
-    method : "POST",
-    data : {
-      userId: loginUser.id,
-      userPwd : loginUser.password,
-    }
-  })
-    .then((res) => {
-      user.value = res.data
-      if(user.value) {
-        localStorage.setItem("loginUser", JSON.stringify(user))
-        alert("로그인 성공");
-        router.push("/");
-      } else {
-        alert("로그인 실패");
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-      alert("로그인 실패: 서버 에러");
-    });
-};
+
+
 
 
 </script>
