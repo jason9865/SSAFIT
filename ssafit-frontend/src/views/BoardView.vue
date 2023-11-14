@@ -1,6 +1,7 @@
 <template>
     <div>
       <BoardHeader/>
+      <RouterView/>
     </div>
   </template>
   

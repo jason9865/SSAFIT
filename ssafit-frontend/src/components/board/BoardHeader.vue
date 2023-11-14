@@ -8,7 +8,6 @@
         </span>
         <!-- <RouterLink to="/board/announce" @click="announce">공지사항</RouterLink> |
         <RouterLink to="/board/free" @click="free">자유게시판</RouterLink> -->
-        <RouterView/>
     </div>
 </template>
 
@@ -21,25 +20,23 @@ const boardStore = useBoardStore()
 
 // const announce = () => {
 //     boardStore.getArticleList(2)
+//     boardStore.getBoard(2)
 // }
 
 // const free = () => {
 //     boardStore.getArticleList(1)
+//     boardStore.getBoard(1)
 // }
 
 // boardId를 넣으면 boardId에 해당하는(게시판에 속한) articleList로 갱신한다.
 const getArticles = (boardId) => {
-    console.log("getArticles",boardId)
+    console.log("boardId : " + boardId)
     boardStore.getArticleList(boardId)
+    boardStore.getBoard(boardId)
 }
 
 // useBoardStore에 있는 boardList를 caching하기 위한 코드
 const boardList = computed(() => boardStore.boardList);
-
-onMounted(() => {
-    console.log("BoardHeader OnMounted");
-    boardStore.getBoardList(); // 페이지가 mount될 때 getBoardList()를 통해 boardList를 갱신한다.
-})
 
 </script>
 

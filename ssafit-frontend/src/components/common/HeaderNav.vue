@@ -6,10 +6,10 @@
         </div>
         <div>
           <RouterLink to="/video">운동영상</RouterLink>
-          <RouterLink to="/board">커뮤니티</RouterLink>
+          <RouterLink to="/board" @click="loadBoardList">커뮤니티</RouterLink>
           <RouterLink to="/login" v-if="!getUser">로그인</RouterLink>
           <span v-else>
-            <!-- <span> {{ d}} 님 환영합니다.</span> -->
+            <span> {{ store.loginUser.userName}} 님 환영합니다.</span>
             <a href="#" class="mx-3" @click="logout">로그아웃</a>
           </span>
           <!-- <RouterLink :to="{ name: 'Regist' }">회원가입</RouterLink> -->
@@ -23,11 +23,13 @@ import { storeToRefs } from "pinia";
 import { ref,computed } from "vue";
 import { RouterLink } from "vue-router";
 import { useUserStore } from "@/stores/user";
+import { useBoardStore } from "@/stores/board";
 
 const props = defineProps(["user"]);
 const emits = defineEmits(["logout"]);
 
 const store = useUserStore()
+const boardstore = useBoardStore()
 const getUser = computed(() => store.loginUser);
 
 // const userName = ref(JSON.parse(localStorage.getItem("loginUser"))?.data.userName)
@@ -35,6 +37,10 @@ const getUser = computed(() => store.loginUser);
 const logout = () => {
   store.logout()
 };
+
+const loadBoardList = () => {
+  boardstore.getBoardList()
+}
 </script>
 
 <style scoped>
