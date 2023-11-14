@@ -38,6 +38,7 @@ export const useBoardStore = defineStore('board', () => {
           })
     }
 
+
     return {
         boardList,
         getBoardList,
