@@ -7,18 +7,17 @@ const REST_API = 'http://localhost:8080/board'
 export const useBoardStore = defineStore('board', () => {
 
     const board = ref(null)
-    const getBoard = () => {
+
+    const getBoard = (boardId) => {
       axios({
-        url : REST_API,
+        url : `${REST_API}/${boardId}/detail`,
         method : "GET",
       })
       .then((res) => {
-        console.log(res.data)
         board.value = res.data;
       })
       .catch((err) => {
         console.log(err)
-        alert("서버 에러")
       })
     }
 
@@ -50,8 +49,9 @@ export const useBoardStore = defineStore('board', () => {
           })
           .catch((err) => {
             console.log(err)
-            alert("서버 에러")
           })
+
+        getBoard(boardId)
     }
 
 
@@ -60,5 +60,7 @@ export const useBoardStore = defineStore('board', () => {
         getBoardList,
         articleList,
         getArticleList,
+        getBoard,
+        board,
     }
 })
