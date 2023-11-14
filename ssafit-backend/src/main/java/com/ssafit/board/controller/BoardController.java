@@ -48,6 +48,13 @@ public class BoardController {
 		return new ResponseEntity<List<ArticleResponse>>(articleList,HttpStatus.OK);
 	}
 
+	@GetMapping("/{boardId}/detail")
+	@ApiOperation(value="게시판 1개 가져오기")
+	public ResponseEntity<Board> getBoard(@PathVariable int boardId){
+		Board board = boardService.getBoard(boardId);
+		return new ResponseEntity<Board>(board,HttpStatus.OK);
+	}
+
 	@PostMapping("/write")
 	@ApiOperation(value="게시판 등록", notes="관리자만 등록이 가능합니다.")
 	public ResponseEntity<Boolean> regist(@RequestBody Board board) {

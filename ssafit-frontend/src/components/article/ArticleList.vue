@@ -46,7 +46,7 @@ console.log(boardName)
 
 onMounted(() => {
   console.log("onMounted")
-  boardStore.getArticleList(1)
+  // boardStore.getArticleList(1)
 })
 
 </script>
