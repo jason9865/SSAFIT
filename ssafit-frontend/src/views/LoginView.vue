@@ -1,17 +1,17 @@
 <template>
   <div class="container">
     <h2>로그인</h2>
-    <fieldset>
+    <fieldset class="text-center">
       <label for="id">아이디</label>
-      <input class= "form-control view" type="text" id="id" v-model="id" /><br />
+      <input type="text" id="id" v-model="id" class="view" /><br />
       <label for="password">비밀번호</label>
       <input
         type="password"
         id="password"
         v-model="password"
-        class="form-control view"
+        class="view"
       /><br />
-      <button class="btn btn-outline-success" @click="login">로그인</button>
+      <button class="btn" @click="login">로그인</button>
     </fieldset>
   </div>
 </template>

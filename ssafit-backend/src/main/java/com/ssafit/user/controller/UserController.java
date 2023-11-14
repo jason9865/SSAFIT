@@ -39,6 +39,7 @@ public class UserController {
 		System.out.println(loginUser);
 		if (loginUser != null) {
 			session.setAttribute("loginUser", loginUser);
+			System.out.println("login성공!" + session.getAttribute("loginUser"));
 			return new ResponseEntity<UserResponse>(loginUser, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<Void>(HttpStatus.UNAUTHORIZED);
