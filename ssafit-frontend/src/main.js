@@ -6,6 +6,7 @@ import router from './router'
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap-icons/font/bootstrap-icons.css"
 
+<<<<<<< HEAD
 // Vuetify
 // import "vuetify/styles";
 // import { createVuetify } from "vuetify";
@@ -13,6 +14,20 @@ import "bootstrap-icons/font/bootstrap-icons.css"
 // import * as directives from "vuetify/directives";
 // import { aliases, mdi } from "vuetify/iconsets/mdi";
 
+=======
+// bootstrap
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
+import "bootstrap/dist/js/bootstrap.js";
+
+// Vuetify
+// import "vuetify/styles";
+// import { createVuetify } from "vuetify";
+// import * as components from "vuetify/components";
+// import * as directives from "vuetify/directives";
+// import { aliases, mdi } from "vuetify/iconsets/mdi";
+
+>>>>>>> cb1d96f31525bbe845c6f91ef52cc5bde6c1059c
 // const vuetify = createVuetify({
 //   components,
 //   directives,
