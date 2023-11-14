@@ -21,8 +21,9 @@ export const useArticleStore = defineStore('article', () => {
     }
 
     const writeArticle = function(article) {
+        console.log(article.boardId)
         axios({
-            url : `${REST_API}/${article.articleId}`,
+            url : `${REST_API}/write`,
             method : "POST",
             headers : {
                 'Content-Type' : `application/json`
@@ -118,7 +119,12 @@ export const useArticleStore = defineStore('article', () => {
     // }
 
     return {
-        article, getArticle,
-        writeArticle,deleteArticle,doLikeArticle
+        article,
+        getArticle,
+        writeArticle,
+        deleteArticle,
+        doLikeArticle,
+        getLikeCount,
+        updateArticle,
     }
 })
