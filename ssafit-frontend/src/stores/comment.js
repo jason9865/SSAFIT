@@ -14,8 +14,10 @@ export const useCommentStore = defineStore('comment', () => {
             url : `${REST_API}/${articleId}`,
             method : "GET"
         })
-        .then((res) =>
-        commentList.value = res.data
+        .then((res) =>{
+            console.log(res.data)
+            commentList.value = res.data
+        }
         )
         .catch((err) =>{
             console.log(err)

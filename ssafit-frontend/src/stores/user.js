@@ -5,6 +5,7 @@ import axios from 'axios'
 const REST_API = 'http://localhost:8080/user'
 
 export const useUserStore = defineStore('user', () => {
+    const loginUser = ref(null)
 
     const createUser = (user) => {
         axios({
@@ -81,6 +82,6 @@ export const useUserStore = defineStore('user', () => {
     
 
     return {
-        signup, updateUser, deleteUser, 
+        signup, updateUser, createUser, deleteUser
     }
 })
