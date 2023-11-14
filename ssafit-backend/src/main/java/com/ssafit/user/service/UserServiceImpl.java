@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static java.util.stream.Collectors.*;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -19,8 +21,12 @@ public class UserServiceImpl implements UserService {
 	private final UserDao userDao;
 	
 	@Override
-	public List<User> getList() {
-		return userDao.selectAll();
+	public List<UserResponse> getList() {
+
+		return userDao.selectAll().stream()
+				.map(UserResponse::from)
+				.collect(toList());
+
 	}
 	@Override
 	public User searchByUserSeq(int userSeq) {

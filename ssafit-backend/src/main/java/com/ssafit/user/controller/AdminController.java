@@ -50,12 +50,5 @@ public class AdminController {
         return new ResponseEntity<List<ArticleResponse>>(articleList,HttpStatus.OK);
     }
 
-    @GetMapping("/user")
-    @ApiOperation(value="유저 리스트", notes="관리자 계정만 접근 가능합니다.")
-    public ResponseEntity<List<User>> adminUser() {
-        List<User> userList = userService.getList().stream()
-                .filter(u -> u.getUserRank()<2)
-                .collect(Collectors.toList());
-        return new ResponseEntity<List<User>>(userList,HttpStatus.OK);
-    }
+
 }
