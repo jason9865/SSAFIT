@@ -8,11 +8,12 @@
           <RouterLink to="/video">운동영상</RouterLink>
           <RouterLink to="/board">커뮤니티</RouterLink>
           <RouterLink to="/login" v-if="!getUser">로그인</RouterLink>
+          <RouterLink to="/signup" v-if="!getUser">회원가입</RouterLink>
           <span v-else>
             <!-- <span> {{ d}} 님 환영합니다.</span> -->
             <a href="#" class="mx-3" @click="logout">로그아웃</a>
+            <RouterLink to="/mypage">마이페이지</RouterLink>
           </span>
-          <!-- <RouterLink :to="{ name: 'Regist' }">회원가입</RouterLink> -->
         </div>
       </nav>
     </header>

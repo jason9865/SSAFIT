@@ -14,7 +14,6 @@
     </div>
 
     <hr>
-
     <CommentList :article-id="articleId"/>
     
   </div>
