@@ -1,7 +1,6 @@
 <template>
     <div>
       <h3>댓글 리스트</h3>
-      <!-- <h3>id : {{ props.articleId }}</h3> -->
       <hr>
       <div v-for="comment in commentList" :key="comment.commentId">
         <h4>{{ comment.userId }} - {{ comment.nickName }}</h4>
