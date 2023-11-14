@@ -54,7 +54,10 @@ public class ArticleController {
 	public ResponseEntity<Boolean> writeArticle(
 			@RequestBody ArticleRegistRequest articleRegistRequest,
 			HttpSession session	) {
+		System.out.println(articleRegistRequest.getBoardId() + "--------------------");
+		System.out.println(session.getAttribute("loginUser"));
 		UserResponse loginUser = (UserResponse)session.getAttribute("loginUser");
+		if(loginUser == null) System.out.println("tlqkf");
 		int userSeq = loginUser.getUserSeq();
 		boolean isRegistered = articleService.writeArticle(articleRegistRequest, userSeq);
 		if (!isRegistered)

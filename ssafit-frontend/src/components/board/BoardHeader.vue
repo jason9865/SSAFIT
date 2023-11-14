@@ -30,7 +30,6 @@ const boardStore = useBoardStore()
 
 // boardId를 넣으면 boardId에 해당하는(게시판에 속한) articleList로 갱신한다.
 const getArticles = (boardId) => {
-    console.log("boardId : " + boardId)
     boardStore.getArticleList(boardId)
     boardStore.getBoard(boardId)
 }

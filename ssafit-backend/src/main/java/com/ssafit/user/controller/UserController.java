@@ -37,7 +37,7 @@ public class UserController {
 		UserResponse loginUser = userService.login(loginRequest);
 		System.out.println(loginUser);
 		if (loginUser != null) {
-			session.setAttribute("loginUser",loginUser);
+			session.setAttribute("loginUser", loginUser);
 			return new ResponseEntity<UserResponse>(loginUser, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<Void>(HttpStatus.UNAUTHORIZED);
