@@ -19,18 +19,21 @@
   </template>
 
 <script setup>
+import { storeToRefs } from "pinia";
 import { ref,computed } from "vue";
 import { RouterLink } from "vue-router";
+import { useUserStore } from "@/stores/user";
 
 const props = defineProps(["user"]);
 const emits = defineEmits(["logout"]);
 
-const getUser = computed(() => !!props.user);
+const store = useUserStore()
+const getUser = computed(() => store.loginUser);
 
 // const userName = ref(JSON.parse(localStorage.getItem("loginUser"))?.data.userName)
 
 const logout = () => {
-  emits("logout");
+  store.logout()
 };
 </script>
 
