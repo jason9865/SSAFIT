@@ -10,8 +10,9 @@
         id="password"
         v-model="password"
         class="view"
+        @keyup.enter="login"
       /><br />
-      <button class="btn" @click="login">로그인</button>
+      <button class="btn" @click="login" >로그인</button>
     </fieldset>
   </div>
 </template>
