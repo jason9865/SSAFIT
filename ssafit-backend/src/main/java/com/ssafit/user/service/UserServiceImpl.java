@@ -29,8 +29,8 @@ public class UserServiceImpl implements UserService {
 
 	}
 	@Override
-	public User searchByUserSeq(int userSeq) {
-		return userDao.selectByUserSeq(userSeq);
+	public UserResponse searchByUserSeq(int userSeq) {
+		return UserResponse.from(userDao.selectByUserSeq(userSeq));
 	}
 
 	@Override

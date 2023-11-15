@@ -7,12 +7,12 @@
         <div>
           <RouterLink to="/video">운동영상</RouterLink>
           <RouterLink to="/board" @click="loadBoardList">커뮤니티</RouterLink>
-          <RouterLink to="/login" v-if="!getUser">로그인</RouterLink>
-          <RouterLink to="/signup" v-if="!getUser">회원가입</RouterLink>
+          <RouterLink to="/login" v-if="!loginUser">로그인</RouterLink>
+          <RouterLink to="/signup" v-if="!loginUser">회원가입</RouterLink>
           <span v-else>
-            <span> {{ getUser.userName }} 님 환영합니다.</span>
+            <span> {{ loginUser.userName }} 님</span>
             <a href="#" class="mx-3" @click="logout">로그아웃</a>
-            <RouterLink to="/mypage">마이페이지</RouterLink>
+            <RouterLink to="/mypage" @click="getUserInfo">마이페이지</RouterLink>
           </span>
         </div>
       </nav>
@@ -31,7 +31,7 @@ const emits = defineEmits(["logout"]);
 
 const store = useUserStore()
 const boardstore = useBoardStore()
-const getUser = computed(() => JSON.parse(sessionStorage.getItem("loginUser")));
+const loginUser = ref(computed(() => store.loginUser))
 
 // const userName = ref(JSON.parse(localStorage.getItem("loginUser"))?.data.userName)
 
@@ -41,6 +41,10 @@ const logout = () => {
 
 const loadBoardList = () => {
   boardstore.getBoardList()
+}
+
+const getUserInfo = () => {
+  store.getUser(loginUser.userSeq)
 }
 </script>
 

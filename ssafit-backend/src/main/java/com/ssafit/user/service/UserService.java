@@ -11,8 +11,8 @@ import java.util.List;
 public interface UserService {
 
 	List<UserResponse> getUserList();
-	
-	User searchByUserSeq(int userSeq);
+
+	UserResponse searchByUserSeq(int userSeq);
 	
 	User searchByUserId(String userId);
 	
