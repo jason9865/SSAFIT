@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -91,9 +92,10 @@ public class CommentController {
 
     @PostMapping("/{commentId}/like")
     @ApiOperation(value = "댓글 좋아요 누르기")
-    public ResponseEntity<Boolean> doCommentLike(@PathVariable int commentId, HttpSession session) {
-        UserResponse loginUser = (UserResponse) session.getAttribute("loginUser");
-        int userSeq = loginUser.getUserSeq();
+    public ResponseEntity<Boolean> doCommentLike(@PathVariable int commentId, HttpServletRequest request) {
+//        UserResponse loginUser = (UserResponse) session.getAttribute("loginUser");
+//        int userSeq = loginUser.getUserSeq();
+        int userSeq = Integer.parseInt(request.getHeader("userSeq"));
 
         boolean isLikeDone = commentService.addCommentLike(commentId,userSeq);
         if (!isLikeDone)
@@ -118,9 +120,8 @@ public class CommentController {
 
     @PostMapping("/{commentId}/dislike")
     @ApiOperation(value = "댓글 싫어요 누르기")
-    public ResponseEntity<Boolean> doCommentDislike(@PathVariable int commentId, HttpSession session) {
-        UserResponse loginUser = (UserResponse) session.getAttribute("loginUser");
-        int userSeq = loginUser.getUserSeq();
+    public ResponseEntity<Boolean> doCommentDislike(@PathVariable int commentId, HttpServletRequest request) {
+        int userSeq = Integer.parseInt(request.getHeader("userSeq"));
 
         boolean isDislikeDone = commentService.addCommentDislike(commentId,userSeq);
         if (!isDislikeDone)
