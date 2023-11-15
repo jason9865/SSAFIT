@@ -6,6 +6,8 @@ import com.ssafit.user.model.dto.request.UserRegistRequest;
 import com.ssafit.user.model.dto.response.UserResponse;
 import com.ssafit.user.model.entity.User;
 import com.ssafit.user.service.UserService;
+import com.ssafit.util.JwtUtil;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/user")
@@ -26,25 +32,43 @@ import java.util.List;
 @CrossOrigin("http://localhost:5173/")
 public class UserController {
 	
+	private static final String SUCCESS = "success";
+	private static final String FAIL = "fail";
+	
 	private final UserService userService;
 
 	@Autowired
 	public UserController(UserService userService) {
 		this.userService = userService;
 	}
+	
+	@Autowired
+	private JwtUtil jwtUtil;
 
 	@PostMapping("/login")
 	@ApiOperation(value="로그인을 합니다.", notes="bindingResult 추후 추가 예정")
-	public ResponseEntity<?> login(@RequestBody UserLoginRequest loginRequest, HttpSession session) {
+	public ResponseEntity<Map<String, Object>> login(@RequestBody UserLoginRequest loginRequest, HttpSession session) {
+		Map<String, Object> result = new HashMap<String, Object>();
 		UserResponse loginUser = userService.login(loginRequest);
 		System.out.println(loginUser);
+		
+		HttpStatus status = null;
+		
 		if (loginUser != null) {
-			session.setAttribute("loginUser", loginUser);
-			System.out.println("login성공!" + session.getAttribute("loginUser"));
-			return new ResponseEntity<UserResponse>(loginUser, HttpStatus.OK);
+			try {
+				result.put("access-token", jwtUtil.createToken("seq", ""+loginUser.getUserSeq()));
+				result.put("loginUser", loginUser);	
+				result.put("message", SUCCESS);
+				status = HttpStatus.ACCEPTED;
+			} catch (UnsupportedEncodingException e) {
+				result.put("message", FAIL);
+				status = HttpStatus.NO_CONTENT;
+			}
 		} else {
-			return new ResponseEntity<Void>(HttpStatus.UNAUTHORIZED);
+			result.put("message", FAIL);
+			status = HttpStatus.NO_CONTENT;
 		}
+		return new ResponseEntity<Map<String, Object>>(result, status);
 	}
 	
 	@GetMapping("/logout")
