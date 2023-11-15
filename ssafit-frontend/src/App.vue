@@ -13,15 +13,21 @@ import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import axios from "axios";
 import { useBoardStore } from './stores/board';
+import { useUserStore } from './stores/user';
 
 const router = useRouter();
 const user = ref(null);
 
 const boardStore = useBoardStore()
 
-const savedUser = ref(null)
+const userStore = useUserStore()
 
 onMounted(() => {
+  if(sessionStorage.getItem("loginUser")){
+    userStore.loginUser = JSON.parse(sessionStorage.getItem("loginUser"))
+    console.log(userStore.loginUser.userName)
+  }
+
   console.log("App onMounted")
   boardStore.getBoardList()
   axios({

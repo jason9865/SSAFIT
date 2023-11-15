@@ -107,27 +107,19 @@ export const useUserStore = defineStore('user', () => {
             console.log(sessionStorage.getItem("userSeq"))
             console.log(JSON.parse(sessionStorage.getItem("loginUser")))
 
+            alert("로그인 성공!")
+            // 일단은 유저 정보 전체 저장
             loginUser.value = response.data["loginUser"]
-
             router.push("/")
-            // if(res.data) {
-            //     loginUser.value = res.data
-            //     console.log(loginUser)
-            //     sessionStorage.setItem('loginUser',JSON.stringify(loginUser))
-            //     alert("로그인 성공!")
-            //     router.push("/")
-            // } else {
-            //     alert("아이디 혹은 비밀번호를 확인해주세요.")
-            // }
           })
           .catch((err) => {
             console.log(err);
-            alert("로그인 실패: 서버 에러");
+            alert("아이디 혹은 비밀번호를 확인해주세요.");
           });
       };
 
       const logout = () => {
-        sessionStorage.clear()
+        sessionStorage.removeItem("loginUser")
         loginUser.value = null;
         alert("로그아웃!")
         router.push("/")

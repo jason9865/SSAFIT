@@ -11,11 +11,12 @@
 </template>
 
 <script setup>
+import { computed, } from 'vue';
 import {useUserStore} from '@/stores/user.js'
 // import UserUpdateForm from '../components/user/UserUpdateForm.vue';
 const store = useUserStore()
-const loginUser = store.loginUser
 
+const loginUser = computed(() => store.loginUser)
 
 </script>
 
