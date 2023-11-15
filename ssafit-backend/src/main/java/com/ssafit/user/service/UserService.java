@@ -9,8 +9,8 @@ import com.ssafit.user.model.entity.User;
 import java.util.List;
 
 public interface UserService {
-	
-	List<User> getList();
+
+	List<UserResponse> getUserList();
 	
 	User searchByUserSeq(int userSeq);
 	

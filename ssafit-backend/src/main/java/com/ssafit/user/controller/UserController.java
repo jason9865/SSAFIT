@@ -18,10 +18,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
 @Api(tags="사용자 관리 컨트롤러")
+@CrossOrigin("http://localhost:5173/")
 public class UserController {
 	
 	private final UserService userService;
@@ -38,6 +40,7 @@ public class UserController {
 		System.out.println(loginUser);
 		if (loginUser != null) {
 			session.setAttribute("loginUser", loginUser);
+			System.out.println("login성공!" + session.getAttribute("loginUser"));
 			return new ResponseEntity<UserResponse>(loginUser, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<Void>(HttpStatus.UNAUTHORIZED);
@@ -49,6 +52,12 @@ public class UserController {
 	public ResponseEntity<Void> logout(HttpSession session) {
 		session.invalidate();
 		return ResponseEntity.ok().build();
+	}
+
+	@GetMapping
+	@ApiOperation(value="회원 리스트 가져오기")
+	public ResponseEntity<List<UserResponse>> getUsers() {
+		return new ResponseEntity<List<UserResponse>>(userService.getUserList(),HttpStatus.OK);
 	}
 	
 	@PostMapping("/signup")
@@ -78,19 +87,6 @@ public class UserController {
 			return new ResponseEntity<Boolean>(isRemoved,HttpStatus.BAD_REQUEST);
 		return new ResponseEntity<Boolean>(isRemoved,HttpStatus.OK);
 	}
-
-	@GetMapping("/myPage/{userSeq}")
-	@ApiOperation(value="마이 페이지", notes="로그인 유저만 접근 가능합니다.")
-	public String myPage(@PathVariable("userSeq") int userSeq, Model model) {
-		User myUser = userService.searchByUserSeq(userSeq);
-		model.addAttribute("user",myUser);
-		
-		if (myUser.getUserRank() == 2)
-			return "/admin/adminPage";
-		return "/user/myPage";
-	}
-	
-
 
 
 

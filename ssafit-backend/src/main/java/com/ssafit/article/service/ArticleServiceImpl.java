@@ -7,6 +7,8 @@ import com.ssafit.article.model.dto.response.ArticleResponse;
 import com.ssafit.article.model.entity.Article;
 import com.ssafit.article.model.entity.ArticleDislike;
 import com.ssafit.article.model.entity.ArticleLike;
+import com.ssafit.board.model.dao.BoardDao;
+import com.ssafit.board.model.entity.Board;
 import com.ssafit.user.model.dao.UserDao;
 import com.ssafit.user.model.entity.User;
 import lombok.RequiredArgsConstructor;
@@ -22,11 +24,17 @@ public class ArticleServiceImpl implements ArticleService {
 	
 	private final ArticleDao articleDao;
 	private final UserDao userDao;
+	private final BoardDao boardDao;
 	
 	@Override
 	public List<ArticleResponse> getArticleList() {
 		return articleDao.selectAll().stream()
-				.map(article -> ArticleResponse.from(article,userDao.selectByUserSeq(article.getUserSeq())))
+				.map(article ->
+				ArticleResponse.from(
+						article,
+						userDao.selectByUserSeq(article.getUserSeq()),
+						boardDao.selectOne(article.getBoardId())
+						))
 				.collect(toList());
 	}
 
@@ -35,15 +43,17 @@ public class ArticleServiceImpl implements ArticleService {
 	public ArticleResponse readArticle(int articleId) {
 		Article article = articleDao.selectById(articleId);
 		User user = userDao.selectByUserSeq(article.getUserSeq());
+		Board board = boardDao.selectOne(article.getBoardId());
 		articleDao.updateViewCnt(articleId);
-		return ArticleResponse.from(article,user);
+		return ArticleResponse.from(article,user,board);
 	}
 	
 	@Override // 조회 수 증가 X
 	public ArticleResponse getArticle(int articleId) {
 		Article article = articleDao.selectById(articleId);
 		User user = userDao.selectByUserSeq(article.getUserSeq());
-		return ArticleResponse.from(article,user);
+		Board board = boardDao.selectOne(article.getBoardId());
+		return ArticleResponse.from(article,user,board);
 	}
 	
 

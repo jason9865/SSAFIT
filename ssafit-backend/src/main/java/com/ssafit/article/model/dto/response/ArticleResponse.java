@@ -1,6 +1,7 @@
 package com.ssafit.article.model.dto.response;
 
 import com.ssafit.article.model.entity.Article;
+import com.ssafit.board.model.entity.Board;
 import com.ssafit.user.model.entity.User;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -15,6 +16,7 @@ public class ArticleResponse {
     private String title;
     private String content;
     private int boardId;
+    private String boardName;
     private int viewCnt;
     private String createdAt;
     private String modifiedAt;
@@ -24,12 +26,14 @@ public class ArticleResponse {
 
     public static ArticleResponse from(
             final Article article,
-            final User user) {
+            final User user,
+            final Board board) {
         return new ArticleResponse(
                 article.getArticleId(),
                 article.getTitle(),
                 article.getContent(),
                 article.getBoardId(),
+                board.getName(),
                 article.getViewCnt(),
                 article.getCreatedAt(),
                 article.getModifiedAt(),

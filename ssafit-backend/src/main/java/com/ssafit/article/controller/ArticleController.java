@@ -22,6 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/article")
 @Api(tags="게시글 컨트롤러")
+@CrossOrigin("http://localhost:5173/")
 public class ArticleController {
 	
 	private final ArticleService articleService;
@@ -53,11 +54,8 @@ public class ArticleController {
 	@ApiOperation(value="게시글 등록", notes="로그인 계정만 사용가능합니다.")
 	public ResponseEntity<Boolean> writeArticle(
 			@RequestBody ArticleRegistRequest articleRegistRequest,
-			HttpSession session	) {
-		System.out.println(articleRegistRequest.getBoardId() + "--------------------");
-		System.out.println(session.getAttribute("loginUser"));
+			HttpSession session) {
 		UserResponse loginUser = (UserResponse)session.getAttribute("loginUser");
-		if(loginUser == null) System.out.println("tlqkf");
 		int userSeq = loginUser.getUserSeq();
 		boolean isRegistered = articleService.writeArticle(articleRegistRequest, userSeq);
 		if (!isRegistered)
