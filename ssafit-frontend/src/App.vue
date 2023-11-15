@@ -25,10 +25,9 @@ const userStore = useUserStore()
 onMounted(() => {
   if(sessionStorage.getItem("loginUser")){
     userStore.loginUser = JSON.parse(sessionStorage.getItem("loginUser"))
-    console.log(userStore.loginUser.userName)
   }
 
-  console.log("App onMounted")
+  // console.log("App onMounted")
   boardStore.getBoardList()
   axios({
     url : 'http://localhost:8080/board',

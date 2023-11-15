@@ -31,7 +31,7 @@ const emits = defineEmits(["logout"]);
 
 const store = useUserStore()
 const boardstore = useBoardStore()
-const loginUser = ref(computed(() => store.loginUser))
+const loginUser = computed(() => store.loginUser)
 
 // const userName = ref(JSON.parse(localStorage.getItem("loginUser"))?.data.userName)
 
@@ -44,7 +44,9 @@ const loadBoardList = () => {
 }
 
 const getUserInfo = () => {
-  store.getUser(loginUser.userSeq)
+  console.log("유저 정보 불러오기")
+  console.log(store.loginUser.userSeq)
+  store.getUser(store.loginUser.userSeq)
 }
 </script>
 
