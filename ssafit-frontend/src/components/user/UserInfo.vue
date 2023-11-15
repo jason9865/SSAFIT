@@ -16,8 +16,7 @@ import {useUserStore} from '@/stores/user.js'
 // import UserUpdateForm from '../components/user/UserUpdateForm.vue';
 const store = useUserStore()
 
-
-const loginUser = computed(() => store.loginUser)
+const user = computed(() => store.user)
 
 </script>
 

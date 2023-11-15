@@ -113,14 +113,14 @@ export const useUserStore = defineStore('user', () => {
           }
         })
           .then((response) => {
-            console.log(atob(response.data["access-token"].split('.')[1]))
-            console.log(response.data["loginUser"])
+            // console.log(atob(response.data["access-token"].split('.')[1]))
+            // console.log(response.data["loginUser"])
 
             sessionStorage.setItem('access-token', response.data["access-token"])
             sessionStorage.setItem('userSeq', response.data["loginUser"].userSeq)
             sessionStorage.setItem('loginUser', JSON.stringify(response.data["loginUser"]))
-            console.log(sessionStorage.getItem("userSeq"))
-            console.log(JSON.parse(sessionStorage.getItem("loginUser")))
+            // console.log(sessionStorage.getItem("userSeq"))
+            // console.log(JSON.parse(sessionStorage.getItem("loginUser")))
 
             alert("로그인 성공!")
             // 일단은 유저 정보 전체 저장
