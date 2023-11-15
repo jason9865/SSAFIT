@@ -83,6 +83,12 @@ public class UserController {
 	public ResponseEntity<List<UserResponse>> getUsers() {
 		return new ResponseEntity<List<UserResponse>>(userService.getUserList(),HttpStatus.OK);
 	}
+
+	@GetMapping("/{userSeq}")
+	@ApiOperation(value="단일 회원 가져오기")
+	public ResponseEntity<UserResponse> getUser(@PathVariable int userSeq) {
+		return new ResponseEntity<UserResponse>(userService.searchByUserSeq(userSeq),HttpStatus.OK);
+	}
 	
 	@PostMapping("/signup")
 	@ApiOperation(value="회원가입", notes="bindingResult 조건 추후 추가 예정")

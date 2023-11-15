@@ -10,6 +10,7 @@ export const useUserStore = defineStore('user', () => {
 
     const userList = ref([])
     const loginUser = ref(null)
+    const user = ref(null)
 
     const getUserList = () => {
         axios({
@@ -19,6 +20,20 @@ export const useUserStore = defineStore('user', () => {
         .then((res) => {
             console.log(res.data)
             userList.value = res.data
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    }
+
+    const getUser = (userSeq) => {
+        axios({
+            url : `${REST_API}/${userSeq}`,
+            method : "GET"
+        })
+        .then((res) => {
+            console.log(res.data)
+            user.value = res.data
         })
         .catch((err) => {
             console.log(err)
@@ -129,6 +144,7 @@ export const useUserStore = defineStore('user', () => {
     return {
         userList,
         getUserList,
+        getUser,user,
         updateUser,
         createUser,
         deleteUser,
