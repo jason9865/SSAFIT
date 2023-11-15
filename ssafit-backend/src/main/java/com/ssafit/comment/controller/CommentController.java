@@ -20,6 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/comment")
 @Api(tags="댓글(리뷰) 컨트롤러")
+@CrossOrigin("http://localhost:5173/")
 public class CommentController {
 
     private final CommentService commentService;

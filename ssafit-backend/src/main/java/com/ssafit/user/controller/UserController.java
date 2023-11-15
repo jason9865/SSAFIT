@@ -23,6 +23,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/user")
 @Api(tags="사용자 관리 컨트롤러")
+@CrossOrigin("http://localhost:5173/")
 public class UserController {
 	
 	private final UserService userService;
@@ -56,7 +57,7 @@ public class UserController {
 	@GetMapping
 	@ApiOperation(value="회원 리스트 가져오기")
 	public ResponseEntity<List<UserResponse>> getUsers() {
-		return new ResponseEntity<List<UserResponse>>(userService.getList(),HttpStatus.OK);
+		return new ResponseEntity<List<UserResponse>>(userService.getUserList(),HttpStatus.OK);
 	}
 	
 	@PostMapping("/signup")

@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `article` (
   `content` TEXT NULL,
   `board_id` INT NOT NULL,
   `user_seq` INT NOT NULL,
-  `view_cnt` INT NULL,
+  `view_cnt` INT NULL DEFAULT 0,
   `created_at` DATETIME NULL DEFAULT NOW(),
   `modified_at` DATETIME NULL DEFAULT NOW(),
   PRIMARY KEY (`article_id`),

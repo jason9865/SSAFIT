@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/board")
 @Api(tags="게시판 컨트롤러")
+@CrossOrigin("http://localhost:5173/")
 public class BoardController {
 	
 	private final BoardService boardService;

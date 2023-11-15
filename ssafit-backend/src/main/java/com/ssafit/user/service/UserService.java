@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface UserService {
 
-	List<UserResponse> getList();
+	List<UserResponse> getUserList();
 	
 	User searchByUserSeq(int userSeq);
 	

@@ -23,6 +23,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/reply")
 @Api(tags="대댓글 컨트롤러")
+@CrossOrigin("http://localhost:5173/")
 public class ReplyController {
 
     private final ReplyService replyService;

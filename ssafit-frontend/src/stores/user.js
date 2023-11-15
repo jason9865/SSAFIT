@@ -8,7 +8,22 @@ const REST_API = 'http://localhost:8080/user'
 export const useUserStore = defineStore('user', () => {
     const router = useRouter()
 
+    const userList = ref([])
     const loginUser = ref(null)
+
+    const getUserList = () => {
+        axios({
+            url : REST_API,
+            method : "GET"
+        })
+        .then((res) => {
+            console.log(res.data)
+            userList.value = res.data
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    }
 
     const createUser = (user) => {
         axios({
@@ -17,19 +32,14 @@ export const useUserStore = defineStore('user', () => {
             headers : {
                 "Content-Type" : "application/json"
             },
-            data : {
-                userId : user.id,
-                userPwd : user.pwd,
-                userConfirmedPwd : user.confirmedPwd,
-                userName : user.name,
-                nickName : user.nickName,
-                email : user.email,
-            }
+            data : user
         })
         .then((res) => {
             res.data === true ? 
             alert("회원 가입 완료!") :
             alert("회원 가입 실패")
+
+            router.push("/")
         })
         .catch((err) => {
             console.log(err);
@@ -42,20 +52,17 @@ export const useUserStore = defineStore('user', () => {
             url : `${REST_API}/update/${user.userSeq}`,
             method : "PUT",
             headers : {
-                "Content-Type" : "application/json"
+                "Content-Type" : "application/json",
+                
             },
-            data : {
-                userPwd : user.pwd,
-                userConfirmedPwd : user.confirmedPwd,
-                userName : user.name,
-                nickName : user.nickName,
-                email : user.email,
-            }
+            data : user
         })
         .then((res) => {
+            console.log(res.data)
             res.data === true ? 
             alert("회원 정보 수정 완료!") :
             alert("회원 정보 수정 실패")
+            router.push("/mypage")
         })
         .catch((err) => {
             console.log(err);
@@ -66,7 +73,7 @@ export const useUserStore = defineStore('user', () => {
     
     const deleteUser = (userSeq) => {
         axios({
-            url : `${API_URL}/${$userSeq}`,
+            url : `${API_URL}/${userSeq}`,
             method : "DELETE"
         })
         .then((res) => {
@@ -93,6 +100,8 @@ export const useUserStore = defineStore('user', () => {
           .then((res) => {
             if(res.data) {
                 loginUser.value = res.data
+                console.log(loginUser)
+                sessionStorage.setItem('loginUser',JSON.stringify(loginUser))
                 alert("로그인 성공!")
                 router.push("/")
             } else {
@@ -113,6 +122,8 @@ export const useUserStore = defineStore('user', () => {
     
 
     return {
+        userList,
+        getUserList,
         updateUser,
         createUser,
         deleteUser,

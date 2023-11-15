@@ -26,7 +26,8 @@ export const useArticleStore = defineStore('article', () => {
             url : `${REST_API}/write`,
             method : "POST",
             headers : {
-                'Content-Type' : `application/json`
+                'Content-Type' : `application/json`,
+                'loginUser' : JSON.parse(sessionStorage.getItem('loginUser'))
             },
             data : article
         })

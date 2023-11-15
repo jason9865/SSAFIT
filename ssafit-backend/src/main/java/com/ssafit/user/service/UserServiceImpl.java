@@ -9,6 +9,7 @@ import com.ssafit.user.model.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,8 +22,7 @@ public class UserServiceImpl implements UserService {
 	private final UserDao userDao;
 	
 	@Override
-	public List<UserResponse> getList() {
-
+	public List<UserResponse> getUserList() {
 		return userDao.selectAll().stream()
 				.map(UserResponse::from)
 				.collect(toList());
@@ -44,6 +44,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	@Transactional
 	public boolean registUser(UserRegistRequest request) {
 		User newUser = User.builder()
 				.userId(request.getUserId())
@@ -56,6 +57,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	@Transactional
 	public boolean modifyUser(UserModifyRequest request, int userSeq) {
 		User updatedUser = User.builder()
 				.userSeq(userSeq)
@@ -68,6 +70,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	@Transactional
 	public boolean removeUser(int userSeq) {
 		return userDao.deleteUser(userSeq) > 0;
 	}

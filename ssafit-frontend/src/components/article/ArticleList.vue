@@ -13,7 +13,7 @@
           <tbody>
             <tr v-for="article in articleList" :key="article.articleId">
               <td>
-                <RouterLink :to="`/board/${boardName}/${article.articleId}`">
+                <RouterLink :to="`/board/${article.boardName}/${article.articleId}`">
                   {{ article.title }}
                 </RouterLink>
               </td>
@@ -42,7 +42,7 @@ const boardStore = useBoardStore()
 const articleList = computed(()=>boardStore.articleList)
 
 // url에 board이름을 넣어주기 위한 코드 -> 근데 근본없이 계속 바뀜 -> routeParam에 따라 변화하기 때문이다
-const boardName = computed(()=>boardStore.board?.name)
+const boardName = computed(()=>boardStore.board?.name) // 있을때만 boardName 돌려줌
 
 onMounted(() => {
   console.log("ArticleList onMounted")
