@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -54,9 +55,9 @@ public class ArticleController {
 	@ApiOperation(value="게시글 등록", notes="로그인 계정만 사용가능합니다.")
 	public ResponseEntity<Boolean> writeArticle(
 			@RequestBody ArticleRegistRequest articleRegistRequest,
-			HttpSession session) {
-		UserResponse loginUser = (UserResponse)session.getAttribute("loginUser");
-		int userSeq = loginUser.getUserSeq();
+			HttpServletRequest request) {
+		int userSeq = Integer.parseInt(request.getHeader("userSeq"));
+		
 		boolean isRegistered = articleService.writeArticle(articleRegistRequest, userSeq);
 		if (!isRegistered)
 			return new ResponseEntity<Boolean>(isRegistered,HttpStatus.NO_CONTENT);

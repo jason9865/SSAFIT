@@ -97,16 +97,26 @@ export const useUserStore = defineStore('user', () => {
             userPwd : user.password,
           }
         })
-          .then((res) => {
-            if(res.data) {
-                loginUser.value = res.data
-                console.log(loginUser)
-                sessionStorage.setItem('loginUser',JSON.stringify(loginUser))
-                alert("로그인 성공!")
-                router.push("/")
-            } else {
-                alert("아이디 혹은 비밀번호를 확인해주세요.")
-            }
+          .then((response) => {
+            console.log(atob(response.data["access-token"].split('.')[1]))
+            console.log(response.data["loginUser"])
+
+            sessionStorage.setItem('access-token', response.data["access-token"])
+            sessionStorage.setItem('userSeq', response.data["loginUser"].userSeq)
+            console.log(sessionStorage.getItem("userSeq"))
+            
+            loginUser.value = response.data["loginUser"]
+
+            router.push("/")
+            // if(res.data) {
+            //     loginUser.value = res.data
+            //     console.log(loginUser)
+            //     sessionStorage.setItem('loginUser',JSON.stringify(loginUser))
+            //     alert("로그인 성공!")
+            //     router.push("/")
+            // } else {
+            //     alert("아이디 혹은 비밀번호를 확인해주세요.")
+            // }
           })
           .catch((err) => {
             console.log(err);

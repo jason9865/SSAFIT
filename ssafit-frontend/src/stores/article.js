@@ -27,7 +27,8 @@ export const useArticleStore = defineStore('article', () => {
             method : "POST",
             headers : {
                 'Content-Type' : `application/json`,
-                'loginUser' : JSON.parse(sessionStorage.getItem('loginUser'))
+                'loginUser' : JSON.parse(sessionStorage.getItem('loginUser')),
+                'userSeq' : sessionStorage.getItem("userSeq"),
             },
             data : article
         })
