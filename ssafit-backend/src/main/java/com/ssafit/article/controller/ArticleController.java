@@ -70,10 +70,10 @@ public class ArticleController {
 	public ResponseEntity<Boolean> updateArticle(
 			@PathVariable int articleId,
 			@RequestBody ArticleModifyRequest articleModifyRequest,
-			HttpSession session) {
-
-		UserResponse loginUser = (UserResponse) session.getAttribute("loginUser");
-		int userSeq = loginUser.getUserSeq();
+			HttpServletRequest request) {
+//		UserResponse loginUser = (UserResponse) session.getAttribute("loginUser");
+//		int userSeq = loginUser.getUserSeq();
+		int userSeq = Integer.parseInt(request.getHeader("userSeq"));
 		boolean isUpdated = articleService.modifyArticle(articleModifyRequest, articleId, userSeq);
 
 		if (!isUpdated)
@@ -84,10 +84,9 @@ public class ArticleController {
 	@DeleteMapping("/{articleId}/delete")
 	@ApiOperation(value="게시글 삭제", notes="관리자 계정과 로그인 계정만 사용가능합니다.")
 	public ResponseEntity<Boolean> deleteArticle(
-			@PathVariable int articleId, HttpSession session) {
+			@PathVariable int articleId, HttpServletRequest request) {
 		int boardId = articleService.readArticle(articleId).getBoardId();
-		UserResponse loginUser = (UserResponse) session.getAttribute("loginUser");
-		int userSeq = loginUser.getUserSeq();
+		int userSeq = Integer.parseInt(request.getHeader("userSeq"));
 
 		boolean isDeleted = articleService.deleteArticle(articleId);
 		if (!isDeleted)
@@ -104,9 +103,8 @@ public class ArticleController {
 
 	@PostMapping("/{articleId}/like")
 	@ApiOperation(value="게시글 좋아요 누르기", notes="게시글에 좋아요를 누릅니다.")
-	public ResponseEntity<Boolean> doArticleLike(@PathVariable int articleId, HttpSession session){
-		UserResponse loginUser = (UserResponse) session.getAttribute("loginUser");
-		int userSeq = loginUser.getUserSeq();
+	public ResponseEntity<Boolean> doArticleLike(@PathVariable int articleId, HttpServletRequest request){
+		int userSeq = Integer.parseInt(request.getHeader("userSeq"));
 		boolean isLikeAdded = articleService.addArticleLike(articleId, userSeq);
 		if (!isLikeAdded)
 			return new ResponseEntity<Boolean>(isLikeAdded,HttpStatus.NO_CONTENT);
@@ -115,9 +113,8 @@ public class ArticleController {
 
 	@DeleteMapping("/{articleLikeId}/like")
 	@ApiOperation(value="게시글 좋아요 취소", notes="게시글에 좋아요를 취소합니다.")
-	public ResponseEntity<Boolean> undoArticleLike(@PathVariable int articleLikeId, HttpSession session){
-		UserResponse loginUser = (UserResponse) session.getAttribute("loginUser");
-		int userSeq = loginUser.getUserSeq();
+	public ResponseEntity<Boolean> undoArticleLike(@PathVariable int articleLikeId, HttpServletRequest request){
+		int userSeq = Integer.parseInt(request.getHeader("userSeq"));
 		boolean isDislikeUndone = articleService.deleteArticleLike(articleLikeId);
 		if (!isDislikeUndone)
 			return new ResponseEntity<Boolean>(isDislikeUndone,HttpStatus.NO_CONTENT);
@@ -132,9 +129,8 @@ public class ArticleController {
 
 	@PostMapping("/{articleId}/dislike")
 	@ApiOperation(value="게시글 싫어요 누르기", notes="게시글에 싫어요를 누릅니다.")
-	public ResponseEntity<Boolean> doArticleDisLike(@PathVariable int articleId, HttpSession session){
-		UserResponse loginUser = (UserResponse) session.getAttribute("loginUser");
-		int userSeq = loginUser.getUserSeq();
+	public ResponseEntity<Boolean> doArticleDisLike(@PathVariable int articleId, HttpServletRequest request){
+		int userSeq = Integer.parseInt(request.getHeader("userSeq"));
 		boolean isDislikeAdded = articleService.addArticleDislike(articleId, userSeq);
 		if (!isDislikeAdded)
 			return new ResponseEntity<Boolean>(isDislikeAdded,HttpStatus.NO_CONTENT);
@@ -143,9 +139,8 @@ public class ArticleController {
 
 	@DeleteMapping("/{articleDisLikeId}/dislike")
 	@ApiOperation(value="게시글 싫어요 취소", notes="게시글에 싫어요를 취소합니다.")
-	public ResponseEntity<Boolean> undoArticleDislike(@PathVariable int articleDisLikeId, HttpSession session){
-		UserResponse loginUser = (UserResponse) session.getAttribute("loginUser");
-		int userSeq = loginUser.getUserSeq();
+	public ResponseEntity<Boolean> undoArticleDislike(@PathVariable int articleDisLikeId,HttpServletRequest request){
+		int userSeq = Integer.parseInt(request.getHeader("userSeq"));
 		boolean isDislikeUndone = articleService.deleteArticleDislike(articleDisLikeId);
 		if (!isDislikeUndone)
 			return new ResponseEntity<Boolean>(isDislikeUndone,HttpStatus.NO_CONTENT);
