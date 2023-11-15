@@ -103,8 +103,10 @@ export const useUserStore = defineStore('user', () => {
 
             sessionStorage.setItem('access-token', response.data["access-token"])
             sessionStorage.setItem('userSeq', response.data["loginUser"].userSeq)
+            sessionStorage.setItem('loginUser', JSON.stringify(response.data["loginUser"]))
             console.log(sessionStorage.getItem("userSeq"))
-            
+            console.log(JSON.parse(sessionStorage.getItem("loginUser")))
+
             loginUser.value = response.data["loginUser"]
 
             router.push("/")
@@ -125,6 +127,7 @@ export const useUserStore = defineStore('user', () => {
       };
 
       const logout = () => {
+        sessionStorage.clear()
         loginUser.value = null;
         alert("로그아웃!")
         router.push("/")

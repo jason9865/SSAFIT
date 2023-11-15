@@ -19,13 +19,9 @@ const user = ref(null);
 
 const boardStore = useBoardStore()
 
+const savedUser = ref(null)
 
 onMounted(() => {
-  const savedUser = localStorage.getItem("loginUser");
-  if (savedUser) {
-    user.value = JSON.parse(savedUser);
-  }
-
   console.log("App onMounted")
   boardStore.getBoardList()
   axios({
@@ -33,7 +29,6 @@ onMounted(() => {
     method : "GET",
     })
     .then((res) => {
-      // console.log(JSON.stringify(res.data))
       localStorage.setItem("boardList", JSON.stringify(res.data))
     })
     .catch((err) => {
@@ -41,7 +36,6 @@ onMounted(() => {
       alert("서버 에러")
     })
     
-    console.log(JSON.parse(localStorage.getItem("boardList")))
 });
 
 
