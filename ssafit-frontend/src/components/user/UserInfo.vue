@@ -17,6 +17,7 @@ import {useUserStore} from '@/stores/user.js'
 const store = useUserStore()
 
 
+const loginUser = computed(() => store.loginUser)
 
 </script>
 
