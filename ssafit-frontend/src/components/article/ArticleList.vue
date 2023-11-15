@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div class="container">
       <div v-if="articleList.length">
-        <table>
+        <table class="table table-hover text-center">
           <thead>
             <tr>
               <td>제목</td>

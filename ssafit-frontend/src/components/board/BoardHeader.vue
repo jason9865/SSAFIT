@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container text-center">
         <!-- boardList에 있는 모든 board들을 순회한다.-->
         <span v-for="board in boardList" :key="board.boardId">
             <RouterLink :to="`/board/${board.name}`" @click="getArticles(board.boardId)">
@@ -18,15 +18,6 @@ import { useBoardStore } from '@/stores/board.js'
 
 const boardStore = useBoardStore()
 
-// const announce = () => {
-//     boardStore.getArticleList(2)
-//     boardStore.getBoard(2)
-// }
-
-// const free = () => {
-//     boardStore.getArticleList(1)
-//     boardStore.getBoard(1)
-// }
 
 // boardId를 넣으면 boardId에 해당하는(게시판에 속한) articleList로 갱신한다.
 const getArticles = (boardId) => {
