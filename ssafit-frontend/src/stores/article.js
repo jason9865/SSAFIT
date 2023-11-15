@@ -1,10 +1,15 @@
 import {ref, computed} from 'vue'
 import {defineStore} from 'pinia'
 import axios from 'axios'
+import { useRouter } from 'vue-router'
+import { useBoardStore } from './board'
 
 const REST_API = 'http://localhost:8080/article'
 
 export const useArticleStore = defineStore('article', () => {
+    const router = useRouter()
+    const boardStore = useBoardStore()
+
     const article = ref({})
     const getArticle = function(articleId) {
         axios({
@@ -28,14 +33,14 @@ export const useArticleStore = defineStore('article', () => {
             headers : {
                 'Content-Type' : `application/json`,
                 'loginUser' : JSON.parse(sessionStorage.getItem('loginUser')),
-                'userSeq' : sessionStorage.getItem("userSeq"),
+                'userSeq' : sessionStorage.getItem("userSeq"),  
             },
             data : article
         })
         .then((res) =>{
-            res === true ?
-            alert("게시글 등록 완료") :
-            alert("게시글 등록 실패")
+            alert("게시글 등록 완료")
+            boardStore.getArticleList(article.boardId)
+            router.go(-1)
         })
         .catch((err) => {
             console.log(err)

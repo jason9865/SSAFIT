@@ -35,7 +35,7 @@ const getArticles = (boardId) => {
 }
 
 // useBoardStore에 있는 boardList를 caching하기 위한 코드
-const boardList = computed(() => boardStore.boardList);
+const boardList = computed(() => JSON.parse(localStorage.getItem("boardList")))
 
 </script>
 
