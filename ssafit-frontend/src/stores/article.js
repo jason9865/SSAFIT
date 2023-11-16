@@ -71,11 +71,13 @@ export const useArticleStore = defineStore('article', () => {
 
     const deleteArticle = function(articleId) {
         axios({
-            url : `${REST_API}/${articleId}`,
+            url : `${REST_API}/${articleId}/delete`,
             method : "DELETE"
         })
         .then((res) =>{
-            alert("게시글 삭제 완료") 
+            alert("게시글 삭제 완료")
+            boardStore.getArticleList(article.boardId)
+            router.go(-1)
         })
         .catch((err) => {
             console.log(err)
@@ -103,14 +105,13 @@ export const useArticleStore = defineStore('article', () => {
             url : `${REST_API}/${articleLike.articleId}/like`,
             method : "POST",
             headers : {
-                "Content-Type" : "application/json"
+                "Content-Type" : "application/json",
+                "userSeq" : sessionStorage.getItem("userSeq")
             },
             data : articleLike
         })
         .then((res) => {
-            res == true?
-            alert("좋아요 완료"):
-            alert("좋아요 실패");
+            alert("좋아요 완료")
         })
         .catch((err)=> {
             console.log(err);

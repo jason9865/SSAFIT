@@ -48,15 +48,15 @@ export const useCommentStore = defineStore('comment', () => {
         axios({
             url : `${REST_API}/${comment.articleId}`,
             method : "POST",
-            header : {
-                'Content-Type' : 'application/json'
+            headers : {
+                'Content-Type' : 'application/json',
+                'userSeq' : sessionStorage.getItem("userSeq")
             },
             data : comment
         })
         .then((res) => {
-            es === true ?
-            alert("댓글 등록 완료") :
-            alert("댓글 등록 실패")
+           alert("댓글 등록 완료") 
+           getCommentList(comment.articleId)
         })
         .catch((err) => {
             console.log(err);
@@ -70,14 +70,13 @@ export const useCommentStore = defineStore('comment', () => {
             url : `${REST_API}/${comment.commentId}`,
             method : 'PUT',
             headers : {
-                'Content-Type' : `application/json`
+                'Content-Type' : `application/json`,
+                'userSeq' : sessionStorage.getItem("userSeq")
             },
             data : comment
         })
         .then((res) => {
-            res === true ?
-            alert("댓글 수정 완료") :
-            alert("댓글 수정 실패")
+            alert("댓글 수정 완료") 
         })
         .catch((err) => {
             console.log(err);
