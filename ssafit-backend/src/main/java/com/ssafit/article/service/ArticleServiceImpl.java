@@ -14,7 +14,9 @@ import com.ssafit.user.model.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static java.util.stream.Collectors.*;
 
@@ -94,13 +96,21 @@ public class ArticleServiceImpl implements ArticleService {
 		return articleDao.deleteArticle(articleId) > 0;
 	}
 
-
 	// 좋아요
 	@Override
 	public int getLikeCount(int articleId) {
 		return articleDao.selectLikeCount(articleId);
 	}
-	
+
+	@Override
+	public int isLiked(int articleId, int userSeq) {
+		Map<String,Integer> map = new HashMap<String, Integer>();
+		map.put("articleId",articleId);
+		map.put("userSeq",userSeq);
+		return articleDao.findLike(map);
+	}
+
+
 	@Override
 	public boolean addArticleLike(int articleId, int userSeq) {
 		if (!isAvailable(articleId,userSeq)){
@@ -127,6 +137,14 @@ public class ArticleServiceImpl implements ArticleService {
 	@Override
 	public int getDislikeCount(int articleId){
 		return articleDao.selectDislikeCount(articleId);
+	}
+
+	@Override
+	public int isDisliked(int articleId, int userSeq){
+		Map<String,Integer> map = new HashMap<String,Integer>();
+		map.put("articleId",articleId);
+		map.put("userSeq",userSeq);
+		return articleDao.findDislike(map);
 	}
 
 	@Override
@@ -167,6 +185,7 @@ public class ArticleServiceImpl implements ArticleService {
 	public 	boolean isAvailable(int articleId, int userSeq){
 		return findArticleLike(articleId, userSeq) == null && findArticleDislike(articleId,userSeq) == null;
 	}
+
 
 
 }

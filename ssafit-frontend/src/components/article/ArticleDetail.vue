@@ -5,12 +5,15 @@
     <h4>최종 수정 일자 : {{ store.article.createdAt }}</h4>
     <h4>조회 수 : {{ store.article.viewCnt }}</h4>
     <p>{{ store.article.content }}</p>
+    
+    <ArticleLikeDislike :article-id="articleId"/>
+
     <!-- 게시글 작성자와 로그인 유저가 동일인이어야 게시글 수정/삭제 버튼이 뜬다.. -->
     <div class="buttons" v-if="currUserSeq && (currUserSeq === store.article.userSeq)">
       <button class="btn btn-success m-3" @click="modifyArticle"> 게시글 수정</button>
       <button class="btn btn-danger m-3" @click="deleteArticle"> 게시글 삭제</button>
     </div>
-    <ArticleLikeDislike :article-id="articleId"/>
+
     <hr>
     <CommentList :article-id="articleId"/>
   </div>
