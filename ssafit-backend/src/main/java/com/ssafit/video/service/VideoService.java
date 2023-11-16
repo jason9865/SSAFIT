@@ -7,7 +7,8 @@ import java.util.List;
 public interface VideoService {
     List<Video> getList();
 
-    Video searchVideoById(int videoId);
+    List<Video> getListByPart(String part);
 
+    Video getVideoById(String videoId);
 
 }
