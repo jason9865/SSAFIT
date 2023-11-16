@@ -1,11 +1,8 @@
 <template>
     <div class="container text-center">
         <!-- boardList에 있는 모든 board들을 순회한다.-->
-        <span v-for="board in boardList" :key="board.boardId">
-            <RouterLink :to="`/board/${board.name}`" @click="getArticles(board.boardId)">
-                {{ board.description }}
-            </RouterLink> | 
-        </span>
+        <RouterLink :to="{ name: 'free' }">자유게시판</RouterLink> | 
+        <RouterLink :to="{ name: 'announce' }">공지사항</RouterLink> | 
         <!-- <RouterLink to="/board/announce" @click="announce">공지사항</RouterLink> |
         <RouterLink to="/board/free" @click="free">자유게시판</RouterLink> -->
     </div>
