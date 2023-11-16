@@ -7,13 +7,11 @@ import java.util.List;
 public interface VideoDao {
 
     List<Video> selectAll();
+    
+    List<Video> selectByPart(String part);
 
-    Video selectById(int videoId);
+    Video selectById(String videoId);
 
-    int updateViewCnt(int videoId);
-
-    int updateVideo(Video video);
-
-    int deleteVideo(int videoId);
+    int updateViewCnt(String videoId);
 
 }

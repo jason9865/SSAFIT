@@ -21,9 +21,14 @@ public class VideoServiceImpl implements VideoService {
     public List<Video> getList() {
         return videoDao.selectAll();
     }
+    
+    @Override
+    public List<Video> getListByPart(String part) {
+    	return videoDao.selectByPart(part);
+    }
 
     @Override
-    public Video searchVideoById(int videoId) {
+    public Video getVideoById(String videoId) {
         videoDao.updateViewCnt(videoId);
         return videoDao.selectById(videoId);
     }
