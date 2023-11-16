@@ -19,7 +19,7 @@
               </td>
               <td>{{ article.nickName }}</td>
               <td>{{ article.viewCnt }}</td>
-              <td>{{ article.createdAt }}</td>
+              <td>{{ article.modifiedAt }}</td>
             </tr>
           </tbody>
         </table>

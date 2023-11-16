@@ -42,7 +42,7 @@ public interface ArticleDao {
 	int insertLike(ArticleLike articleLike);
 
 	// 좋아요 취소
-	int deleteLike(int articleLikeId);
+	int deleteLike(Map<String,Integer>map);
 
 	// 게시판 별 싫어요 개수 확인
 	int selectDislikeCount(int articleId);
@@ -57,6 +57,6 @@ public interface ArticleDao {
 	int insertDislike(ArticleDislike articleDislike);
 
 	// 싫어요 취소
-	int deleteDislike(int articleDislikeId);
+	int deleteDislike(Map<String,Integer>map);
 
 }

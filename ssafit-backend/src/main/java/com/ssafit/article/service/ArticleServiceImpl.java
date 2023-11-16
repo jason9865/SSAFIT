@@ -11,6 +11,7 @@ import com.ssafit.board.model.dao.BoardDao;
 import com.ssafit.board.model.entity.Board;
 import com.ssafit.user.model.dao.UserDao;
 import com.ssafit.user.model.entity.User;
+import io.swagger.models.auth.In;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -128,8 +129,11 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	public boolean deleteArticleLike(int articleLikeId) {
-		return articleDao.deleteLike(articleLikeId) > 0;
+	public boolean deleteArticleLike(int articleId, int userSeq) {
+		Map<String,Integer>map = new HashMap<String, Integer>();
+		map.put("articleId",articleId);
+		map.put("userSeq",userSeq);
+		return articleDao.deleteLike(map) > 0;
 	}
 	
 	// 싫어요
@@ -166,8 +170,11 @@ public class ArticleServiceImpl implements ArticleService {
 
 
 	@Override
-	public boolean deleteArticleDislike(int articleDislikeId) {
-		return articleDao.deleteDislike(articleDislikeId) > 0;
+	public boolean deleteArticleDislike(int articleId, int userSeq) {
+		Map<String,Integer>map = new HashMap<String,Integer>();
+		map.put("articleId",articleId);
+		map.put("userSeq",userSeq);
+		return articleDao.deleteDislike(map) > 0;
 	}
 
 	@Override

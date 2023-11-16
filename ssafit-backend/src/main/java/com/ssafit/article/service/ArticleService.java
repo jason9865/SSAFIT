@@ -29,7 +29,7 @@ public interface ArticleService {
 
 	boolean addArticleLike(int articleId, int userSeq);
 
-	boolean deleteArticleLike(int articleLikeId);
+	boolean deleteArticleLike(int articleId, int userSeq);
 
 	int getDislikeCount(int articleId);
 
@@ -37,7 +37,7 @@ public interface ArticleService {
 
 	boolean addArticleDislike(int articleId, int userSeq);
 
-	boolean deleteArticleDislike(int articleDislikeId);
+	boolean deleteArticleDislike(int articleId, int userSeq);
 
 	ArticleLike findArticleLike(int articleId, int userSeq);
 

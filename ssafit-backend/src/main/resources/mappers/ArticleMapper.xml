@@ -126,9 +126,12 @@
 		;
 	</insert>
 
-	<delete id="deleteLike" parameterType="int">
+	<delete id="deleteLike" parameterType="Map">
 		DELETE FROM article_like
-		WHERE article_like_id = #{articleLikeId}
+		WHERE
+			article_id = #{articleId}
+			AND
+			user_seq = #{userSeq}
 		;
 	</delete>
 
@@ -169,9 +172,12 @@
 		;
 	</insert>
 
-	<delete id="deleteDislike" parameterType="int">
+	<delete id="deleteDislike" parameterType="Map">
 		DELETE FROM article_dislike
-		WHERE article_dislike_id = #{articleDislikeId}
+		WHERE
+			article_id = #{articleId}
+			AND
+			user_seq = #{userSeq}
 		;
 	</delete>
 
