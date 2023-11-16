@@ -33,7 +33,12 @@ const boardStore = useBoardStore();
 const articleStore = useArticleStore();
 
 const writeArticle = function () {
-  articleStore.writeArticle(article.value)
+  if(confirm("게시글을 작성하시겠습니까?") === true){
+    articleStore.writeArticle(article.value)
+  }
+  else{
+    return;
+  }
 };
 </script>
 
