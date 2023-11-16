@@ -12,7 +12,7 @@
           <span v-else>
             <span> {{ loginUser.userName }} 님</span>
             <a href="#" class="mx-3" @click="logout">로그아웃</a>
-            <RouterLink to="/mypage" @click="getUserInfo">마이페이지</RouterLink>
+            <RouterLink to="/mypage">마이페이지</RouterLink>
           </span>
         </div>
       </nav>
@@ -43,11 +43,6 @@ const loadBoardList = () => {
   boardstore.getBoardList()
 }
 
-const getUserInfo = () => {
-  console.log("유저 정보 불러오기")
-  console.log(store.loginUser.userSeq)
-  store.getUser(store.loginUser.userSeq)
-}
 </script>
 
 <style scoped>
