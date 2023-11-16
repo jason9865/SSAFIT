@@ -14,7 +14,6 @@
     <ArticleLikeDislike :article-id="articleId"/>
     <hr>
     <CommentList :article-id="articleId"/>
-    
   </div>
 </template>
   
@@ -52,6 +51,7 @@ function deleteArticle() {
 
 onMounted(() => {
   store.getArticle(route.params.articleId)
+  console.log(route.params.articleId)
 })
 
 

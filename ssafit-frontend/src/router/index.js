@@ -5,6 +5,8 @@ import BoardView from '../views/BoardView.vue'
 import VideoView from '../views/VideoView.vue'
 import MypageView from '../views/MyPageView.vue'
 
+import AnnounceList from '../components/article/AnnounceList.vue'
+import FreeList from '../components/article/FreeList.vue'
 import ArticleList from '../components/article/ArticleList.vue'
 import ArticleCreate from '../components/article/ArticleCreate.vue'
 import ArticleDetail from '../components/article/ArticleDetail.vue'
@@ -40,27 +42,27 @@ const router = createRouter({
       component: BoardView,
       children : [
         {
-          path : "",
-          name : "ArticleList-default",
-          component : ArticleList,
+          path : "free",
+          name : "free",
+          component : FreeList,
         },
         {
-          path : ":boardName",
-          name : "ArticleList",
-          component : ArticleList,
+          path : "announce",
+          name : "announce",
+          component : AnnounceList,
         },
         {
-          path : ":boardName/create",
-          name : "ArticleCreate",
+          path : "create",
+          name : "articleCreate",
           component : ArticleCreate,
         },
         {
-          path : ":boardName/:articleId",
+          path : ":articleId",
           name : "ArticleDetail",
           component : ArticleDetail,
         },
         {
-          path : ":boardName/:articleId/modify",
+          path : ":articleId/modify",
           name : "ArticleModify",
           component : ArticleModify,
         },
@@ -105,5 +107,6 @@ const router = createRouter({
 
   ]
 })
+
 
 export default router
