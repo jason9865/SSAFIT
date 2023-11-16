@@ -14,9 +14,10 @@
 import { computed, } from 'vue';
 import {useUserStore} from '@/stores/user.js'
 // import UserUpdateForm from '../components/user/UserUpdateForm.vue';
+
 const store = useUserStore()
 
-const user = computed(() => store.user)
+const user = computed(() => store.loginUser)
 
 </script>
 

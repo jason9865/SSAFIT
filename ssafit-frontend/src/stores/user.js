@@ -3,6 +3,7 @@ import {defineStore} from 'pinia'
 import axios from 'axios'
 import {useRouter} from 'vue-router'
 
+
 const REST_API = 'http://localhost:8080/user'
 
 export const useUserStore = defineStore('user', () => {
@@ -10,7 +11,7 @@ export const useUserStore = defineStore('user', () => {
 
     const userList = ref([])
     const loginUser = ref(null)
-    const user = ref(null)
+    const currentUser = ref(null)
 
     const getUserList = () => {
         axios({
@@ -32,8 +33,7 @@ export const useUserStore = defineStore('user', () => {
             method : "GET"
         })
         .then((res) => {
-            console.log(res.data)
-            user.value = res.data
+            currentUser.value = res.data
         })
         .catch((err) => {
             console.log(err)
@@ -144,12 +144,13 @@ export const useUserStore = defineStore('user', () => {
     return {
         userList,
         getUserList,
-        getUser,user,
+        getUser,
         updateUser,
         createUser,
         deleteUser,
         login,
         loginUser,
         logout,
+        currentUser,
     }
 })
