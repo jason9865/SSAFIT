@@ -98,7 +98,7 @@ export const useCommentStore = defineStore('comment', () => {
         })
         .catch((err) => {
             console.log(err);
-            alert("댓글 수정에 실패하였습니다.")
+            alert("댓글 삭제에 실패하였습니다.")
         })
     }
 

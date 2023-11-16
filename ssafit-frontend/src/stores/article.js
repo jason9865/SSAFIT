@@ -100,6 +100,24 @@ export const useArticleStore = defineStore('article', () => {
         })
     }
 
+    const isLiked = ref('');
+    const checkLiked = function(articleId) {
+        axios({
+            url : `${REST_API}/${articleId}/isLiked`,
+            method : "GET",
+            headers : {
+                "userSeq" : sessionStorage.getItem("userSeq")
+            }
+        })
+        .then((res) => {
+            console.log("isLiked => ", res.data)
+            isLiked.value = res.data
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+    }
+
     const doArticleLike = function(articleLike) {
         axios({
             url : `${REST_API}/${articleLike.articleId}/like`,
@@ -134,6 +152,24 @@ export const useArticleStore = defineStore('article', () => {
         })
     }
 
+    const isDisliked = ref('');
+    const checkDisliked = function(articleId) {
+        axios({
+            url : `${REST_API}/${articleId}/isDisliked`,
+            method : "GET",
+            headers : {
+                "userSeq" : sessionStorage.getItem("userSeq")
+            }
+        })
+        .then((res) => {
+            console.log("isDisliked => ", res.data)
+            isDisliked.value = res.data
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+    }
+
     const doArticleDislike = function(articleDislike) {
         axios({
             url : `${REST_API}/${articleDislike.articleId}/like`,
@@ -162,9 +198,11 @@ export const useArticleStore = defineStore('article', () => {
         updateArticle,
         deleteArticle,
         articleLikeCount,
+        isLiked,checkLiked,
         getArticleLike,
         doArticleLike,
         articleDislikeCount,
+        isDisliked, checkDisliked,
         getArticleDislike,
         doArticleDislike
     }

@@ -5,6 +5,7 @@ import com.ssafit.article.model.dto.request.ArticleRegistRequest;
 import com.ssafit.article.model.dto.response.ArticleResponse;
 import com.ssafit.article.model.entity.ArticleDislike;
 import com.ssafit.article.model.entity.ArticleLike;
+import org.springframework.http.HttpStatus;
 
 import java.util.List;
 
@@ -22,14 +23,17 @@ public interface ArticleService {
 
 	boolean deleteArticle(int articleId);
 
-
 	int getLikeCount(int articleId);
+
+	int isLiked(int articleId, int userSeq);
 
 	boolean addArticleLike(int articleId, int userSeq);
 
 	boolean deleteArticleLike(int articleLikeId);
 
 	int getDislikeCount(int articleId);
+
+	int isDisliked(int articleId, int userSeq);
 
 	boolean addArticleDislike(int articleId, int userSeq);
 
@@ -40,4 +44,5 @@ public interface ArticleService {
 	ArticleDislike findArticleDislike(int articleId, int userSeq);
 
 	boolean isAvailable(int articleId, int userSeq);
+
 }

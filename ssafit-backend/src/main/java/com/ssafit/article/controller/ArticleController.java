@@ -101,6 +101,14 @@ public class ArticleController {
 		return new ResponseEntity<Integer>(articleService.getLikeCount(articleId),HttpStatus.OK);
 	}
 
+	@GetMapping("/{articleId}/isLiked")
+	@ApiOperation(value="특정 사용자가 좋아요를 눌렀는지 확인")
+	public ResponseEntity<Integer> isLiked(@PathVariable int articleId, HttpServletRequest request) {
+		int userSeq = Integer.parseInt(request.getHeader("userSeq"));
+		System.out.println("isLiked -> " + articleService.isLiked(articleId,userSeq));
+		return new ResponseEntity<Integer>(articleService.isLiked(articleId, userSeq),HttpStatus.OK);
+	}
+
 	@PostMapping("/{articleId}/like")
 	@ApiOperation(value="게시글 좋아요 누르기", notes="게시글에 좋아요를 누릅니다.")
 	public ResponseEntity<Boolean> doArticleLike(@PathVariable int articleId, HttpServletRequest request){
@@ -125,6 +133,14 @@ public class ArticleController {
 	@ApiOperation(value="게시글 별 싫어요 개수")
 	public ResponseEntity<Integer>getDislikeNumber(@PathVariable int articleId) {
 		return new ResponseEntity<Integer>(articleService.getDislikeCount(articleId),HttpStatus.OK);
+	}
+
+	@GetMapping("/{articleId}/isDisliked")
+	@ApiOperation(value="특정 사용자가 싫어요를 눌렀는지 확인")
+	public ResponseEntity<Integer> isDisLiked(@PathVariable int articleId, HttpServletRequest request) {
+		int userSeq = Integer.parseInt(request.getHeader("userSeq"));
+		System.out.println("isDisliked -> " + articleService.isDisliked(articleId,userSeq));
+		return new ResponseEntity<Integer>(articleService.isDisliked(articleId, userSeq),HttpStatus.OK);
 	}
 
 	@PostMapping("/{articleId}/dislike")

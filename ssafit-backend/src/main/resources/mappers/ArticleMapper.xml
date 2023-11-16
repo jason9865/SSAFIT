@@ -91,6 +91,16 @@
 
 	<!-- 좋아요 -->
 
+	<select id="findLike" parameterType="Map">
+		SELECT COUNT(*)
+		FROM article_like
+		WHERE
+			article_id = #{articleId}
+		AND
+			user_seq = #{userSeq}
+		;
+	</select>
+
 	<select id="selectArticleLike" parameterType="Map" resultType="ArticleLike">
 		SELECT *
 		FROM article_like
@@ -124,6 +134,17 @@
 
 
 	<!--싫어요-->
+
+	<select id="findDislike" parameterType="Map">
+		SELECT COUNT(*)
+		FROM article_dislike
+		WHERE
+		article_id = #{articleId}
+		AND
+		user_seq = #{userSeq}
+		;
+	</select>
+
 	<select id="selectDislikeCount" parameterType="int" resultType="int">
 		SELECT count(*) as likeCount
 		FROM article_dislike

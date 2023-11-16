@@ -4,8 +4,10 @@
             <h4>{{ comment.userId }} - {{ comment.nickName }}</h4>
             <div>댓글 내용 : {{ comment.content  }}</div>
             <div> 작성날짜 : {{ comment.createdAt }}</div>
-            <button class="btn btn-primary" @click="modifyModeChange">댓글 수정</button>
-            <button class="btn btn-danger" @click="deleteComment(comment.commentId)">댓글 삭제</button>
+            <div v-show="currUserSeq === comment.userSeq">
+                <button class="btn btn-primary" @click="modifyModeChange">댓글 수정</button>
+                <button class="btn btn-danger" @click="deleteComment(comment.commentId)">댓글 삭제</button>
+            </div>
             <hr>
         </div>
         <div v-show="modifyMode">
@@ -26,6 +28,7 @@ const props = defineProps({
     articleId : String
 })
 
+const currUserSeq = ref(JSON.parse(sessionStorage.getItem("userSeq")))
 const modifyMode = ref(false)
 const commentStore = useCommentStore()
 
@@ -50,6 +53,7 @@ function modifyComment(commentId,content) {
 function deleteComment(commentId) {
     if (confirm("댓글을 삭제하시겠습니까") === true){
         commentStore.deleteComment(commentId,props.articleId)
+        alert("댓글 삭제 완료")
     }
     else{
         return;
