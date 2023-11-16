@@ -74,6 +74,7 @@ public class ArticleController {
 //		UserResponse loginUser = (UserResponse) session.getAttribute("loginUser");
 //		int userSeq = loginUser.getUserSeq();
 		int userSeq = Integer.parseInt(request.getHeader("userSeq"));
+		System.out.println("userSeq => " + userSeq);
 		boolean isUpdated = articleService.modifyArticle(articleModifyRequest, articleId, userSeq);
 
 		if (!isUpdated)

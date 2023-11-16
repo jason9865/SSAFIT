@@ -15,6 +15,7 @@
   import {ref,computed, onMounted} from 'vue';
   import {useCommentStore} from '../../stores/comment'
   import { useArticleStore } from '../../stores/article';
+  import { storeToRefs } from 'pinia';
 
   const props = defineProps({
     articleId : String
@@ -23,7 +24,7 @@
   const commentStore = useCommentStore()
   const articleStore = useArticleStore()
 
-  const commentList = computed(() => commentStore.commentList)
+  const {commentList} = storeToRefs(commentStore)
 
   onMounted(() => {
     console.log("CommentList OnMounted");
