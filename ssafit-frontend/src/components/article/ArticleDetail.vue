@@ -46,11 +46,9 @@ function deleteArticle() {
   articleStore.deleteArticle(articleId.value)
 }
 
-
 onMounted(() => {
   store.getArticle(route.params.articleId)
 })
-
 
 </script>
   

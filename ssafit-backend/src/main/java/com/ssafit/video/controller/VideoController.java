@@ -40,7 +40,7 @@ public class VideoController {
         return new ResponseEntity<List<Video>>(videoList, HttpStatus.OK);
     }
 
-    @GetMapping("/{videoId}")
+    @GetMapping("/{videoId}/detail")
     @ApiOperation(value="비디오 개별 조회", notes="검색조건 추후 추가 예정")
     public ResponseEntity<?> getVideoById(@PathVariable String videoId) {
 

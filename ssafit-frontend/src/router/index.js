@@ -10,7 +10,14 @@ import FreeList from '../components/article/FreeList.vue'
 import ArticleCreate from '../components/article/ArticleCreate.vue'
 import ArticleDetail from '../components/article/ArticleDetail.vue'
 import ArticleModify from '../components/article/ArticleModify.vue'
+
 import VideoList from '../components/video/VideoList.vue'
+import AbsList from '../components/video/AbsList.vue'
+import ArmList from '../components/video/ArmList.vue'
+import BackList from '../components/video/BackList.vue'
+import ChestList from '../components/video/ChestList.vue'
+import LegList from '../components/video/LegList.vue'
+import ShoulderList from '../components/video/ShoulderList.vue'
 import VideoDetail from '../components/video/VideoDetail.vue'
 
 import UserInfo from "../components/user/UserInfo.vue"
@@ -100,6 +107,36 @@ const router = createRouter({
           path : ":videoId",
           name : "VideoDetail",
           component : VideoDetail,
+        },
+        {
+          path : "absList",
+          name : "AbsList",
+          component : AbsList,
+        },
+        {
+          path : "armList",
+          name : "ArmList",
+          component : ArmList,
+        },
+        {
+          path : "backList",
+          name : "BackList",
+          component : BackList,
+        },
+        {
+          path : "chestList",
+          name : "ChestList",
+          component : ChestList,
+        },
+        {
+          path : "legList",
+          name : "LegList",
+          component : LegList,
+        },
+        {
+          path : "shoulderList",
+          name : "ShoulderList",
+          component : ShoulderList,
         },
       ]
     },

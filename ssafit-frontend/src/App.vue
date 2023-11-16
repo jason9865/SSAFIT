@@ -27,26 +27,8 @@ onMounted(() => {
   if(sessionStorage.getItem("loginUser")){
     userStore.loginUser = JSON.parse(sessionStorage.getItem("loginUser"))
   }
-
-  // console.log("App onMounted")
-  boardStore.getBoardList()
-  axios({
-    url : 'http://localhost:8080/board',
-    method : "GET",
-    })
-    .then((res) => {
-      localStorage.setItem("boardList", JSON.stringify(res.data))
-    })
-    .catch((err) => {
-      console.log(err)
-      alert("서버 에러")
-    })
     
 });
-
-
-
-
 
 
 </script>
