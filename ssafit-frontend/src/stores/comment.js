@@ -1,10 +1,12 @@
 import {ref, computed} from 'vue'
 import {defineStore} from 'pinia'
 import axios from 'axios'
+import { useRouter } from 'vue-router'
 
 const REST_API = 'http://localhost:8080/comment'
 
 export const useCommentStore = defineStore('comment', () => {
+    const router = useRouter()
     
     // 댓글 리스트 조회
     const commentList = ref([])
@@ -60,12 +62,12 @@ export const useCommentStore = defineStore('comment', () => {
         })
         .catch((err) => {
             console.log(err);
-            alert("서버 에러!")
+            alert("댓글 등록에 실패하였습니다.")
         })
     }
 
     // 댓글 수정
-    const updateComment = function(comment) {
+    const updateComment = function(comment,articleId) {
         axios({
             url : `${REST_API}/${comment.commentId}`,
             method : 'PUT',
@@ -76,28 +78,28 @@ export const useCommentStore = defineStore('comment', () => {
             data : comment
         })
         .then((res) => {
-            alert("댓글 수정 완료") 
+            // alert("댓글 수정 완료") 
+            getCommentList(articleId)
         })
         .catch((err) => {
             console.log(err);
-            alert("서버 에러!")
+            alert("댓글 수정에 실패하였습니다.")
         })
     }
 
     // 댓글 삭제
-    const deleteComment = function(commentId) {
+    const deleteComment = function(commentId,articleId) {
         axios({
             url : `${REST_API}/${commentId}`,
             method : `DELETE`
         })
         .then((res)=>{
-            res === true ?
-            alert("댓글 삭제 완료") :
-            alert("댓글 삭제 실패")
+            // alert("댓글 삭제 완료")
+            getCommentList(articleId)
         })
         .catch((err) => {
             console.log(err);
-            alert("서버 에러!")
+            alert("댓글 수정에 실패하였습니다.")
         })
     }
 

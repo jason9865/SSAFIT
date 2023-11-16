@@ -3,10 +3,7 @@
       <h3>댓글 리스트</h3>
       <hr>
       <div v-for="comment in commentList" :key="comment.commentId">
-        <h4>{{ comment.userId }} - {{ comment.nickName }}</h4>
-        <div>댓글 내용 : {{ comment.content  }}</div>
-        <div> 작성날짜 : {{ comment.createdAt }}</div>
-        <button class="btn btn-primary">댓글 수정</button>
+        <CommentListItem :comment="comment" :article-id="articleId"/>
       </div>
       <CommentWrite :article-id = "articleId"/>
       <hr>
@@ -19,6 +16,7 @@
   import { useArticleStore } from '../../stores/article';
   import { storeToRefs } from 'pinia';
   import CommentWrite from './CommentWrite.vue';
+  import CommentListItem from "./CommentListItem.vue"
 
   const props = defineProps({
     articleId : String
@@ -28,6 +26,7 @@
   const articleStore = useArticleStore()
 
   const {commentList} = storeToRefs(commentStore)
+
 
   onMounted(() => {
     console.log("CommentList OnMounted");
