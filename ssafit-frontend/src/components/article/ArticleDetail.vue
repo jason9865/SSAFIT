@@ -6,11 +6,10 @@
     <div>{{ store.article.createdAt }}</div>
     <div>{{ store.article.viewCnt }}</div>
     <div>{{ store.article.content }}</div>
-    
     <!-- 게시글 작성자와 로그인 유저가 동일인이어야 게시글 수정/삭제 버튼이 뜬다.. -->
-    <div v-if="loginUser && (loginUser.userSeq === store.article.userSeq)">
-      <span> 게시글 수정</span>
-      <span> 게시글 삭제</span>
+    <div class="buttons" v-if="currUserSeq && (currUserSeq === store.article.userSeq)">
+      <button class="btn btn-success m-3" @click="modifyArticle"> 게시글 수정</button>
+      <button class="btn btn-danger m-3" @click="deleteArticle"> 게시글 삭제</button>
     </div>
 
     <hr>
@@ -35,12 +34,21 @@ const articleId = ref(route.params.articleId)
 // 헌데 로그아웃을 해버리면 ._value를 찾을 수 없다며 에러가 뜬다. -> 문제해결
 const loginUser = ref(JSON.parse(window.localStorage.getItem("loginUser"))?._value )
 
+// console.log("currUserSeq => ", JSON.parse(sessionStorage.getItem("userSeq")))
+const currUserSeq = ref(JSON.parse(sessionStorage.getItem("userSeq")))
+
+function modifyArticle() {
+  router.push({name:"ArticleModify"})
+}
+
+
 onMounted(() => {
   store.getArticle(route.params.articleId)
 })
 
+
 </script>
   
 <style scoped>
-  
+
 </style>

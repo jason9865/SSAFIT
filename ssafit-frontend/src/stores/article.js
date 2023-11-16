@@ -50,17 +50,18 @@ export const useArticleStore = defineStore('article', () => {
 
     const updateArticle = function(article) {
         axios({
-            url : `${REST_API}/${article.articleId}`,
+            url : `${REST_API}/${article.articleId}/update`,
             method : "PUT",
             headers : {
-                'Content-Type' : `application/json`
+                'Content-Type' : `application/json`,
+                'userSeq' : sessionStorage.getItem("userSeq")
             },
             data : article
         })
         .then((res) =>{
-            res === true ?
-            alert("게시글 수정 완료") :
-            alert("게시글 수정 실패")
+            alert("게시글 수정 완료")
+            boardStore.getArticleList(article.boardId)
+            router.go(-1)
         })
         .catch((err) => {
             console.log(err)
@@ -74,9 +75,7 @@ export const useArticleStore = defineStore('article', () => {
             method : "DELETE"
         })
         .then((res) =>{
-            res === true ?
-            alert("게시글 삭제 완료") :
-            alert("게시글 삭제 실패")
+            alert("게시글 삭제 완료") 
         })
         .catch((err) => {
             console.log(err)
