@@ -43,14 +43,12 @@ function modifyArticle() {
 }
 
 function deleteArticle() {
-  console.log("DeleteArticle")
   articleStore.deleteArticle(articleId.value)
 }
 
 
 onMounted(() => {
   store.getArticle(route.params.articleId)
-  console.log(route.params.articleId)
 })
 
 

@@ -7,7 +7,6 @@ import MypageView from '../views/MyPageView.vue'
 
 import AnnounceList from '../components/article/AnnounceList.vue'
 import FreeList from '../components/article/FreeList.vue'
-import ArticleList from '../components/article/ArticleList.vue'
 import ArticleCreate from '../components/article/ArticleCreate.vue'
 import ArticleDetail from '../components/article/ArticleDetail.vue'
 import ArticleModify from '../components/article/ArticleModify.vue'

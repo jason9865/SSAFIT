@@ -34,13 +34,10 @@ function modifyModeChange() {
 }
 
 function modifyComment(commentId,content) {
-    console.log("히히 댓글 수정 발사")
     let updatedComment = {
         commentId : commentId,
         content : content
     }
-    console.log("commentId -> ",commentId)
-    console.log("바뀐 내용 ->",content)
     if(confirm("댓글을 수정하시겠습니까?") === true){
         commentStore.updateComment(updatedComment,props.articleId)
         modifyModeChange()

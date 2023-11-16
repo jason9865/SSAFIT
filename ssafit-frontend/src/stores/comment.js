@@ -17,7 +17,6 @@ export const useCommentStore = defineStore('comment', () => {
             method : "GET"
         })
         .then((res) =>{
-            console.log(res.data)
             commentList.value = res.data
         }
         )
