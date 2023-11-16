@@ -14,6 +14,7 @@ import { useRouter } from "vue-router";
 import axios from "axios";
 import { useBoardStore } from './stores/board';
 import { useUserStore } from './stores/user';
+import { storeToRefs } from 'pinia';
 
 const router = useRouter();
 const user = ref(null);
