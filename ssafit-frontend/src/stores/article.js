@@ -26,7 +26,7 @@ export const useArticleStore = defineStore('article', () => {
     }
 
     const writeArticle = function(article) {
-        console.log(article.boardId)
+        console.log("article의 boardID가 뭘까",article.boardId)
         axios({
             url : `${REST_API}/write`,
             method : "POST",
@@ -44,7 +44,7 @@ export const useArticleStore = defineStore('article', () => {
         })
         .catch((err) => {
             console.log(err)
-            alert("서버 에러")
+            alert("게시글 등록 실패")
         })
     }
 
@@ -110,7 +110,6 @@ export const useArticleStore = defineStore('article', () => {
             }
         })
         .then((res) => {
-            console.log("isLiked => ", res.data)
             isLiked.value = res.data
         })
         .catch((err) => {
@@ -118,22 +117,43 @@ export const useArticleStore = defineStore('article', () => {
         })
     }
 
-    const doArticleLike = function(articleLike) {
+    const doArticleLike = function(articleId) {
         axios({
-            url : `${REST_API}/${articleLike.articleId}/like`,
+            url : `${REST_API}/${articleId}/like`,
             method : "POST",
             headers : {
                 "Content-Type" : "application/json",
                 "userSeq" : sessionStorage.getItem("userSeq")
             },
-            data : articleLike
         })
         .then((res) => {
-            alert("좋아요 완료")
+            // alert("좋아요 완료")
+            getArticleLike(articleId)
+            checkLiked(articleId)
         })
         .catch((err)=> {
             console.log(err);
-            alert("서버 에러")
+            alert("좋아요 실패")
+        })
+    }
+
+    const undoArticleLike = function(articleId) {
+        axios({
+            url : `${REST_API}/${articleId}/like`,
+            method : "DELETE",
+            headers : {
+                "Content-Type" : "application/json",
+                "userSeq" : sessionStorage.getItem("userSeq")
+            },
+        })
+        .then((res) => {
+            // alert("좋아요 취소")
+            getArticleLike(articleId)
+            checkLiked(articleId)
+        })
+        .catch((err)=> {
+            console.log(err);
+            alert("좋아요 취소 실패")
         })
     }
 
@@ -162,30 +182,51 @@ export const useArticleStore = defineStore('article', () => {
             }
         })
         .then((res) => {
-            console.log("isDisliked => ", res.data)
             isDisliked.value = res.data
+
         })
         .catch((err) => {
             console.log(err);
         })
     }
 
-    const doArticleDislike = function(articleDislike) {
+    const doArticleDislike = function(articleId) {
         axios({
-            url : `${REST_API}/${articleDislike.articleId}/like`,
+            url : `${REST_API}/${articleId}/dislike`,
             method : "POST",
             headers : {
                 "Content-Type" : "application/json",
                 "userSeq" : sessionStorage.getItem("userSeq")
-            },
-            data : articleLike
+            }        
         })
         .then((res) => {
-            alert("좋아요 완료")
+            // alert("싫어요 완료")
+            getArticleDislike(articleId)
+            checkDisliked(articleId)
         })
         .catch((err)=> {
             console.log(err);
-            alert("서버 에러")
+            alert("싫어요 실패")
+        })
+    }
+
+    const undoArticleDislike = function(articleId) {
+        axios({
+            url : `${REST_API}/${articleId}/dislike`,
+            method : "DELETE",
+            headers : {
+                "Content-Type" : "application/json",
+                "userSeq" : sessionStorage.getItem("userSeq")
+            },
+        })
+        .then((res) => {
+            // alert("싫어요 취소")
+            getArticleDislike(articleId)
+            checkDisliked(articleId)
+        })
+        .catch((err)=> {
+            console.log(err);
+            alert("싫어요 취소 실패")
         })
     }
 
@@ -200,10 +241,10 @@ export const useArticleStore = defineStore('article', () => {
         articleLikeCount,
         isLiked,checkLiked,
         getArticleLike,
-        doArticleLike,
+        doArticleLike, undoArticleLike,
         articleDislikeCount,
         isDisliked, checkDisliked,
         getArticleDislike,
-        doArticleDislike
+        doArticleDislike,undoArticleDislike,
     }
 })

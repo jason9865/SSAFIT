@@ -105,7 +105,6 @@ public class ArticleController {
 	@ApiOperation(value="특정 사용자가 좋아요를 눌렀는지 확인")
 	public ResponseEntity<Integer> isLiked(@PathVariable int articleId, HttpServletRequest request) {
 		int userSeq = Integer.parseInt(request.getHeader("userSeq"));
-		System.out.println("isLiked -> " + articleService.isLiked(articleId,userSeq));
 		return new ResponseEntity<Integer>(articleService.isLiked(articleId, userSeq),HttpStatus.OK);
 	}
 
@@ -119,11 +118,11 @@ public class ArticleController {
 		return new ResponseEntity<Boolean>(isLikeAdded,HttpStatus.OK);
 	}
 
-	@DeleteMapping("/{articleLikeId}/like")
+	@DeleteMapping("/{articleId}/like")
 	@ApiOperation(value="게시글 좋아요 취소", notes="게시글에 좋아요를 취소합니다.")
-	public ResponseEntity<Boolean> undoArticleLike(@PathVariable int articleLikeId, HttpServletRequest request){
+	public ResponseEntity<Boolean> undoArticleLike(@PathVariable int articleId, HttpServletRequest request){
 		int userSeq = Integer.parseInt(request.getHeader("userSeq"));
-		boolean isDislikeUndone = articleService.deleteArticleLike(articleLikeId);
+		boolean isDislikeUndone = articleService.deleteArticleLike(articleId,userSeq);
 		if (!isDislikeUndone)
 			return new ResponseEntity<Boolean>(isDislikeUndone,HttpStatus.NO_CONTENT);
 		return new ResponseEntity<Boolean>(isDislikeUndone,HttpStatus.OK);
@@ -139,7 +138,6 @@ public class ArticleController {
 	@ApiOperation(value="특정 사용자가 싫어요를 눌렀는지 확인")
 	public ResponseEntity<Integer> isDisLiked(@PathVariable int articleId, HttpServletRequest request) {
 		int userSeq = Integer.parseInt(request.getHeader("userSeq"));
-		System.out.println("isDisliked -> " + articleService.isDisliked(articleId,userSeq));
 		return new ResponseEntity<Integer>(articleService.isDisliked(articleId, userSeq),HttpStatus.OK);
 	}
 
@@ -153,11 +151,11 @@ public class ArticleController {
 		return new ResponseEntity<Boolean>(isDislikeAdded,HttpStatus.OK);
 	}
 
-	@DeleteMapping("/{articleDisLikeId}/dislike")
+	@DeleteMapping("/{articleId}/dislike")
 	@ApiOperation(value="게시글 싫어요 취소", notes="게시글에 싫어요를 취소합니다.")
-	public ResponseEntity<Boolean> undoArticleDislike(@PathVariable int articleDisLikeId,HttpServletRequest request){
+	public ResponseEntity<Boolean> undoArticleDislike(@PathVariable int articleId,HttpServletRequest request){
 		int userSeq = Integer.parseInt(request.getHeader("userSeq"));
-		boolean isDislikeUndone = articleService.deleteArticleDislike(articleDisLikeId);
+		boolean isDislikeUndone = articleService.deleteArticleDislike(articleId, userSeq);
 		if (!isDislikeUndone)
 			return new ResponseEntity<Boolean>(isDislikeUndone,HttpStatus.NO_CONTENT);
 		return new ResponseEntity<Boolean>(isDislikeUndone,HttpStatus.OK);

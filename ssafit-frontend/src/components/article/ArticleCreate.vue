@@ -1,5 +1,11 @@
 <template>
   <div>
+      <select class="form-select" v-model="boardId">
+        <option selected>게시판을 고르세요</option>
+        <option v-for="board in boardStore.boardList" :value="board.boardId" >{{board.name}}</option>
+      </select>
+
+
       <h4>게시글 작성</h4>
       <div class="form-floating mb-3">
           <input type="text" class="form-control" id="title" placeholder="제목" v-model="article.title">
@@ -17,14 +23,14 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";  
+import { ref, computed,onMounted } from "vue";  
 import { useArticleStore } from "@/stores/article";
 import { useBoardStore } from "@/stores/board";
 
-
+const boardId = ref("");
 
 const article = ref({
-  boardId : computed(() => boardStore.board?.boardId),
+  boardId : boardId,
   title: "",
   content: "",
 })
@@ -33,6 +39,7 @@ const boardStore = useBoardStore();
 const articleStore = useArticleStore();
 
 const writeArticle = function () {
+  // console.log(article.value.boardId)
   if(confirm("게시글을 작성하시겠습니까?") === true){
     articleStore.writeArticle(article.value)
   }
@@ -40,6 +47,10 @@ const writeArticle = function () {
     return;
   }
 };
+
+onMounted(() => {
+  boardStore.getBoardList()
+})
 </script>
 
 <style scoped></style>

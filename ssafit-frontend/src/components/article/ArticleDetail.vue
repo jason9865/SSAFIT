@@ -46,7 +46,10 @@ function modifyArticle() {
 }
 
 function deleteArticle() {
-  articleStore.deleteArticle(articleId.value)
+  if (confirm("게시글을 삭제하시겠습니까?") === true){
+    articleStore.deleteArticle(articleId.value)
+  }
+  return;
 }
 
 onMounted(() => {
