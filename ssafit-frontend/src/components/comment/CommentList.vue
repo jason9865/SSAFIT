@@ -29,8 +29,6 @@
 
 
   onMounted(() => {
-    console.log("CommentList OnMounted");
-    console.log("ArticleId => ",props.articleId)
     commentStore.getCommentList(props.articleId)
   })
 
