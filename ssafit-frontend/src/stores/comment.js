@@ -62,7 +62,7 @@ export const useCommentStore = defineStore('comment', () => {
         })
         .catch((err) => {
             console.log(err);
-            alert("서버 에러!")
+            alert("댓글 등록에 실패하였습니다.")
         })
     }
 
@@ -78,12 +78,12 @@ export const useCommentStore = defineStore('comment', () => {
             data : comment
         })
         .then((res) => {
-            alert("댓글 수정 완료") 
+            // alert("댓글 수정 완료") 
             getCommentList(articleId)
         })
         .catch((err) => {
             console.log(err);
-            alert("서버 에러!")
+            alert("댓글 수정에 실패하였습니다.")
         })
     }
 
@@ -94,12 +94,12 @@ export const useCommentStore = defineStore('comment', () => {
             method : `DELETE`
         })
         .then((res)=>{
-            alert("댓글 삭제 완료")
+            // alert("댓글 삭제 완료")
             getCommentList(articleId)
         })
         .catch((err) => {
             console.log(err);
-            alert("서버 에러!")
+            alert("댓글 수정에 실패하였습니다.")
         })
     }
 

@@ -85,14 +85,14 @@ export const useArticleStore = defineStore('article', () => {
         })
     }
 
-    const likeCount = ref('')
-    const getLikeCount = function(articleId){
+    const articleLikeCount = ref('')
+    const getArticleLike = function(articleId){
         axios({
             url : `${REST_API}/${articleId}/like`,
             method : "GET"
         })
         .then((res) => {
-            likeCount.value = res.data
+            articleLikeCount.value = res.data
         })
         .catch((err) => {
             console.log(err);
@@ -100,7 +100,7 @@ export const useArticleStore = defineStore('article', () => {
         })
     }
 
-    const doLikeArticle = function(articleLike) {
+    const doArticleLike = function(articleLike) {
         axios({
             url : `${REST_API}/${articleLike.articleId}/like`,
             method : "POST",
@@ -119,19 +119,53 @@ export const useArticleStore = defineStore('article', () => {
         })
     }
 
-    // const  undoLikeArticle = function(articleLikeId) {
-    //     axios({
-    //         url : 
-    //     })
-    // }
+    const articleDislikeCount = ref('')
+    const getArticleDislike = function(articleId){
+        axios({
+            url : `${REST_API}/${articleId}/dislike`,
+            method : "GET"
+        })
+        .then((res) => {
+            articleDislikeCount.value = res.data
+        })
+        .catch((err) => {
+            console.log(err);
+            alert("서버 에러")
+        })
+    }
+
+    const doArticleDislike = function(articleDislike) {
+        axios({
+            url : `${REST_API}/${articleDislike.articleId}/like`,
+            method : "POST",
+            headers : {
+                "Content-Type" : "application/json",
+                "userSeq" : sessionStorage.getItem("userSeq")
+            },
+            data : articleLike
+        })
+        .then((res) => {
+            alert("좋아요 완료")
+        })
+        .catch((err)=> {
+            console.log(err);
+            alert("서버 에러")
+        })
+    }
+
+
 
     return {
         article,
         getArticle,
         writeArticle,
-        deleteArticle,
-        doLikeArticle,
-        getLikeCount,
         updateArticle,
+        deleteArticle,
+        articleLikeCount,
+        getArticleLike,
+        doArticleLike,
+        articleDislikeCount,
+        getArticleDislike,
+        doArticleDislike
     }
 })

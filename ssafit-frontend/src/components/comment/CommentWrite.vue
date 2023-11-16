@@ -27,8 +27,13 @@ function writeComment() {
     console.log("WriteComment!")
     console.log("Comment의 articleId => ",comment.value.articleId)
     console.log("Comment - content => ", comment.value.content)
-    commentStore.createComment(comment.value);
-    comment.value.content=""
+    if(confirm("댓글을 등록하시겠습니까?") === true){
+        commentStore.createComment(comment.value);
+        comment.value.content=""
+    }
+    else{
+        return;
+    }
 }
 
 </script>
