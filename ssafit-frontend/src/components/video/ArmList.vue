@@ -9,6 +9,7 @@
           </RouterLink>
           <p class="card-text text-truncate">{{ video.description }}</p>
           <ul class="list-group list-group-flush">
+            <li class="list-group-item">부위 : 팔</li>
             <li class="list-group-item">조회수 : {{ video.viewCnt }}</li>
           </ul>
         </div>
@@ -25,7 +26,7 @@ const videoList = ref([]);
 
 onMounted(() => {
   axios({
-    url : "http://localhost:8080/video",
+    url : "http://localhost:8080/video/arm",
     method : "GET", 
   })
     .then((res) => {
