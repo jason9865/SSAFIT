@@ -8,10 +8,10 @@
     <resultMap type="Video" id="videoMap">
         <result column="video_id" property="videoId"/>
         <result column="title" property="title"/>
-        <result column="channel_name" property="channelName"/>
-        <result column="url" property="url"/>
+        <result column="channel_title" property="channelTitle"/>
+        <result column="description" property="description"/>
+        <result column="part" property="part"/>
         <result column="view_cnt" property="viewCnt"/>
-        <result column="created_at" property="createdAt"/>
     </resultMap>
 
     <select id="selectAll" resultMap="videoMap">
@@ -20,14 +20,23 @@
         ;
     </select>
 
-    <select id="selectById" parameterType="int" resultMap="videoMap">
+    <select id="selectById" parameterType="String" resultMap="videoMap">
         SELECT *
         FROM video
         WHERE
             video_id = #{videoId}
         ;
     </select>
-    <insert id="insertVideo" parameterType="video">
+    
+    <select id="selectByPart" parameterType="String" resultMap="videoMap">
+        SELECT *
+        FROM video
+        WHERE
+            part = #{part}
+        ;
+    </select>
+    
+    <!-- <insert id="insertVideo" parameterType="video">
         INSERT INTO
         video(title,part,channel,name,url)
         VALUES(#{title}, #{part}, #{channel}, #{name},#{url})
@@ -38,17 +47,13 @@
         DELETE FROM video
         WHERE video_id=#{videoId}
         ;
-    </delete>
+    </delete> -->
 
-    <update id="updateViewCnt" parameterType="int">
+    <update id="updateViewCnt" parameterType="String">
         UPDATE video
         SET view_cnt = view_cnt + 1
         WHERE video_id = #{videoId}
         ;
     </update>
-
-
-
-
 
 </mapper>

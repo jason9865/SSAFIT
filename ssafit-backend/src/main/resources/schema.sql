@@ -215,13 +215,12 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS `video` (
-	`video_id` INT NOT NULL AUTO_INCREMENT,
+	`video_id` VARCHAR(100) NOT NULL,
     `title` VARCHAR(200) NULL,
+    `channel_title` VARCHAR(50) NULL,
+    `description` VARCHAR(200) NULL,
     `part` VARCHAR(20) NULL,
-    `channel_name` VARCHAR(50) NULL,
-    `url` VARCHAR(2048) NULL,
     `view_cnt` INT NULL DEFAULT 0,
-    `created_at` DATETIME NULL DEFAULT NOW(),
     PRIMARY KEY (`video_id`)
 )
 ENGINE = InnoDB;
