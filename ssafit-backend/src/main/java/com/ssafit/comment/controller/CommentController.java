@@ -49,10 +49,11 @@ public class CommentController {
     public ResponseEntity<Boolean> writeComment(
             @RequestBody CommentRegistRequest commentRegistRequest,
             @PathVariable int articleId,
-            HttpSession session){
+            HttpServletRequest request){
 
-        UserResponse loginUser = (UserResponse) session.getAttribute("loginUser");
-        int userSeq = loginUser.getUserSeq();
+//        UserResponse loginUser = (UserResponse) session.getAttribute("loginUser");
+//        int userSeq = loginUser.getUserSeq();
+        int userSeq = Integer.parseInt(request.getHeader("userSeq"));
         boolean isWritten = commentService.writeComment(commentRegistRequest,articleId, userSeq);
         if (!isWritten)
             return new ResponseEntity<Boolean>(isWritten,HttpStatus.NO_CONTENT);
@@ -64,10 +65,9 @@ public class CommentController {
     public ResponseEntity<Boolean> modifyComment(
             @RequestBody CommentModifyRequest commentModifyRequest,
             @PathVariable int commentId,
-            HttpSession session
+            HttpServletRequest request
             ) {
-        UserResponse loginUser = (UserResponse) session.getAttribute("loginUser");
-        int userSeq = loginUser.getUserSeq();
+        int userSeq = Integer.parseInt(request.getHeader("userSeq"));
         boolean isModified = commentService.modifyComment(commentModifyRequest, commentId, userSeq);
 
         if(!isModified)
@@ -93,8 +93,6 @@ public class CommentController {
     @PostMapping("/{commentId}/like")
     @ApiOperation(value = "댓글 좋아요 누르기")
     public ResponseEntity<Boolean> doCommentLike(@PathVariable int commentId, HttpServletRequest request) {
-//        UserResponse loginUser = (UserResponse) session.getAttribute("loginUser");
-//        int userSeq = loginUser.getUserSeq();
         int userSeq = Integer.parseInt(request.getHeader("userSeq"));
 
         boolean isLikeDone = commentService.addCommentLike(commentId,userSeq);

@@ -85,9 +85,8 @@ public class ArticleController {
 	@DeleteMapping("/{articleId}/delete")
 	@ApiOperation(value="게시글 삭제", notes="관리자 계정과 로그인 계정만 사용가능합니다.")
 	public ResponseEntity<Boolean> deleteArticle(
-			@PathVariable int articleId, HttpServletRequest request) {
+			@PathVariable int articleId) {
 		int boardId = articleService.readArticle(articleId).getBoardId();
-		int userSeq = Integer.parseInt(request.getHeader("userSeq"));
 
 		boolean isDeleted = articleService.deleteArticle(articleId);
 		if (!isDeleted)

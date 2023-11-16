@@ -135,6 +135,8 @@ export const useUserStore = defineStore('user', () => {
 
       const logout = () => {
         sessionStorage.removeItem("loginUser")
+        sessionStorage.removeItem("userSeq")
+        sessionStorage.removeItem("access-token")
         loginUser.value = null;
         alert("로그아웃!")
         router.push("/")

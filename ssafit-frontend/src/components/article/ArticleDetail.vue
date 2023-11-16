@@ -11,7 +11,7 @@
       <button class="btn btn-success m-3" @click="modifyArticle"> 게시글 수정</button>
       <button class="btn btn-danger m-3" @click="deleteArticle"> 게시글 삭제</button>
     </div>
-
+    <ArticleLikeDislike :article-id="articleId"/>
     <hr>
     <CommentList :article-id="articleId"/>
     
@@ -24,12 +24,15 @@ import {ref,onMounted} from 'vue'
 import {useRouter, useRoute} from 'vue-router'
 import {useArticleStore} from '@/stores/article'
 import CommentList from '@/components/comment/CommentList.vue';
+import ArticleLikeDislike from '@/components/article/ArticleLikeDislike.vue'
 
 const route = useRoute();
 const router = useRouter();
 const article =ref({});
 const store = useArticleStore()
 const articleId = ref(route.params.articleId)
+
+const articleStore = useArticleStore()
 
 // 헌데 로그아웃을 해버리면 ._value를 찾을 수 없다며 에러가 뜬다. -> 문제해결
 const loginUser = ref(JSON.parse(window.localStorage.getItem("loginUser"))?._value )
@@ -39,6 +42,11 @@ const currUserSeq = ref(JSON.parse(sessionStorage.getItem("userSeq")))
 
 function modifyArticle() {
   router.push({name:"ArticleModify"})
+}
+
+function deleteArticle() {
+  console.log("DeleteArticle")
+  articleStore.deleteArticle(articleId.value)
 }
 
 

@@ -6,8 +6,10 @@
         <h4>{{ comment.userId }} - {{ comment.nickName }}</h4>
         <div>댓글 내용 : {{ comment.content  }}</div>
         <div> 작성날짜 : {{ comment.createdAt }}</div>
-        <hr>
+        <button class="btn btn-primary">댓글 수정</button>
       </div>
+      <CommentWrite :article-id = "articleId"/>
+      <hr>
     </div>
   </template>
   
@@ -16,6 +18,7 @@
   import {useCommentStore} from '../../stores/comment'
   import { useArticleStore } from '../../stores/article';
   import { storeToRefs } from 'pinia';
+  import CommentWrite from './CommentWrite.vue';
 
   const props = defineProps({
     articleId : String
