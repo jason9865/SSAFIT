@@ -128,3 +128,14 @@ VALUES
 ("WWL58AYqlI8","최고의 하체운동 루틴","건담포스 김건우","건담닭 구매 링크 https://hity.io/gundamforce Instargram @gundamforce ↪︎ https://www.instagram.com/gundamforce/ 문의 ...","leg")
 ;
 commit;
+
+-- 팔로우 더미 데이터
+INSERT INTO follow (user_seq,target_user_seq)
+VALUES
+(1,2),
+(1,3),
+(2,3),
+(2,4),
+(2,6),
+(2,8);
+commit;

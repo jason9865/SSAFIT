@@ -11,6 +11,11 @@ export const useArticleStore = defineStore('article', () => {
     const boardStore = useBoardStore()
 
     const article = ref({})
+    const articleLikeCount = ref('')
+    const isLiked = ref('');
+    const articleDislikeCount = ref('')
+    const isDisliked = ref('');
+
     const getArticle = function(articleId) {
         axios({
             url : `${REST_API}/${articleId}`,
@@ -85,7 +90,6 @@ export const useArticleStore = defineStore('article', () => {
         })
     }
 
-    const articleLikeCount = ref('')
     const getArticleLike = function(articleId){
         axios({
             url : `${REST_API}/${articleId}/like`,
@@ -100,7 +104,6 @@ export const useArticleStore = defineStore('article', () => {
         })
     }
 
-    const isLiked = ref('');
     const checkLiked = function(articleId) {
         axios({
             url : `${REST_API}/${articleId}/isLiked`,
@@ -157,7 +160,6 @@ export const useArticleStore = defineStore('article', () => {
         })
     }
 
-    const articleDislikeCount = ref('')
     const getArticleDislike = function(articleId){
         axios({
             url : `${REST_API}/${articleId}/dislike`,
@@ -172,7 +174,6 @@ export const useArticleStore = defineStore('article', () => {
         })
     }
 
-    const isDisliked = ref('');
     const checkDisliked = function(articleId) {
         axios({
             url : `${REST_API}/${articleId}/isDisliked`,
@@ -233,18 +234,9 @@ export const useArticleStore = defineStore('article', () => {
 
 
     return {
-        article,
-        getArticle,
-        writeArticle,
-        updateArticle,
-        deleteArticle,
-        articleLikeCount,
-        isLiked,checkLiked,
-        getArticleLike,
-        doArticleLike, undoArticleLike,
-        articleDislikeCount,
-        isDisliked, checkDisliked,
-        getArticleDislike,
-        doArticleDislike,undoArticleDislike,
+        article,articleLikeCount, isLiked,articleDislikeCount,isDisliked,
+        getArticle,writeArticle,updateArticle,deleteArticle,
+        checkLiked,getArticleLike,doArticleLike, undoArticleLike,
+        checkDisliked,getArticleDislike,doArticleDislike,undoArticleDislike,
     }
 })
