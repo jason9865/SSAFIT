@@ -7,6 +7,7 @@
         <div>
           <RouterLink to="/video">운동영상</RouterLink>
           <RouterLink to="/board/free" @click="loadBoardList">커뮤니티</RouterLink>
+          <RouterLink to="/map">헬스장 검색</RouterLink>
           <RouterLink to="/login" v-if="!loginUser">로그인</RouterLink>
           <RouterLink to="/signup" v-if="!loginUser">회원가입</RouterLink>
           <span v-else>
