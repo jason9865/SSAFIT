@@ -63,6 +63,10 @@ const pagePerGroupComputed = computed(() => {
   }
 })
 
+const weight = computed(() => {
+  return Math.floor((currentPage.value-1) / pagePerGroup)*5
+})
+
 const currentPage = ref(1)
 
 const pageCount = computed(() => {
