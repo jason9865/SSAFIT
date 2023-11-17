@@ -17,6 +17,7 @@
     <select id="selectAll" resultMap="videoMap">
         SELECT *
         FROM video
+        order by view_cnt desc
         ;
     </select>
 
@@ -33,6 +34,7 @@
         FROM video
         WHERE
             part = #{part}
+        order by view_cnt desc
         ;
     </select>
     

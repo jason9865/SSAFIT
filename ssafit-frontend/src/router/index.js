@@ -20,6 +20,7 @@ import ChestList from '../components/video/ChestList.vue'
 import LegList from '../components/video/LegList.vue'
 import ShoulderList from '../components/video/ShoulderList.vue'
 import VideoDetail from '../components/video/VideoDetail.vue'
+import Youtube from '../components/youtube/Youtube.vue'
 
 import UserInfo from "../components/user/UserInfo.vue"
 import UserSignupForm from "../components/user/UserSignupForm.vue"
@@ -138,6 +139,11 @@ const router = createRouter({
           path : "shoulderList",
           name : "ShoulderList",
           component : ShoulderList,
+        },
+        {
+          path : "youtube",
+          name : "Youtube",
+          component : Youtube,
         },
       ]
     },
