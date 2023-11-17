@@ -18,12 +18,12 @@
   <nav aria-label="Page navigation">
     <ul class="pagination d-flex justify-content-center">
       <li class="page-item"><a class="page-link" :class="{ disabled: currentPage <= 1 }" href="#"
-          @click.prevent="currentPage--">&lt;</a></li>
+          @click.prevent="clickPage(--currentPage)">&lt;</a></li>
       <li :class="{ active: currentPage === page+weight }" v-for="page in pagePerGroupComputed" :key="page">
         <a class="page-link" href="#" @click.prevent="clickPage(page+weight)">{{ page+weight }}</a>
       </li>
       <li class="page-item"><a class="page-link" :class="{ disabled: currentPage >= pageCount }" href="#"
-          @click.prevent="currentPage++">&gt;</a></li>
+          @click.prevent="clickPage(++currentPage)">&gt;</a></li>
     </ul>
   </nav>
 </template>
@@ -52,11 +52,14 @@ const pagePerGroup = 5;
 
 const pagePerGroupComputed = computed(() => {
   if((videoList.value.length/perPage) < pagePerGroup) {
+    if(videoList.value.length/perPage > 4) {
+      return 5
+    }
     return (Math.ceil(videoList.value.length / perPage)%5)
-  } else if(Math.floor(videoList.value.length / perPage)%5 == 0) {
+  } else if((videoList.value.length / perPage)%5 == 0) {
     return 5
   } else {
-    return (currentPage.value > (Math.floor(videoList.value.length / perPage))%5*5) ? (Math.ceil(videoList.value.length / perPage)%5) : 5;
+    return currentPage.value > Math.floor((Math.floor(videoList.value.length / perPage))/pagePerGroup)*pagePerGroup ? (Math.ceil(videoList.value.length / perPage)%5) : 5;
   }
 })
 

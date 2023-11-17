@@ -52,11 +52,14 @@ const pagePerGroup = 5;
 
 const pagePerGroupComputed = computed(() => {
   if((videoList.value.length/perPage) < pagePerGroup) {
+    if(videoList.value.length/perPage > 4) {
+      return 5
+    }
     return (Math.ceil(videoList.value.length / perPage)%5)
-  } else if(Math.floor(videoList.value.length / perPage)%5 == 0) {
+  } else if((videoList.value.length / perPage)%5 == 0) {
     return 5
   } else {
-    return (currentPage.value > (Math.floor(videoList.value.length / perPage))%5*5) ? (Math.ceil(videoList.value.length / perPage)%5) : 5;
+    return currentPage.value > Math.floor((Math.floor(videoList.value.length / perPage))/pagePerGroup)*pagePerGroup ? (Math.ceil(videoList.value.length / perPage)%5) : 5;
   }
 })
 

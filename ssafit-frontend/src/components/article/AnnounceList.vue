@@ -69,14 +69,17 @@ return Math.ceil(entireArticleLength.value / articlePerPage)
 
 // pagination group 개수
 const pagePerGroup = 5;
-// 
+// 실제 쓰이는 값
 const pagePerGroupComputed = computed(() => {
-  if(entireArticleLength.value/articlePerPage < pagePerGroup) { 
+  if(entireArticleLength.value/articlePerPage < pagePerGroup) {     // 전체 게시글이 50개보다 작을 때,
+    if(entireArticleLength.value/articlePerPage > 4) {
+      return 5
+    }
     return (Math.ceil(entireArticleLength.value/articlePerPage)%5)
-  } else if((Math.floor(entireArticleLength.value / articlePerPage))%5*5 == 0) {
+  } else if((entireArticleLength.value / articlePerPage)%5 == 0) {    // (전체 게시글/한페이지에 출력될 게시글 수) % 5가 0일 때,
     return 5
-  } else {
-    return (currentPage.value > (Math.floor(entireArticleLength.value / articlePerPage))%5*5) ? (Math.ceil(entireArticleLength.value / articlePerPage)%5) : 5;
+  } else {    // 그 외
+    return currentPage.value > Math.floor((Math.floor(entireArticleLength.value / articlePerPage))/pagePerGroup)*pagePerGroup ? (Math.ceil(entireArticleLength.value / articlePerPage)%5) : 5;
   }
 })
 
