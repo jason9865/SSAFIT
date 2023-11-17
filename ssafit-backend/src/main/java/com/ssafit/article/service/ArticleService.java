@@ -12,7 +12,11 @@ import java.util.List;
 public interface ArticleService {
 	
 	List<ArticleResponse> getArticleList();
-
+	
+	List<ArticleResponse> getArticleList(int boardId);
+	
+	List<ArticleResponse> getArticleList(int boardId, int currentPage);
+	
 	ArticleResponse getArticle(int articleId);
 	
 	ArticleResponse readArticle(int articleId);
