@@ -9,10 +9,20 @@ import java.util.List;
 import java.util.Map;
 
 public interface ArticleDao {
+	
+	
 	// 게시판에 해당하는 게시물 모두 검색 -> list로 보여주기
 	List<Article> selectAll();
-		
+	
 	// 게시판 별 article 검색
+	List<Article> selectByBoardId(@Param("boardId")int boardId);
+	
+	// 게시판 별 article 검색 with paging
+	List<Article> selectByBoardIdPaging(@Param("boardId")int boardId,
+								  @Param("currentPage")int currentPage,
+								  @Param("articlePerPage")int articlePerPage,
+								  @Param("offsetParam")int offsetParam
+								  );
 
 	// article id로 검색
 	Article selectById(int articleId);

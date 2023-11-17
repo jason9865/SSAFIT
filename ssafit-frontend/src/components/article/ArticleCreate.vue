@@ -1,7 +1,7 @@
 <template>
   <div>
       <select class="form-select" v-model="boardId">
-        <option selected>게시판을 고르세요</option>
+        <option value="" selected>게시판 선택</option>
         <option v-for="board in boardStore.boardList" :value="board.boardId" >{{board.description}}</option>
       </select>
 

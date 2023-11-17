@@ -12,8 +12,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/board")
@@ -40,11 +43,20 @@ public class BoardController {
 	}
 
 	@GetMapping("/{boardId}")
-	@ApiOperation(value="게시판 별 게시글", notes="게시판 별 게시글을 보여줍니다.")
-	public ResponseEntity<List<ArticleResponse>> boardDetail(@PathVariable int boardId) {
-		List<ArticleResponse> articleList = articleService.getArticleList().stream().
-				filter(a -> a.getBoardId() == boardId).
-				collect(Collectors.toList());
+	@ApiOperation(value="게시판 별 게시글", notes="게시판 별 게시글을 보여줍니다. 헤더에 페이지 정보를 읽어 ")
+	public ResponseEntity<List<ArticleResponse>> boardDetail(@PathVariable int boardId, HttpServletRequest request) {
+		List<ArticleResponse> articleList = new ArrayList<>();
+		
+		if(request.getHeader("currentPage")==null) {
+			articleList = articleService.getArticleList(boardId).stream().
+					filter(a -> a.getBoardId() == boardId).
+					collect(Collectors.toList());
+		} else {
+			int currentPage = Integer.parseInt(request.getHeader("currentPage"));
+			articleList = articleService.getArticleList(boardId, currentPage).stream().
+					filter(a -> a.getBoardId() == boardId).
+					collect(Collectors.toList());
+		}
 
 		return new ResponseEntity<List<ArticleResponse>>(articleList,HttpStatus.OK);
 	}

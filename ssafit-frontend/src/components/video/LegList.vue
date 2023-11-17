@@ -19,7 +19,7 @@
     <ul class="pagination d-flex justify-content-center">
       <li class="page-item"><a class="page-link" :class="{ disabled: currentPage <= 1 }" href="#"
           @click.prevent="currentPage--">&lt;</a></li>
-      <li :class="{ active: currentPage === page+weight }" v-for="page in limitPage" :key="page">
+      <li :class="{ active: currentPage === page+weight }" v-for="page in pagePerGroupComputed" :key="page">
         <a class="page-link" href="#" @click.prevent="clickPage(page+weight)">{{ page+weight }}</a>
       </li>
       <li class="page-item"><a class="page-link" :class="{ disabled: currentPage >= pageCount }" href="#"
@@ -48,10 +48,20 @@ onMounted(() => {
 })
 
 const perPage = 4;
-const limitPage = 5;
+const pagePerGroup = 5;
+
+const pagePerGroupComputed = computed(() => {
+  if((videoList.value.length/perPage) < pagePerGroup) {
+    return (Math.ceil(videoList.value.length / perPage)%5)
+  } else if(Math.floor(videoList.value.length / perPage)%5 == 0) {
+    return 5
+  } else {
+    return (currentPage.value > (Math.floor(videoList.value.length / perPage))%5*5) ? (Math.ceil(videoList.value.length / perPage)%5) : 5;
+  }
+})
 
 const weight = computed(() => {
-  return Math.floor((currentPage.value-1) / limitPage)*5
+  return Math.floor((currentPage.value-1) / pagePerGroup)*5
 })
 
 const currentPage = ref(1)

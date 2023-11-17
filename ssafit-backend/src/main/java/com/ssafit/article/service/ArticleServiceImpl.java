@@ -28,10 +28,36 @@ public class ArticleServiceImpl implements ArticleService {
 	private final ArticleDao articleDao;
 	private final UserDao userDao;
 	private final BoardDao boardDao;
+	private final int articlePerPage = 10;
 	
 	@Override
 	public List<ArticleResponse> getArticleList() {
 		return articleDao.selectAll().stream()
+				.map(article ->
+				ArticleResponse.from(
+						article,
+						userDao.selectByUserSeq(article.getUserSeq()),
+						boardDao.selectOne(article.getBoardId())
+						))
+				.collect(toList());
+	}
+	
+	@Override
+	public List<ArticleResponse> getArticleList(int boardId) {
+		return articleDao.selectByBoardId(boardId).stream()
+				.map(article ->
+				ArticleResponse.from(
+						article,
+						userDao.selectByUserSeq(article.getUserSeq()),
+						boardDao.selectOne(article.getBoardId())
+						))
+				.collect(toList());
+	}
+	
+	@Override
+	public List<ArticleResponse> getArticleList(int boardId, int currentPage) {
+		int offsetParam = ((currentPage) - 1) * articlePerPage;
+		return articleDao.selectByBoardIdPaging(boardId, currentPage, articlePerPage, offsetParam).stream()
 				.map(article ->
 				ArticleResponse.from(
 						article,
@@ -192,6 +218,9 @@ public class ArticleServiceImpl implements ArticleService {
 	public 	boolean isAvailable(int articleId, int userSeq){
 		return findArticleLike(articleId, userSeq) == null && findArticleDislike(articleId,userSeq) == null;
 	}
+
+
+	
 
 
 

@@ -49,6 +49,34 @@
 		;
  	</select>
  	
+ 	<select id="selectByBoardId" parameterType="Map" resultMap="articleMap">
+ 		SELECT 
+ 			*
+		FROM
+			board b
+		    RIGHT JOIN article a
+		    ON b.board_id = a.board_id
+		    LEFT JOIN user u
+			ON a.user_seq = u.user_seq
+		WHERE b.board_id = #{boardId}
+		;
+ 	</select>
+ 	
+ 	<select id="selectByBoardIdPaging" parameterType="Map" resultMap="articleMap">
+ 		SELECT 
+ 			*
+		FROM
+			board b
+		    RIGHT JOIN article a
+		    ON b.board_id = a.board_id
+		    LEFT JOIN user u
+			ON a.user_seq = u.user_seq
+		WHERE b.board_id = #{boardId}
+		LIMIT #{articlePerPage}
+		OFFSET #{offsetParam}
+		;
+ 	</select>
+ 	
  	<select id="selectById" parameterType="int" resultMap="articleMap">
 		SELECT
 			*
