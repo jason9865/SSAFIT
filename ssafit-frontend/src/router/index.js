@@ -4,6 +4,7 @@ import LoginView from '../views/LoginView.vue'
 import BoardView from '../views/BoardView.vue'
 import VideoView from '../views/VideoView.vue'
 import MypageView from '../views/MyPageView.vue'
+import KakaoMapView from "../views/KakaoMapView.vue"
 
 import AnnounceList from '../components/article/AnnounceList.vue'
 import FreeList from '../components/article/FreeList.vue'
@@ -140,6 +141,13 @@ const router = createRouter({
         },
       ]
     },
+    {
+      path : "/map",
+      name : "map",
+      component : KakaoMapView,
+      // component : () => import("@/views/KakaoMapView.vue")
+    }
+
 
   ]
 })
