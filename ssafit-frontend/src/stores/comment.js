@@ -1,11 +1,12 @@
 import {ref, computed} from 'vue'
 import {defineStore} from 'pinia'
 import axios from 'axios'
-import router from '@router'
+import { useRouter } from 'vue-router'
 
 const REST_API = 'http://localhost:8080/comment'
 
 export const useCommentStore = defineStore('comment', () => {
+    const router = useRouter()
     
     // 댓글 리스트 조회
     const commentList = ref([])
@@ -15,8 +16,9 @@ export const useCommentStore = defineStore('comment', () => {
             url : `${REST_API}/${articleId}`,
             method : "GET"
         })
-        .then((res) =>
-        commentList.value = res.data
+        .then((res) =>{
+            commentList.value = res.data
+        }
         )
         .catch((err) =>{
             console.log(err)
@@ -47,17 +49,56 @@ export const useCommentStore = defineStore('comment', () => {
         axios({
             url : `${REST_API}/${comment.articleId}`,
             method : "POST",
-            header : {
-                'Content-Type' : 'application/json'
+            headers : {
+                'Content-Type' : 'application/json',
+                'userSeq' : sessionStorage.getItem("userSeq")
             },
             data : comment
         })
         .then((res) => {
-            router.push({name : ArticleDetail})
+           alert("댓글 등록 완료") 
+           getCommentList(comment.articleId)
         })
         .catch((err) => {
             console.log(err);
-            alert("서버 에러!")
+            alert("댓글 등록에 실패하였습니다.")
+        })
+    }
+
+    // 댓글 수정
+    const updateComment = function(comment,articleId) {
+        axios({
+            url : `${REST_API}/${comment.commentId}`,
+            method : 'PUT',
+            headers : {
+                'Content-Type' : `application/json`,
+                'userSeq' : sessionStorage.getItem("userSeq")
+            },
+            data : comment
+        })
+        .then((res) => {
+            // alert("댓글 수정 완료") 
+            getCommentList(articleId)
+        })
+        .catch((err) => {
+            console.log(err);
+            alert("댓글 수정에 실패하였습니다.")
+        })
+    }
+
+    // 댓글 삭제
+    const deleteComment = function(commentId,articleId) {
+        axios({
+            url : `${REST_API}/${commentId}`,
+            method : `DELETE`
+        })
+        .then((res)=>{
+            // alert("댓글 삭제 완료")
+            getCommentList(articleId)
+        })
+        .catch((err) => {
+            console.log(err);
+            alert("댓글 삭제에 실패하였습니다.")
         })
     }
 
@@ -66,8 +107,8 @@ export const useCommentStore = defineStore('comment', () => {
     return {
         commentList, getCommentList,
         comment, getComment,
-        createComment
+        createComment, updateComment, deleteComment
     }
     
-    }
+    
 })

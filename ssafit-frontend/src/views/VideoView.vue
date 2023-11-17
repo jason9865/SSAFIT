@@ -1,13 +1,15 @@
 <template>
-    <div>
-  
-    </div>
-  </template>
-  
-  <script setup>
-  
-  </script>
-  
-  <style scoped>
-  
-  </style>
+  <div>
+    <hr>
+    <VideoHeader/>
+    <hr>
+    <RouterView/>
+  </div>
+</template>
+
+<script setup>
+import VideoHeader from '../components/video/VideoHeader.vue';
+</script>
+
+<style scoped>
+</style>

@@ -1,15 +1,18 @@
 package com.ssafit.article.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
 public class ArticleLike {
-	int id;
-	int userSeq;
-	int articleId;
+	private int articleLikeId;
+	private	int userSeq;
+	private int articleId;
+
+	@Builder
+	public ArticleLike(final int articleLikeId, final int userSeq, final int articleId){
+		this.articleLikeId = articleLikeId;
+		this.userSeq = userSeq;
+		this.articleId = articleId;
+	}
 }

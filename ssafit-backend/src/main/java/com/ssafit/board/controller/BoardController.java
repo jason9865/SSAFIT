@@ -12,12 +12,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/board")
 @Api(tags="게시판 컨트롤러")
+@CrossOrigin("http://localhost:5173/")
 public class BoardController {
 	
 	private final BoardService boardService;
@@ -29,12 +33,39 @@ public class BoardController {
 		this.articleService = articleService;
 	}
 
+
 	@GetMapping
 	@ApiOperation(value="게시판 리스트", notes="게시판 전부를 보여줍니다.")
 	public ResponseEntity<List<Board>> registBoard() {
 		List<Board> boardList = boardService.getList();
 
 		return new ResponseEntity<List<Board>>(boardList,HttpStatus.OK);
+	}
+
+	@GetMapping("/{boardId}")
+	@ApiOperation(value="게시판 별 게시글", notes="게시판 별 게시글을 보여줍니다. 헤더에 페이지 정보를 읽어 ")
+	public ResponseEntity<List<ArticleResponse>> boardDetail(@PathVariable int boardId, HttpServletRequest request) {
+		List<ArticleResponse> articleList = new ArrayList<>();
+		
+		if(request.getHeader("currentPage")==null) {
+			articleList = articleService.getArticleList(boardId).stream().
+					filter(a -> a.getBoardId() == boardId).
+					collect(Collectors.toList());
+		} else {
+			int currentPage = Integer.parseInt(request.getHeader("currentPage"));
+			articleList = articleService.getArticleList(boardId, currentPage).stream().
+					filter(a -> a.getBoardId() == boardId).
+					collect(Collectors.toList());
+		}
+
+		return new ResponseEntity<List<ArticleResponse>>(articleList,HttpStatus.OK);
+	}
+
+	@GetMapping("/{boardId}/detail")
+	@ApiOperation(value="게시판 1개 가져오기")
+	public ResponseEntity<Board> getBoard(@PathVariable int boardId){
+		Board board = boardService.getBoard(boardId);
+		return new ResponseEntity<Board>(board,HttpStatus.OK);
 	}
 
 	@PostMapping("/write")
@@ -44,16 +75,6 @@ public class BoardController {
 		if (!isRegistered)
 			return new ResponseEntity<Boolean>(isRegistered,HttpStatus.NO_CONTENT);
 		return new ResponseEntity<Boolean>(isRegistered,HttpStatus.ACCEPTED);
-	}
-	
-	@GetMapping("/{boardId}")
-	@ApiOperation(value="게시판 별 게시글", notes="게시판 별 게시글을 보여줍니다.")
-	public ResponseEntity<List<ArticleResponse>> boardDetail(@PathVariable int boardId) {
-		List<ArticleResponse> articleList = articleService.getArticleList().stream().
-				filter(a -> a.getBoardId() == boardId).
-				collect(Collectors.toList());
-
-		return new ResponseEntity<List<ArticleResponse>>(articleList,HttpStatus.OK);
 	}
 
 	@PutMapping("/{boardId}/update")
@@ -65,7 +86,6 @@ public class BoardController {
 		return new ResponseEntity<Boolean>(isModified,HttpStatus.ACCEPTED);
 	}
 
-//	@GetMapping("/board/{id}/delete")
 	@DeleteMapping("/{boardId}/delete")
 	@ApiOperation(value="게시판 삭제", notes="관리자 계정만 사용가능합니다.")
 	public ResponseEntity<Boolean> removeBoard(@PathVariable int boardId) {

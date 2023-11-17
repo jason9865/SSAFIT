@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `article` (
   `content` TEXT NULL,
   `board_id` INT NOT NULL,
   `user_seq` INT NOT NULL,
-  `view_cnt` INT NULL,
+  `view_cnt` INT NOT NULL DEFAULT 0,
   `created_at` DATETIME NULL DEFAULT NOW(),
   `modified_at` DATETIME NULL DEFAULT NOW(),
   PRIMARY KEY (`article_id`),
@@ -215,13 +215,34 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS `video` (
-	`video_id` INT NOT NULL AUTO_INCREMENT,
+	`video_id` VARCHAR(100) NOT NULL,
     `title` VARCHAR(200) NULL,
+    `channel_title` VARCHAR(50) NULL,
+    `description` VARCHAR(200) NULL,
     `part` VARCHAR(20) NULL,
-    `channel_name` VARCHAR(50) NULL,
-    `url` VARCHAR(2048) NULL,
     `view_cnt` INT NULL DEFAULT 0,
-    `created_at` DATETIME NULL DEFAULT NOW(),
     PRIMARY KEY (`video_id`)
+)
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `follow`
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS 	`follow` (
+	`follow_id` INT NOT NULL AUTO_INCREMENT,
+    `user_seq` INT NOT NULL,
+    `target_user_seq` INT NOT NULL,
+    PRIMARY KEY (`follow_id`),
+    CONSTRAINT `fk_user_seq`
+		FOREIGN KEY (`user_seq`)
+        REFERENCES `user`(`user_seq`)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION,
+	CONSTRAINT `fk_target_user_seq`
+		FOREIGN KEY (`target_user_seq`)
+        REFERENCES `user`(`user_seq`)
+		ON DELETE CASCADE
+        ON UPDATE NO ACTION
 )
 ENGINE = InnoDB;

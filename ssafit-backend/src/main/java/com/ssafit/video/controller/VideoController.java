@@ -27,18 +27,24 @@ public class VideoController {
     }
 
     @GetMapping
-    @ApiOperation(value="비디오 리스트 조회", notes="검색조건 추후 추가 예정")
+    @ApiOperation(value="전체 비디오 리스트 조회", notes="검색조건 추후 추가 예정")
     public ResponseEntity<?> getVideoList(){
         List<Video> videoList = videoService.getList();
         return new ResponseEntity<List<Video>>(videoList, HttpStatus.OK);
-
+    }
+    
+    @GetMapping("/{part}")
+    @ApiOperation(value="부위별 비디오 조회", notes="검색조건 추후 추가 예정")
+    public ResponseEntity<?> getVideoListByPart(@PathVariable String part){
+        List<Video> videoList = videoService.getListByPart(part);
+        return new ResponseEntity<List<Video>>(videoList, HttpStatus.OK);
     }
 
-    @GetMapping("/{videoId}")
+    @GetMapping("/{videoId}/detail")
     @ApiOperation(value="비디오 개별 조회", notes="검색조건 추후 추가 예정")
-    public ResponseEntity<?> searchVideoById(@PathVariable int videoId) {
+    public ResponseEntity<?> getVideoById(@PathVariable String videoId) {
 
-        Video video = videoService.searchVideoById(videoId);
+        Video video = videoService.getVideoById(videoId);
         return new ResponseEntity<Video>(video, HttpStatus.OK);
     }
 

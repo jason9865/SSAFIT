@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -23,6 +24,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/reply")
 @Api(tags="대댓글 컨트롤러")
+@CrossOrigin("http://localhost:5173/")
 public class ReplyController {
 
     private final ReplyService replyService;
@@ -37,10 +39,10 @@ public class ReplyController {
     public ResponseEntity<Boolean> writeReply(
             @RequestBody ReplyRegisterRequest replyRegisterRequest,
             @PathVariable final int commentId,
-            HttpSession session
+            HttpServletRequest request
             ) {
-        UserResponse loginUser = (UserResponse) session.getAttribute("loginUser");
-        int userSeq = loginUser.getUserSeq();
+        int userSeq = Integer.parseInt(request.getHeader("userSeq"));
+
         boolean isWritten = replyService.writeReply(replyRegisterRequest, commentId, userSeq);
         if (!isWritten)
             return new ResponseEntity<Boolean>(isWritten, HttpStatus.NO_CONTENT);
@@ -64,9 +66,9 @@ public class ReplyController {
     public ResponseEntity<Boolean> modifyReply(
             @PathVariable final int replyId,
             @RequestBody final ReplyModifyRequest replyModifyRequest,
-            HttpSession session) {
-        UserResponse loginUser = (UserResponse) session.getAttribute("loginUser");
-        int userSeq = loginUser.getUserSeq();
+            HttpServletRequest request) {
+        int userSeq = Integer.parseInt(request.getHeader("userSeq"));
+
         boolean isModified = replyService.modifyReply(replyModifyRequest,replyId,userSeq);
         if (!isModified)
             return new ResponseEntity<Boolean>(isModified,HttpStatus.NO_CONTENT);
@@ -77,9 +79,8 @@ public class ReplyController {
     @ApiOperation(value="대댓글 삭제", notes="해당 대댓글 작성자만 삭제 가능합니다.")
     public ResponseEntity<Boolean> removeReply(
             @PathVariable final int replyId,
-            HttpSession session){
-        UserResponse loginUser = (UserResponse) session.getAttribute("loginUser");
-        int userSeq = loginUser.getUserSeq();
+            HttpServletRequest request){
+        int userSeq = Integer.parseInt(request.getHeader("userSeq"));
 
         boolean isRemoved = replyService.removeReply(replyId, userSeq);
         if (!isRemoved)

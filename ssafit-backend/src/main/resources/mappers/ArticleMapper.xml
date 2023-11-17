@@ -49,6 +49,34 @@
 		;
  	</select>
  	
+ 	<select id="selectByBoardId" parameterType="Map" resultMap="articleMap">
+ 		SELECT 
+ 			*
+		FROM
+			board b
+		    RIGHT JOIN article a
+		    ON b.board_id = a.board_id
+		    LEFT JOIN user u
+			ON a.user_seq = u.user_seq
+		WHERE b.board_id = #{boardId}
+		;
+ 	</select>
+ 	
+ 	<select id="selectByBoardIdPaging" parameterType="Map" resultMap="articleMap">
+ 		SELECT 
+ 			*
+		FROM
+			board b
+		    RIGHT JOIN article a
+		    ON b.board_id = a.board_id
+		    LEFT JOIN user u
+			ON a.user_seq = u.user_seq
+		WHERE b.board_id = #{boardId}
+		LIMIT #{articlePerPage}
+		OFFSET #{offsetParam}
+		;
+ 	</select>
+ 	
  	<select id="selectById" parameterType="int" resultMap="articleMap">
 		SELECT
 			*
@@ -89,5 +117,96 @@
  		WHERE article_id=#{articleId};
  	</delete>
 
- 	
+	<!-- 좋아요 -->
+
+	<select id="findLike" parameterType="Map">
+		SELECT COUNT(*)
+		FROM article_like
+		WHERE
+			article_id = #{articleId}
+		AND
+			user_seq = #{userSeq}
+		;
+	</select>
+
+	<select id="selectArticleLike" parameterType="Map" resultType="ArticleLike">
+		SELECT *
+		FROM article_like
+		WHERE
+		article_id = #{articleId}
+		AND
+		user_seq = #{userSeq}
+		;
+	</select>
+
+
+	<select id="selectLikeCount" parameterType="int" resultType="int">
+		SELECT count(*) as likeCount
+		FROM article_like
+		WHERE
+		article_id = #{articleId}
+		;
+	</select>
+
+	<insert id="insertLike" parameterType="ArticleLike">
+		INSERT INTO article_like(user_seq, article_id)
+		VALUES(#{userSeq},#{articleId})
+		;
+	</insert>
+
+	<delete id="deleteLike" parameterType="Map">
+		DELETE FROM article_like
+		WHERE
+			article_id = #{articleId}
+			AND
+			user_seq = #{userSeq}
+		;
+	</delete>
+
+
+	<!--싫어요-->
+
+	<select id="findDislike" parameterType="Map">
+		SELECT COUNT(*)
+		FROM article_dislike
+		WHERE
+		article_id = #{articleId}
+		AND
+		user_seq = #{userSeq}
+		;
+	</select>
+
+	<select id="selectDislikeCount" parameterType="int" resultType="int">
+		SELECT count(*) as likeCount
+		FROM article_dislike
+		WHERE
+		article_id = #{articleId}
+		;
+	</select>
+
+	<select id="selectArticleDislike" parameterType="Map">
+		SELECT *
+		FROM article_dislike
+		WHERE
+		article_id = #{articleId}
+		AND
+		user_seq = #{userSeq}
+		;
+	</select>
+
+	<insert id="insertDislike" parameterType="ArticleDisLike">
+		INSERT INTO article_dislike(user_seq, article_id)
+		VALUES(#{userSeq},#{articleId})
+		;
+	</insert>
+
+	<delete id="deleteDislike" parameterType="Map">
+		DELETE FROM article_dislike
+		WHERE
+			article_id = #{articleId}
+			AND
+			user_seq = #{userSeq}
+		;
+	</delete>
+
  </mapper>

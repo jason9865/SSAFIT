@@ -1,9 +1,13 @@
 package com.ssafit.user.controller;
 
 import com.ssafit.user.model.dto.request.UserLoginRequest;
+import com.ssafit.user.model.dto.request.UserModifyRequest;
+import com.ssafit.user.model.dto.request.UserRegistRequest;
 import com.ssafit.user.model.dto.response.UserResponse;
 import com.ssafit.user.model.entity.User;
 import com.ssafit.user.service.UserService;
+import com.ssafit.util.JwtUtil;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +21,19 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @Controller
 @RequestMapping("/user")
 @Api(tags="사용자 관리 컨트롤러")
+@CrossOrigin("http://localhost:5173/")
 public class UserController {
+	
+	private static final String SUCCESS = "success";
+	private static final String FAIL = "fail";
 	
 	private final UserService userService;
 
@@ -28,18 +41,34 @@ public class UserController {
 	public UserController(UserService userService) {
 		this.userService = userService;
 	}
+	
+	@Autowired
+	private JwtUtil jwtUtil;
 
 	@PostMapping("/login")
 	@ApiOperation(value="로그인을 합니다.", notes="bindingResult 추후 추가 예정")
-	public ResponseEntity<?> login(@RequestBody UserLoginRequest loginRequest, HttpSession session) {
+	public ResponseEntity<Map<String, Object>> login(@RequestBody UserLoginRequest loginRequest, HttpSession session) {
+		Map<String, Object> result = new HashMap<String, Object>();
 		UserResponse loginUser = userService.login(loginRequest);
 		System.out.println(loginUser);
+		
+		HttpStatus status = null;
+		
 		if (loginUser != null) {
-			session.setAttribute("loginUser",loginUser);
-			return new ResponseEntity<UserResponse>(loginUser, HttpStatus.OK);
+			try {
+				result.put("access-token", jwtUtil.createToken("seq", ""+loginUser.getUserSeq()));
+				result.put("loginUser", loginUser);	
+				result.put("message", SUCCESS);
+				status = HttpStatus.ACCEPTED;
+			} catch (UnsupportedEncodingException e) {
+				result.put("message", FAIL);
+				status = HttpStatus.NO_CONTENT;
+			}
 		} else {
-			return new ResponseEntity<Void>(HttpStatus.UNAUTHORIZED);
+			result.put("message", FAIL);
+			status = HttpStatus.NO_CONTENT;
 		}
+		return new ResponseEntity<Map<String, Object>>(result, status);
 	}
 	
 	@GetMapping("/logout")
@@ -48,58 +77,46 @@ public class UserController {
 		session.invalidate();
 		return ResponseEntity.ok().build();
 	}
+
+	@GetMapping
+	@ApiOperation(value="회원 리스트 가져오기")
+	public ResponseEntity<List<UserResponse>> getUsers() {
+		return new ResponseEntity<List<UserResponse>>(userService.getUserList(),HttpStatus.OK);
+	}
+
+	@GetMapping("/{userSeq}")
+	@ApiOperation(value="단일 회원 가져오기")
+	public ResponseEntity<UserResponse> getUser(@PathVariable int userSeq) {
+		System.out.println("단일회원 가져오기 => " + userService.searchByUserSeq(userSeq));
+		return new ResponseEntity<UserResponse>(userService.searchByUserSeq(userSeq),HttpStatus.OK);
+	}
 	
 	@PostMapping("/signup")
 	@ApiOperation(value="회원가입", notes="bindingResult 조건 추후 추가 예정")
-	public String regist(@ModelAttribute User user,HttpServletRequest request,Model model) {
-		if (!user.getUserPwd().equals(request.getParameter("confirmedPwd"))) {
-			model.addAttribute("msg","비밀번호를 확인하세요.");
-			return "/user/signupPage";
-		}
-		userService.registUser(user);
-		return "redirect:/";
+	public ResponseEntity<Boolean> regist(@RequestBody UserRegistRequest userRegistRequest) {
+
+		boolean isRegisted = userService.registUser(userRegistRequest);
+		if(!isRegisted)
+			return new ResponseEntity<Boolean>(isRegisted,HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<Boolean>(isRegisted,HttpStatus.OK);
 	}
 
-//	@PostMapping("/signup")
-//	public ResponseEntity<Integer> signup(@ModelAttribute User user,HttpServletRequest request,Model model){
-////		int result = userService.registUser(user);
-//
-//		// result가 0이면 등록X
-//		// result가 1이면 등록O
-//	}
+	@PutMapping("/update/{userSeq}")
+	@ApiOperation(value="유저 정보 갱신", notes="로그인 유저만 접근 가능합니다.")
+	public ResponseEntity<Boolean> updateUser(@PathVariable int userSeq, @RequestBody UserModifyRequest userModifyRequest) {
+		boolean isModified = userService.modifyUser(userModifyRequest,userSeq);
+		if(!isModified)
+			return new ResponseEntity<Boolean>(isModified,HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<Boolean>(isModified,HttpStatus.OK);
+	}
 
-//	@GetMapping("/delete/{userSeq}")
 	@DeleteMapping("/delete/{userSeq}")
 	@ApiOperation(value="유저 삭제", notes="관리자 계정만 접근 가능합니다.")
-	public String deleteUser(@PathVariable("userSeq") int userSeq, HttpServletRequest request, RedirectAttributes redirectAttributes) {
-		userService .removeUser(userSeq);
-		String referer = request.getHeader("Referer");
-		redirectAttributes.addAttribute("referer",referer);
-
-		return "redirect:/admin/user";
-	}
-
-	@GetMapping("/myPage/{userSeq}")
-	@ApiOperation(value="마이 페이지", notes="로그인 유저만 접근 가능합니다.")
-	public String myPage(@PathVariable("userSeq") int userSeq, Model model) {
-		User myUser = userService.searchByUserSeq(userSeq);
-		model.addAttribute("user",myUser);
-		
-		if (myUser.getUserRank() == 2)
-			return "/admin/adminPage";
-		return "/user/myPage";
-	}
-	
-	@PostMapping("/myPage/{userSeq}/update")
-	@ApiOperation(value="유저 정보 갱신", notes="로그인 유저만 접근 가능합니다.")
-	public String update(@PathVariable("userSeq") int userSeq, @ModelAttribute User user, HttpServletRequest request, Model model) {
-		if (!user.getUserPwd().equals(request.getParameter("confirmedPwd"))) {
-			model.addAttribute("msg","비밀번호를 확인하세요.");
-			return "/user/updatePage";
-		}
-		
-		userService.modifyUser(user);
-		return "redirect:/user/myPage/" + userSeq;
+	public ResponseEntity<Boolean> removeUser(@PathVariable int userSeq) {
+		boolean isRemoved = userService.removeUser(userSeq);
+		if(!isRemoved)
+			return new ResponseEntity<Boolean>(isRemoved,HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<Boolean>(isRemoved,HttpStatus.OK);
 	}
 
 

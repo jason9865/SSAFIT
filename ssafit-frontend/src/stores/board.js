@@ -1,11 +1,25 @@
 import {ref, computed} from 'vue'
 import {defineStore} from 'pinia'
 import axios from 'axios'
-import router from '@router'
 
 const REST_API = 'http://localhost:8080/board'
 
 export const useBoardStore = defineStore('board', () => {
+
+    const board = ref(null)
+
+    const getBoard = (boardId) => {
+      axios({
+        url : `${REST_API}/${boardId}/detail`,
+        method : "GET",
+      })
+      .then((res) => {
+        board.value = res.data;
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    }
 
     const boardList = ref([])
 
@@ -35,14 +49,17 @@ export const useBoardStore = defineStore('board', () => {
           })
           .catch((err) => {
             console.log(err)
-            alert("서버 에러")
           })
+
+        getBoard(boardId)
     }
 
     return {
+        board,
         boardList,
         getBoardList,
         articleList,
         getArticleList,
+        getBoard,
     }
 })

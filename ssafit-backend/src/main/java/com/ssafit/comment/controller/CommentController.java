@@ -14,12 +14,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
 @RequestMapping("/comment")
 @Api(tags="댓글(리뷰) 컨트롤러")
+@CrossOrigin("http://localhost:5173/")
 public class CommentController {
 
     private final CommentService commentService;
@@ -47,10 +49,11 @@ public class CommentController {
     public ResponseEntity<Boolean> writeComment(
             @RequestBody CommentRegistRequest commentRegistRequest,
             @PathVariable int articleId,
-            HttpSession session){
+            HttpServletRequest request){
 
-        UserResponse loginUser = (UserResponse) session.getAttribute("loginUser");
-        int userSeq = loginUser.getUserSeq();
+//        UserResponse loginUser = (UserResponse) session.getAttribute("loginUser");
+//        int userSeq = loginUser.getUserSeq();
+        int userSeq = Integer.parseInt(request.getHeader("userSeq"));
         boolean isWritten = commentService.writeComment(commentRegistRequest,articleId, userSeq);
         if (!isWritten)
             return new ResponseEntity<Boolean>(isWritten,HttpStatus.NO_CONTENT);
@@ -62,10 +65,9 @@ public class CommentController {
     public ResponseEntity<Boolean> modifyComment(
             @RequestBody CommentModifyRequest commentModifyRequest,
             @PathVariable int commentId,
-            HttpSession session
+            HttpServletRequest request
             ) {
-        UserResponse loginUser = (UserResponse) session.getAttribute("loginUser");
-        int userSeq = loginUser.getUserSeq();
+        int userSeq = Integer.parseInt(request.getHeader("userSeq"));
         boolean isModified = commentService.modifyComment(commentModifyRequest, commentId, userSeq);
 
         if(!isModified)
@@ -80,6 +82,58 @@ public class CommentController {
         if (!isModified)
             return new ResponseEntity<Boolean>(isModified,HttpStatus.NO_CONTENT);
         return new ResponseEntity<Boolean>(isModified,HttpStatus.OK);
+    }
+
+    @GetMapping("/{commentId}/like")
+    @ApiOperation(value="댓글 별 좋아요 개수")
+    public ResponseEntity<Integer> getLikeNumber(@PathVariable int commentId) {
+        return new ResponseEntity<Integer>(commentService.getLikeCount(commentId),HttpStatus.OK);
+    }
+
+    @PostMapping("/{commentId}/like")
+    @ApiOperation(value = "댓글 좋아요 누르기")
+    public ResponseEntity<Boolean> doCommentLike(@PathVariable int commentId, HttpServletRequest request) {
+        int userSeq = Integer.parseInt(request.getHeader("userSeq"));
+
+        boolean isLikeDone = commentService.addCommentLike(commentId,userSeq);
+        if (!isLikeDone)
+            return new ResponseEntity<Boolean>(isLikeDone,HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<Boolean>(isLikeDone,HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{commentLikeId}/like")
+    @ApiOperation(value = "댓글 좋아요 취소")
+    public ResponseEntity<Boolean> undoCommentLike(@PathVariable int commentLikeId) {
+        boolean isLikedUndone = commentService.deleteCommentLike(commentLikeId);
+        if (!isLikedUndone)
+            return new ResponseEntity<Boolean>(isLikedUndone,HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<Boolean>(isLikedUndone,HttpStatus.OK);
+    }
+
+    @GetMapping("/{commentId}/dislike")
+    @ApiOperation(value="댓글 별 싫어요 개수")
+    public ResponseEntity<Integer> getDislikeNumber(@PathVariable int commentId) {
+        return new ResponseEntity<Integer>(commentService.getDislikeCount(commentId),HttpStatus.OK);
+    }
+
+    @PostMapping("/{commentId}/dislike")
+    @ApiOperation(value = "댓글 싫어요 누르기")
+    public ResponseEntity<Boolean> doCommentDislike(@PathVariable int commentId, HttpServletRequest request) {
+        int userSeq = Integer.parseInt(request.getHeader("userSeq"));
+
+        boolean isDislikeDone = commentService.addCommentDislike(commentId,userSeq);
+        if (!isDislikeDone)
+            return new ResponseEntity<Boolean>(isDislikeDone,HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<Boolean>(isDislikeDone,HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{commentDislikeId}/dislike")
+    @ApiOperation(value = "댓글 싫어요 취소")
+    public ResponseEntity<Boolean> undoCommentDislike(@PathVariable int commentDislikeId) {
+        boolean isDislikeUndone = commentService.deleteCommentDislike(commentDislikeId);
+        if (!isDislikeUndone)
+            return new ResponseEntity<Boolean>(isDislikeUndone,HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<Boolean>(isDislikeUndone,HttpStatus.OK);
     }
 
 }

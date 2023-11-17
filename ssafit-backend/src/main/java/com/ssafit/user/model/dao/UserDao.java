@@ -21,10 +21,10 @@ public interface UserDao {
 	int insertUser(User user);
 	
 	// 유저 정보 수정
-	void updateUser(User user);
+	int updateUser(User user);
 	
 	// 유저 정보 삭제 -> 관리자만 가능
-	void deleteUser(int userSeq);
+	int deleteUser(int userSeq);
 	
 	
 }

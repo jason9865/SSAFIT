@@ -8,12 +8,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Video {
-    int videoId;
+    String videoId;
     String title;
+    String channelTitle;
+    String description;
     String part;
-    String channelName;
-    String url;
     int viewCnt;
-    String createdAt;
 
 }
