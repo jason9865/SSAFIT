@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-show="!modifyMode">
-            <h4>{{ comment.userId }} - {{ comment.nickName }}</h4>
+            <h4>{{ comment.nickName }}</h4>
             <div>댓글 내용 : {{ comment.content  }}</div>
             <div> 작성날짜 : {{ comment.createdAt }}</div>
             <div v-show="currUserSeq === comment.userSeq">
