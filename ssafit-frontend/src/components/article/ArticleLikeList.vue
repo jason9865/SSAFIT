@@ -11,7 +11,6 @@ const articleStore = useArticleStore()
 
 const userSeq = JSON.parse(sessionStorage.getItem("userSeq"))
 
-onMounted
 
 </script>
 

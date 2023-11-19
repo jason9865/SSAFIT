@@ -30,6 +30,7 @@ export const useArticleStore = defineStore('article', () => {
           })
     }
 
+
     const writeArticle = function(article) {
         console.log("article의 boardID가 뭘까",article.boardId)
         axios({
@@ -132,7 +133,7 @@ export const useArticleStore = defineStore('article', () => {
         .then((res) => {
             // alert("좋아요 완료")
             getArticleLike(articleId)
-            checkLiked(articleId)
+            checkLiked(articleId)   
         })
         .catch((err)=> {
             console.log(err);

@@ -15,9 +15,7 @@ import io.swagger.models.auth.In;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static java.util.stream.Collectors.*;
 
@@ -83,10 +81,10 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Override
 	public List<ArticleResponse> getArticleLikeList(int userSeq) {
-//		return articleDao.selectArticleLikeList(userSeq).stream()
-//				.flatMap(u -> getArticleListByUser(u))
-//				.collect(toList())
-		return null;
+		return articleDao.selectArticleLikeList(userSeq).stream()
+				.map(this::getArticleListByUser)
+				.flatMap(Collection::stream)
+				.collect(toList());
 	}
 
 
