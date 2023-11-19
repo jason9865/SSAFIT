@@ -2,7 +2,7 @@
     <div>
         <!-- Button trigger modal 누르면 모달창이 뜸 -->
         <button @click="seeUserInfo" type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            팔로우 하기
+            유저 상세정보
         </button>
 
         <!-- Modal -->
@@ -10,7 +10,7 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">유저 상세 정보</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">유저 상세정보</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -52,17 +52,20 @@ const {isFollowing} = storeToRefs(followStore);
 function seeUserInfo() {
     userStore.getUser(props.userSeq);
     followStore.checkFollow(props.userSeq);
-    console.log(currentUser)
 }
 
 function doFollow(userSeq) {
-    console.log("히히 팔로우 발사")
-    followStore.doFollow(userSeq) 
+    if(confirm("팔로우 하시겠습니까?") === true) {
+        console.log("히히 팔로우 발사")
+        followStore.doFollow(userSeq) 
+    }
 }
 
 function doUnfollow(userSeq) {
-    console.log("함께해서 더러웠고 다신 만나지 말자")
-    followStore.doUnfollow(userSeq)
+    if(confirm("팔로우를 취소하시겠습니까?") === true){
+        console.log("함께해서 더러웠고 다신 만나지 말자")
+        followStore.doUnfollow(userSeq)
+    }
 }
 
 

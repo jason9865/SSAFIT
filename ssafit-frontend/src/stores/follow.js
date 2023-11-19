@@ -37,7 +37,7 @@ export const useFollowStore = defineStore('follow',()=>{
             }
         })
         .then((res) => {
-            console.log("checkFollow",res.data)
+            // console.log("checkFollow",res.data)
             isFollowing.value = res.data
         })
         .catch((err) => {

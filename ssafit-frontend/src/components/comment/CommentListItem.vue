@@ -1,15 +1,16 @@
 <template>
     <div>
         <div v-show="!modifyMode">
-            <h4 >{{ comment.nickName }} - {{ comment.userSeq }}</h4>
+            <div style="display:flex; justify-content: space;">
+                <h3>{{ comment.nickName }}</h3>
+                <FollowItem :user-seq="comment.userSeq"/>
+            </div>
             <div>댓글 내용 : {{ comment.content  }}</div>
             <div> 작성날짜 : {{ comment.createdAt }}</div>
             <div v-show="currUserSeq === comment.userSeq">
                 <button class="btn btn-primary" @click="modifyModeChange">댓글 수정</button>
                 <button class="btn btn-danger" @click="deleteComment(comment.commentId)">댓글 삭제</button>
             </div>
-            <!-- Integer보낸다고 자꾸 뭐라고해서 toString()붙여버림 -->
-            <FollowItem :user-seq="comment.userSeq"/>
             <hr>
         </div>
         <div v-show="modifyMode">
