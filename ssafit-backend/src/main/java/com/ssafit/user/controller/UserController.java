@@ -87,7 +87,6 @@ public class UserController {
 	@GetMapping("/{userSeq}")
 	@ApiOperation(value="단일 회원 가져오기")
 	public ResponseEntity<UserResponse> getUser(@PathVariable int userSeq) {
-		System.out.println("단일회원 가져오기 => " + userService.searchByUserSeq(userSeq));
 		return new ResponseEntity<UserResponse>(userService.searchByUserSeq(userSeq),HttpStatus.OK);
 	}
 	

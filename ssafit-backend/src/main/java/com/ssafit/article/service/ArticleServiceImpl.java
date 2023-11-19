@@ -67,6 +67,28 @@ public class ArticleServiceImpl implements ArticleService {
 				.collect(toList());
 	}
 
+	@Override
+	public List<ArticleResponse> getArticleListByUser(int userSeq) {
+		return articleDao.selectByUserSeq(userSeq).stream()
+				.map(article ->
+				ArticleResponse.from(
+						article,
+						userDao.selectByUserSeq(userSeq),
+						boardDao.selectOne(article.getBoardId())
+				))
+				.collect(toList());
+
+	}
+
+
+	@Override
+	public List<ArticleResponse> getArticleLikeList(int userSeq) {
+//		return articleDao.selectArticleLikeList(userSeq).stream()
+//				.flatMap(u -> getArticleListByUser(u))
+//				.collect(toList())
+		return null;
+	}
+
 
 	@Override // 조회 수 증가 O
 	public ArticleResponse readArticle(int articleId) {

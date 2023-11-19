@@ -16,7 +16,11 @@ public interface ArticleService {
 	List<ArticleResponse> getArticleList(int boardId);
 	
 	List<ArticleResponse> getArticleList(int boardId, int currentPage);
-	
+
+	List<ArticleResponse> getArticleListByUser(int userSeq);
+
+	List<ArticleResponse> getArticleLikeList(int userSeq);
+
 	ArticleResponse getArticle(int articleId);
 	
 	ArticleResponse readArticle(int articleId);

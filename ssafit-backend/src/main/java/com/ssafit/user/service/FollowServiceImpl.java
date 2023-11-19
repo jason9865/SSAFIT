@@ -40,7 +40,7 @@ public class FollowServiceImpl implements FollowService{
     @Override
     @Transactional
     public boolean followUser(int fromUserSeq, int toUserSeq) {
-        if(checkFollowing(fromUserSeq,toUserSeq) == 1){
+        if(checkFollowing(fromUserSeq,toUserSeq) == 1 || fromUserSeq == toUserSeq){
             System.out.println("팔로우 안 돼. 안해줘. 돌아가.");
             return false;
         }

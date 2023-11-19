@@ -226,6 +226,27 @@ CREATE TABLE IF NOT EXISTS `video` (
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
+-- Table `video`
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `video_like` (
+	`video_like_id` INT NOT NULL AUTO_INCREMENT,
+    `video_id` VARCHAR(100) NOT NULL,
+    `user_seq` INT NOT NULL,
+    PRIMARY KEY (`video_like_id`),
+    CONSTRAINT `fk_video_id`
+		FOREIGN KEY (`video_id`)
+        REFERENCES `video` (`video_id`)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION,
+	CONSTRAINT `fk_video_like_user_seq`
+		FOREIGN KEY (`user_seq`)
+        REFERENCES `user`(`user_seq`)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION)
+ENGINE=InnoDB;
+	
+-- -----------------------------------------------------
 -- Table `follow`
 -- -----------------------------------------------------
 

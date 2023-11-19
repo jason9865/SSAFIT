@@ -56,6 +56,7 @@ export const useFollowStore = defineStore('follow',()=>{
         .then((res) => {
             alert("팔로우 완료")
             checkFollow(toUserSeq)
+            getFollowList(sessionStorage.getItem("userSeq"))
         })
         .catch((err) => {
             console.log(err)
@@ -74,6 +75,7 @@ export const useFollowStore = defineStore('follow',()=>{
         .then((res) => {
             alert("언팔로우 완료")
             checkFollow(toUserSeq)
+            getFollowList(sessionStorage.getItem("userSeq"))
         })
         .catch((err) => {
             console.log(err)

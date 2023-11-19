@@ -69,9 +69,6 @@ function doUnfollow(userSeq) {
 }
 
 
-
-
-
 </script>
 
 <style lang="scss" scoped>
