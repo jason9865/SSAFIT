@@ -267,3 +267,27 @@ CREATE TABLE IF NOT EXISTS 	`follow` (
         ON UPDATE NO ACTION
 )
 ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `video_comment`
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `video_comment` (
+	video_comment_id INT NOT NULL AUTO_INCREMENT,
+    content VARCHAR(400) NOT NULL,
+    user_seq INT NOT NULL,
+    video_id VARCHAR(100) NOT NULL,
+    created_at DATETIME NULL DEFAULT NOW(),
+    PRIMARY KEY (`video_comment_id`),
+    CONSTRAINT `fk_video_comment_user_seq`
+		FOREIGN KEY (`user_seq`)
+        REFERENCES `user`(`user_seq`)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION,
+	CONSTRAINT `fk_video_comment_video_id`
+		FOREIGN KEY (`video_id`)
+        REFERENCES `video`(`video_id`)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION
+)
+ENGINE=InnoDB;

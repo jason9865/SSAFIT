@@ -10,6 +10,8 @@
         allowfullscreen
       ></iframe>
     <VideoLike :video-id="route.params.videoId"/>
+    <hr>
+    <VideoCommentList :video-id="route.params.videoId"/>
 </div>
 </template>
   
@@ -19,6 +21,7 @@ import {useRouter, useRoute} from 'vue-router'
 import {useVideoStore} from '@/stores/video'
 import axios from 'axios';
 import VideoLike from './VideoLike.vue';
+import VideoCommentList from '../comment/VideoCommentList.vue';
 
 const route = useRoute();
 const store = useVideoStore()

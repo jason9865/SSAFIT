@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafit.video.model.dao.VideoCommentDao">
+    <resultMap id="videoCommentMap" type="videoComment">
+        <result column="video_comment_id" property="videoCommentId"/>
+        <result column="content" property="content"/>
+        <result column="user_seq" property="userSeq"/>
+        <result column="video_id" property="videoId"/>
+        <result column="created_at" property="createdAt"/>
+    </resultMap>
+
+
+    <select id="selectAll" parameterType="String">
+        SELECT *
+        FROM video_comment
+        WHERE
+        video_id = #{videoId}
+        ;
+    </select>
+
+    <select id="selectById" parameterType="int">
+        SELECT *
+        FROM video_comment
+        WHERE
+        video_comment_id = #{videoCommentId}
+        ;
+    </select>
+
+    <select id="selectByUserSeq" parameterType="int">
+        SELECT *
+        FROM video_comment
+        WHERE
+        user_seq = #{userSeq}
+        ;
+    </select>
+
+    <insert id="insertVideoComment" parameterType="videoComment">
+        INSERT INTO video_comment (content, user_seq, video_id)
+        VALUES
+        (#{content}, #{userSeq}, #{videoId})
+        ;
+    </insert>
+
+    <update id="updateVideoComment" parameterType="videoComment">
+        UPDATE video_comment
+        SET
+            content = #{content},
+            created_at = now
+        WHERE
+            video_comment_id = #{videoCommentId}
+        ;
+    </update>
+
+    <delete id="deleteVideoComment" parameterType="int">
+        DELETE FROM video_comment
+        WHERE video_comment_id = #{videoCommentId}
+    </delete>
+
+
+</mapper>

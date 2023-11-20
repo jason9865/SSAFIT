@@ -2,7 +2,7 @@
     <div>
         <div v-show="!modifyMode">
             <div style="display:flex; justify-content: space;">
-                <h3>{{ comment.nickName }}</h3>
+                <h4>{{ comment.nickName }}</h4>
                 <FollowItem :user-seq="comment.userSeq" v-show="comment.userSeq !=currUserSeq"/>
             </div>
             <div>댓글 내용 : {{ comment.content  }}</div>
