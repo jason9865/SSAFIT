@@ -18,12 +18,12 @@
   <nav aria-label="Page navigation">
     <ul class="pagination d-flex justify-content-center">
       <li class="page-item"><a class="page-link" :class="{ disabled: currentPage <= 1 }" href="#"
-          @click.prevent="currentPage--">&lt;</a></li>
+          @click.prevent="clickPage(--currentPage)">&lt;</a></li>
       <li :class="{ active: currentPage === page+weight }" v-for="page in pagePerGroupComputed" :key="page">
         <a class="page-link" href="#" @click.prevent="clickPage(page+weight)">{{ page+weight }}</a>
       </li>
-      <li class="page-item"><a class="page-link" :class="{ disabled: currentPage >= pageCount }" href="#"
-          @click.prevent="currentPage++">&gt;</a></li>
+      <li class="page-item"><a class="page-link" :class="{ disabled: currentPage >= totalPageCount }" href="#"
+          @click.prevent="clickPage(++currentPage)">&gt;</a></li>
     </ul>
   </nav>
 </template>
@@ -49,32 +49,33 @@ onMounted(() => {
 
 const perPage = 4;
 const pagePerGroup = 5;
+const currentPage = ref(1)
+
+const currentGroup = computed(() => {
+  return Math.floor((currentPage.value - 1) / pagePerGroup) + 1
+})
+
+const startPageNum = computed(() => {
+  return (currentGroup.value - 1) * pagePerGroup + 1
+})
+
+const endPageNum = computed(() => {
+  return Math.min(currentGroup.value * pagePerGroup, totalPageCount.value)
+})
 
 const pagePerGroupComputed = computed(() => {
-  if((videoList.value.length/perPage) < pagePerGroup) {
-    if(videoList.value.length/perPage > 4) {
-      return 5
-    }
-    return (Math.ceil(videoList.value.length / perPage)%5)
-  } else if((videoList.value.length / perPage)%5 == 0) {
-    return 5
-  } else {
-    return currentPage.value > Math.floor((Math.floor(videoList.value.length / perPage))/pagePerGroup)*pagePerGroup ? (Math.ceil(videoList.value.length / perPage)%5) : 5;
-  }
+  return endPageNum.value-startPageNum.value+1
 })
 
 const weight = computed(() => {
   return Math.floor((currentPage.value-1) / pagePerGroup)*5
 })
 
-const currentPage = ref(1)
-
-const pageCount = computed(() => {
+const totalPageCount = computed(() => {
     return Math.ceil(videoList.value.length / perPage)
 })
 const clickPage = function (page) {
     currentPage.value = page
-    console.log(currentPage.value)
 }
 
 const currentPageVideoList = computed(() => {
