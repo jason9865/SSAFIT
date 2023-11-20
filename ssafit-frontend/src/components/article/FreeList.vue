@@ -37,7 +37,7 @@
       <li :class="{ active: currentPage === page+weight }" v-for="page in pagePerGroupComputed" :key="page">
         <a class="page-link" href="#" @click.prevent="clickPage(page+weight)">{{ page+weight }}</a>
       </li>
-      <li class="page-item"><a class="page-link" :class="{ disabled: currentPage >= pageCount }" href="#"
+      <li class="page-item"><a class="page-link" :class="{ disabled: currentPage >= totalPageCount }" href="#"
           @click.prevent="clickPage(++boardStore.currentPage)">&gt;</a></li>
     </ul>
   </nav>
@@ -77,24 +77,31 @@ const currentPage = computed(() => {
 // 한 페이지에 출력되는 게시글의 수
 const articlePerPage = 10;
 // pagination 개수, ex. 게시글이 67개면 7개.
-const pageCount = computed(() => {
+const totalPageCount = computed(() => {
   return Math.ceil(entireArticleLength.value / articlePerPage)
 })
 
 // pagination group 개수
 const pagePerGroup = 5;
+
+// 현재 속한 페이지 그룹
+const currentGroup = computed(() => {
+  return Math.floor((boardStore.currentPage - 1) / pagePerGroup) + 1
+})
+
+// 그룹의 시작 페이지 번호
+const startPageNum = computed(() => {
+  return (currentGroup.value - 1) * pagePerGroup + 1
+})
+
+// 그룹의 끝 페이지 번호
+const endPageNum = computed(() => {
+  return Math.min(currentGroup.value * pagePerGroup, totalPageCount.value)
+})
+
 // 실제 쓰이는 값
 const pagePerGroupComputed = computed(() => {
-  if(entireArticleLength.value/articlePerPage < pagePerGroup) {     // 전체 게시글이 50개보다 작을 때,
-    if(entireArticleLength.value/articlePerPage > 4) {
-      return 5
-    }
-    return (Math.ceil(entireArticleLength.value/articlePerPage)%5)
-  } else if((entireArticleLength.value / articlePerPage)%5 == 0) {    // (전체 게시글/한페이지에 출력될 게시글 수) % 5가 0일 때,
-    return 5
-  } else {    // 그 외
-    return currentPage.value > Math.floor((Math.floor(entireArticleLength.value / articlePerPage))/pagePerGroup)*pagePerGroup ? (Math.ceil(entireArticleLength.value / articlePerPage)%5) : 5;
-  }
+  return endPageNum.value-startPageNum.value+1
 })
 
 
