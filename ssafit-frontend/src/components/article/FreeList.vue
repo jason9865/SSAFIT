@@ -33,12 +33,12 @@
     <nav aria-label="Page navigation">
     <ul class="pagination d-flex justify-content-center">
       <li class="page-item"><a class="page-link" :class="{ disabled: currentPage <= 1 }" href="#"
-          @click.prevent="clickPage(--currentPage)">&lt;</a></li>
+          @click.prevent="clickPage(--boardStore.currentPage)">&lt;</a></li>
       <li :class="{ active: currentPage === page+weight }" v-for="page in pagePerGroupComputed" :key="page">
         <a class="page-link" href="#" @click.prevent="clickPage(page+weight)">{{ page+weight }}</a>
       </li>
       <li class="page-item"><a class="page-link" :class="{ disabled: currentPage >= pageCount }" href="#"
-          @click.prevent="clickPage(++currentPage)">&gt;</a></li>
+          @click.prevent="clickPage(++boardStore.currentPage)">&gt;</a></li>
     </ul>
   </nav>
 </template>
@@ -67,11 +67,13 @@ const articleList = computed(() => {
 
 // pagination ui를 위한 변수.
 const weight = computed(() => {
-  return Math.floor((currentPage.value-1) / pagePerGroup)*5
+  return Math.floor((boardStore.currentPage-1) / pagePerGroup)*5
 })
 
 // 현재 페이지
-const currentPage = ref(1)
+const currentPage = computed(() => {
+  return boardStore.currentPage
+})
 // 한 페이지에 출력되는 게시글의 수
 const articlePerPage = 10;
 // pagination 개수, ex. 게시글이 67개면 7개.
@@ -98,7 +100,7 @@ const pagePerGroupComputed = computed(() => {
 
 // 페이지 이동 시 currentPage를 기반으로 그 페이지에 해당하는 게시글을 불러와서 articleList에 저장.
 const clickPage = function (page) {
-  currentPage.value = page
+  boardStore.currentPage = page
   if(boardStore.searchCondition == null) {
     boardStore.getArticlesByPage(currentPage.value, 1)
   } else {

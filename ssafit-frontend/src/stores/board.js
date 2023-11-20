@@ -40,6 +40,7 @@ export const useBoardStore = defineStore('board', () => {
 
     const articleList = ref([])
     const articleListLength = ref(null)
+    const currentPage = ref(1)
 
     const getArticleList = (boardId) => {
         axios({
@@ -86,6 +87,7 @@ export const useBoardStore = defineStore('board', () => {
     })
       .then((res) => {
         articleListLength.value = res.data.length
+        currentPage.value = 1
       })
       .catch((err) => {
         console.log(err)
@@ -127,5 +129,6 @@ export const useBoardStore = defineStore('board', () => {
         searchCondition,
         getArticlesBySearchInfo,
         getArticlesBySearchInfoWithPage,
+        currentPage,
     }
 })
