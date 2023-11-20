@@ -82,8 +82,11 @@ public class ArticleServiceImpl implements ArticleService {
 	@Override
 	public List<ArticleResponse> getArticleLikeList(int userSeq) {
 		return articleDao.selectArticleLikeList(userSeq).stream()
-				.map(this::getArticleListByUser)
-				.flatMap(Collection::stream)
+				.map(articleId -> ArticleResponse.from(
+						articleDao.selectById(articleId),
+						userDao.selectByUserSeq(userSeq),
+						boardDao.selectOne(articleDao.selectById(articleId).getBoardId())
+				))
 				.collect(toList());
 	}
 

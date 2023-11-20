@@ -15,6 +15,44 @@ export const useArticleStore = defineStore('article', () => {
     const isLiked = ref('');
     const articleDislikeCount = ref('')
     const isDisliked = ref('');
+    const myArticleList = ref([])
+    const articleLikeList = ref([])
+
+    const getMyArticleList = function() {
+        axios({
+            url : `${REST_API}/userArticleList`,
+            method : "GET",
+            headers : {
+                "userSeq" : sessionStorage.getItem("userSeq")
+            },
+        })
+        .then((res)=>{
+            console.log("getUserArticleList", res.data)
+            myArticleList.value = res.data
+        })
+        .catch((err) => {
+            console.log(err)
+            alert("서버 에러")
+        })
+    }
+
+    const getArticleLikeList = function() {
+        axios({
+            url : `${REST_API}/articleLikeList`,
+            method : "GET",
+            headers : {
+                "userSeq":sessionStorage.getItem("userSeq")
+            }
+        })
+        .then((res) => {
+            // console.log("getArticleLikeList",res.data)
+            articleLikeList.value = res.data
+        })
+        .catch((err) => {
+            console.log(err)
+            alert("서버 에러")
+        })
+    }
 
     const getArticle = function(articleId) {
         axios({
@@ -235,8 +273,9 @@ export const useArticleStore = defineStore('article', () => {
 
 
     return {
-        article,articleLikeCount, isLiked,articleDislikeCount,isDisliked,
-        getArticle,writeArticle,updateArticle,deleteArticle,
+        article,articleLikeCount, isLiked,articleDislikeCount,isDisliked,myArticleList,articleLikeList,
+        getArticle,getMyArticleList,getArticleLikeList,
+        writeArticle,updateArticle,deleteArticle,
         checkLiked,getArticleLike,doArticleLike, undoArticleLike,
         checkDisliked,getArticleDislike,doArticleDislike,undoArticleDislike,
     }

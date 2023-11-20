@@ -24,7 +24,7 @@ export const useVideoStore = defineStore('video', () => {
           })
     }
 
-    const getVideoLikeList = (videoId) => {
+    const getVideoLikeList = () => {
         axios({
             url : `${REST_API}/videoLikeList`,
             method : "GET",
@@ -33,7 +33,7 @@ export const useVideoStore = defineStore('video', () => {
             }
         })
         .then((res) => {
-            console.log("getVideoLikeList",res.data)
+            // console.log("getVideoLikeList",res.data)
             videoLikeList.value = res.data
         })
         .catch((err) => {
@@ -69,7 +69,7 @@ export const useVideoStore = defineStore('video', () => {
             }
         })
         .then((res) => {
-            console.log("doVideoLike",res.data)
+            // console.log("doVideoLike",res.data)
             alert("찜하기 완료")
             checkVideoLike(videoId)
         })
@@ -84,7 +84,7 @@ export const useVideoStore = defineStore('video', () => {
             }
         })
         .then((res) => {
-            console.log("undoVideoLike",res.data)
+            // console.log("undoVideoLike",res.data)
             alert("찜하기 취소 완료")
             checkVideoLike(videoId)
         })
