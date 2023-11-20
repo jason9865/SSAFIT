@@ -9,6 +9,7 @@ import com.ssafit.article.model.entity.ArticleDislike;
 import com.ssafit.article.model.entity.ArticleLike;
 import com.ssafit.board.model.dao.BoardDao;
 import com.ssafit.board.model.entity.Board;
+import com.ssafit.board.model.entity.SearchCondition;
 import com.ssafit.user.model.dao.UserDao;
 import com.ssafit.user.model.entity.User;
 import io.swagger.models.auth.In;
@@ -64,7 +65,25 @@ public class ArticleServiceImpl implements ArticleService {
 						))
 				.collect(toList());
 	}
-
+	
+	@Override
+	public List<ArticleResponse> searchArticles(int boardId, SearchCondition condition) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("boardId", boardId);
+		map.put("key", condition.getKey());
+		map.put("word", condition.getWord());
+		map.put("orderBy", condition.getOrderBy());
+		map.put("orderBydir", condition.getOrderByDir());
+		return articleDao.searchArticles(map).stream()
+				.map(article ->
+				ArticleResponse.from(
+						article,
+						userDao.selectByUserSeq(article.getUserSeq()),
+						boardDao.selectOne(article.getBoardId())
+						))
+				.collect(toList());
+	}
+	
 	@Override
 	public List<ArticleResponse> getArticleListByUser(int userSeq) {
 		return articleDao.selectByUserSeq(userSeq).stream()
@@ -89,7 +108,6 @@ public class ArticleServiceImpl implements ArticleService {
 				))
 				.collect(toList());
 	}
-
 
 	@Override // 조회 수 증가 O
 	public ArticleResponse readArticle(int articleId) {
@@ -242,9 +260,7 @@ public class ArticleServiceImpl implements ArticleService {
 		return findArticleLike(articleId, userSeq) == null && findArticleDislike(articleId,userSeq) == null;
 	}
 
-
 	
-
 
 
 }

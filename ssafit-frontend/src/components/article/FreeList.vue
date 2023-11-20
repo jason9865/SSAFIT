@@ -105,7 +105,7 @@ const API_URL = `http://localhost:8080/board/1`
 // mount와 동시에 currentPage = 1로 게시글 호출해서 articleList에 저장.
 onMounted(() => {
     boardStore.getArticlesByPage(1, 1)
-
+    boardStore.boardId = 1
     axios({url: API_URL, method: "GET"})
     .then((res) => {entireArticleLength.value = res.data.length})
     .catch((err) => {console.log(err)})
