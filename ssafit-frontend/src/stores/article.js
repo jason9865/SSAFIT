@@ -250,6 +250,62 @@ export const useArticleStore = defineStore('article', () => {
           })
     }
 
+    const videoLikeList = ref([])
+    
+    const getVideoLikeList = () => {
+        axios({
+            url : `${REST_API}/videoLikeList`,
+            method : "GET",
+            headers : {
+                "userSeq" : sessionStorage.getItem("userSeq")
+            },
+        })
+        .then((res) => {
+            videoLikeList.value = res.data
+        })
+        .catch((err) => {
+            console.log(err);
+            alert("서버 에러")
+        })
+    }
+
+    const articleLikeList = ref([])
+    
+    const getArticleLikeList = () => {
+        axios({
+            url : `${REST_API}/articleLikeList`,
+            method : "GET",
+            headers : {
+                "userSeq" : sessionStorage.getItem("userSeq")
+            },
+        })
+        .then((res) => {
+            articleLikeList.value = res.data
+        })
+        .catch((err) => {
+            console.log(err);
+            alert("서버 에러")
+        })
+    }
+
+    const myArticleList = ref([])
+    const getMyArticleList = () => {
+        axios({
+            url : `${REST_API}/myArticleList`,
+            method : "GET",
+            headers : {
+                "userSeq" : sessionStorage.getItem("userSeq")
+            },
+        })
+        .then((res) => {
+            myArticleList.value = res.data
+        })
+        .catch((err) => {
+            console.log(err);
+            alert("서버 에러")
+        })
+    }
+
     return {
         article,articleLikeCount, isLiked,articleDislikeCount,isDisliked,
         getArticle,writeArticle,updateArticle,deleteArticle,
@@ -257,5 +313,8 @@ export const useArticleStore = defineStore('article', () => {
         checkDisliked,getArticleDislike,doArticleDislike,undoArticleDislike,
         articleList,
         getArticlesByPage,
+        videoLikeList,getVideoLikeList,
+        articleLikeList, getArticleLikeList,
+        myArticleList, getMyArticleList
     }
 })
