@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+      <BoardSearchInput/>
       <div v-if="articleList.length">
         <table class="table table-hover text-center">
           <thead>
@@ -46,12 +47,21 @@
 import { ref, onMounted, computed } from 'vue';
 import axios from 'axios';
 import { useRoute, useRouter } from 'vue-router';
+import { useArticleStore } from '../../stores/article';
+import { useBoardStore } from '../../stores/board';
+import { storeToRefs } from 'pinia';
+import BoardSearchInput from '../board/BoardSearchInput.vue';
+
+const articleStore = useArticleStore()
+const boardStore = useBoardStore()
 
 // 게시판의 전체 개시글 수
 const entireArticleLength = ref(null);
 
 // paging된 게시글 list
-const articleList = ref([]);
+const articleList = computed(() => {
+  return articleStore.articleList
+})
 
 // pagination ui를 위한 변수.
 const weight = computed(() => {
@@ -83,20 +93,18 @@ const pagePerGroupComputed = computed(() => {
   }
 })
 
+
 // 페이지 이동 시 currentPage를 기반으로 그 페이지에 해당하는 게시글을 불러와서 articleList에 저장.
 const clickPage = function (page) {
   currentPage.value = page
-  axios({url: API_URL, method: "GET", headers : {'currentPage' : currentPage.value,}})
-    .then((res) => {articleList.value = res.data})
-    .catch((err) => {console.log(err)})
+  articleStore.getArticlesByPage(currentPage.value, 1)
+  
 }
 
 const API_URL = `http://localhost:8080/board/1`
 // mount와 동시에 currentPage = 1로 게시글 호출해서 articleList에 저장.
 onMounted(() => {
-    axios({url: API_URL, method: "GET", headers : {'currentPage' : 1,}})
-    .then((res) => {articleList.value = res.data})
-    .catch((err) => {console.log(err)})
+    articleStore.getArticlesByPage(1, 1)
 
     axios({url: API_URL, method: "GET"})
     .then((res) => {entireArticleLength.value = res.data.length})
@@ -105,6 +113,6 @@ onMounted(() => {
 
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 
 </style>

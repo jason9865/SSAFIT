@@ -15,59 +15,23 @@ export const useArticleStore = defineStore('article', () => {
     const isLiked = ref('');
     const articleDislikeCount = ref('')
     const isDisliked = ref('');
-    const myArticleList = ref([])
-    const articleLikeList = ref([])
+    
 
-    const getMyArticleList = function() {
+    const getArticlesByPage = function(currentPage, boardId) {
         axios({
-            url : `${REST_API}/userArticleList`,
+            url : `http://localhost:8080/board/${boardId}`,
             method : "GET",
             headers : {
-                "userSeq" : sessionStorage.getItem("userSeq")
-            },
-        })
-        .then((res)=>{
-            console.log("getUserArticleList", res.data)
-            myArticleList.value = res.data
-        })
-        .catch((err) => {
-            console.log(err)
-            alert("서버 에러")
-        })
-    }
-
-    const getArticleLikeList = function() {
-        axios({
-            url : `${REST_API}/articleLikeList`,
-            method : "GET",
-            headers : {
-                "userSeq":sessionStorage.getItem("userSeq")
+                'currentPage' : currentPage,
             }
         })
-        .then((res) => {
-            // console.log("getArticleLikeList",res.data)
-            articleLikeList.value = res.data
-        })
-        .catch((err) => {
+          .then((res) => {
+            articleList.value = res.data
+          })
+          .catch((err) => {
             console.log(err)
-            alert("서버 에러")
-        })
-    }
-
-    const getArticle = function(articleId) {
-        axios({
-            url : `${REST_API}/${articleId}`,
-            method : "GET"
-        })
-        .then((res) => {
-            article.value = res.data
-        })
-        .catch((err) => {
-            console.log(err)
-            alert("서버 에러")
           })
     }
-
 
     const writeArticle = function(article) {
         console.log("article의 boardID가 뭘까",article.boardId)
@@ -270,13 +234,28 @@ export const useArticleStore = defineStore('article', () => {
         })
     }
 
+    const articleList = ref([])
 
+    const getArticle = function(articleId) {
+        axios({
+            url : `${REST_API}/${articleId}`,
+            method : "GET"
+        })
+        .then((res) => {
+            article.value = res.data
+        })
+        .catch((err) => {
+            console.log(err)
+            alert("서버 에러")
+          })
+    }
 
     return {
-        article,articleLikeCount, isLiked,articleDislikeCount,isDisliked,myArticleList,articleLikeList,
-        getArticle,getMyArticleList,getArticleLikeList,
-        writeArticle,updateArticle,deleteArticle,
+        article,articleLikeCount, isLiked,articleDislikeCount,isDisliked,
+        getArticle,writeArticle,updateArticle,deleteArticle,
         checkLiked,getArticleLike,doArticleLike, undoArticleLike,
         checkDisliked,getArticleDislike,doArticleDislike,undoArticleDislike,
+        articleList,
+        getArticlesByPage,
     }
 })
