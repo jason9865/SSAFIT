@@ -1,42 +1,16 @@
 <template>
-  <div class="container">
-    <h2>로그인</h2>
-    <fieldset class="text-center">
-      <div class="form-outline mb-4">
-        <label for="id" class="form-label">아이디</label>
-        <input type="text" id="id" v-model="id" class="form-control" /><br />
-      </div>
-      <div class="form-outline mb-4">
-        <label for="password" class="form-label">비밀번호</label>
-        <input
-          type="password"
-          id="password"
-          v-model="password"
-          class="form-control"
-          @keyup.enter="login"/>
-        <br />
-      </div>
-      <button class="btn" @click="login" >로그인</button>
-    </fieldset>
-  </div>
-
   <div class="wrapper fadeInDown">
     <div id="formContent">
-      <!-- Tabs Titles -->
-
-
       <!-- Login Form -->
-      <form>
+      <fieldset>
         <div>
-          <label for="id" class="form-label">아이디</label>
-          <input type="text" id="login" class="fadeIn second" name="login" placeholder="login" v-model="id">
+          <input type="text" id="login" class="fadeIn second" name="login" placeholder="아이디" v-model="id">
         </div>
         <div>
-          <label for="password" class="form-label">비밀번호</label>
-          <input type="password" id="password" class="fadeIn third" name="login" placeholder="password" v-model="password" @keyup.enter="login">
+          <input type="password" id="password" class="fadeIn third" name="login" placeholder="비밀번호" v-model="password" @keyup.enter="login">
         </div>
-      <button class="btn" @click="login" >로그인</button>
-      </form>
+      <h2 class="btn" @click="login" >로그인</h2>
+      </fieldset>
 
       <!-- Remind Passowrd -->
       <div id="formFooter">
@@ -149,7 +123,7 @@ h2.active {
 
 /* FORM TYPOGRAPHY*/
 
-input[type=button], input[type=submit], input[type=reset]  {
+input[type=button], input[type=submit], input[type=reset],input[type=password]  {
   background-color: #56baed;
   border: none;
   color: white;
@@ -171,11 +145,11 @@ input[type=button], input[type=submit], input[type=reset]  {
   transition: all 0.3s ease-in-out;
 }
 
-input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
+input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover, input[type=password]:hover  {
   background-color: #39ace7;
 }
 
-input[type=button]:active, input[type=submit]:active, input[type=reset]:active  {
+input[type=button]:active, input[type=submit]:active, input[type=reset]:active,input[type=password]:active   {
   -moz-transform: scale(0.95);
   -webkit-transform: scale(0.95);
   -o-transform: scale(0.95);
@@ -204,12 +178,12 @@ input[type=text], input[type=password] {
   border-radius: 5px 5px 5px 5px;
 }
 
-input[type=text]:focus {
+input[type=text]:focus, input[type=password]:focus {
   background-color: #fff;
   border-bottom: 2px solid #5fbae9;
 }
 
-input[type=text]:placeholder {
+input[type=text]:placeholder, input[type=password]:placeholder {
   color: #cccccc;
 }
 
