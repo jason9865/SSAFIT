@@ -252,16 +252,16 @@ ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS 	`follow` (
 	`follow_id` INT NOT NULL AUTO_INCREMENT,
-    `user_seq` INT NOT NULL,
-    `target_user_seq` INT NOT NULL,
+    `from_user_seq` INT NOT NULL,
+    `to_user_seq` INT NOT NULL,
     PRIMARY KEY (`follow_id`),
-    CONSTRAINT `fk_user_seq`
-		FOREIGN KEY (`user_seq`)
+    CONSTRAINT `fk_from_user_seq`
+		FOREIGN KEY (`from_user_seq`)
         REFERENCES `user`(`user_seq`)
         ON DELETE CASCADE
         ON UPDATE NO ACTION,
-	CONSTRAINT `fk_target_user_seq`
-		FOREIGN KEY (`target_user_seq`)
+	CONSTRAINT `fk_to_user_seq`
+		FOREIGN KEY (`to_user_seq`)
         REFERENCES `user`(`user_seq`)
 		ON DELETE CASCADE
         ON UPDATE NO ACTION

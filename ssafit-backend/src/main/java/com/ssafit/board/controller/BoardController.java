@@ -44,17 +44,16 @@ public class BoardController {
 
 	@GetMapping("/{boardId}")
 	@ApiOperation(value="게시판 별 게시글", notes="게시판 별 게시글을 보여줍니다. 헤더에 페이지 정보를 읽어 ")
-	public ResponseEntity<List<ArticleResponse>> boardDetail(@PathVariable String boardId, HttpServletRequest request) {
+	public ResponseEntity<List<ArticleResponse>> boardDetail(@PathVariable int boardId, HttpServletRequest request) {
 		List<ArticleResponse> articleList = new ArrayList<>();
-		System.out.println(boardId);
 		if(request.getHeader("currentPage")==null) {
-			articleList = articleService.getArticleList(Integer.parseInt(boardId)).stream().
-					filter(a -> a.getBoardId() == Integer.parseInt(boardId)).
+			articleList = articleService.getArticleList(boardId).stream().
+					filter(a -> a.getBoardId() == boardId).
 					collect(Collectors.toList());
 		} else {
 			int currentPage = Integer.parseInt(request.getHeader("currentPage"));
-			articleList = articleService.getArticleList(Integer.parseInt(boardId), currentPage).stream().
-					filter(a -> a.getBoardId() == Integer.parseInt(boardId)).
+			articleList = articleService.getArticleList(boardId, currentPage).stream().
+					filter(a -> a.getBoardId() == boardId).
 					collect(Collectors.toList());
 		}
 

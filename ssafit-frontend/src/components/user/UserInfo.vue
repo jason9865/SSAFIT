@@ -10,16 +10,20 @@
         <br>
         <RouterLink to="/followList">팔로우 중인 유저 보기</RouterLink>
         <br>
-        <VideoLikeList class="my-5 mx-3"/>
-        <ArticleLikeList class="my-5 mx-3"/>
+        <div id="lists">
+            <VideoLikeList class="my-5 mx-3"/>
+            <ArticleLikeList class="my-5 mx-3"/>
+            <MyArticleList class="my-5 mx-3"/>
+        </div>
     </div>
 </template>
 
 <script setup>
 import { computed, } from 'vue';
 import {useUserStore} from '@/stores/user.js'
-import VideoLikeList from '../video/VideoLikeList.vue';
-import ArticleLikeList from '../article/ArticleLikeList.vue';
+import VideoLikeList from '@/components/video/VideoLikeList.vue';
+import ArticleLikeList from '@/components/article/ArticleLikeList.vue';
+import MyArticleList from '@/components/article/MyArticleList.vue';
 // import UserUpdateForm from '../components/user/UserUpdateForm.vue';
 
 const store = useUserStore()
@@ -28,5 +32,9 @@ const user = computed(() => store.loginUser)
 </script>
 
 <style scoped>
+#lists {
+    display:flex;
+    justify-content: flex-start;
+}
 
 </style>
