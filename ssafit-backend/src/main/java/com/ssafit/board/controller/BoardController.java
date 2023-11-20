@@ -67,7 +67,9 @@ public class BoardController {
 								.collect(Collectors.toList());
 			} else {
 				int currentPage = Integer.parseInt(request.getHeader("currentPage"));
-				
+				articleList = articleService.searchArticles(boardId, currentPage, condition).stream()
+						.filter(a -> a.getBoardId() == boardId)
+						.collect(Collectors.toList());
 			}
 		} else {
 			if(request.getHeader("currentPage")==null) {

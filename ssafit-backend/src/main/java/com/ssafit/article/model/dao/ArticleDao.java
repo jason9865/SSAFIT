@@ -30,6 +30,8 @@ public interface ArticleDao {
 
 	List<Article> searchArticles(Map<String, Object> map);
 	
+	List<Article> searchArticlesPaging(Map<String, Object> map);
+	
 	// 유저 별 article 검색
 	List<Article> selectByUserSeq(int userSeq);
 
