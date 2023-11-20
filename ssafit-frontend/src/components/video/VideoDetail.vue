@@ -9,8 +9,8 @@
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowfullscreen
       ></iframe>
-    
-  </div>
+    <VideoLike :video-id="route.params.videoId"/>
+</div>
 </template>
   
 <script setup>
@@ -18,6 +18,7 @@ import {ref,onMounted} from 'vue'
 import {useRouter, useRoute} from 'vue-router'
 import {useVideoStore} from '@/stores/video'
 import axios from 'axios';
+import VideoLike from './VideoLike.vue';
 
 const route = useRoute();
 const store = useVideoStore()

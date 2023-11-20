@@ -7,16 +7,15 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
 @RequestMapping("/video")
 @Api(tags="비디오 컨트롤러")
+@CrossOrigin("http://localhost:5173/")
 public class VideoController {
 
     private final VideoService videoService;
@@ -48,6 +47,39 @@ public class VideoController {
         return new ResponseEntity<Video>(video, HttpStatus.OK);
     }
 
+    @GetMapping("/videoLikeList")
+    @ApiOperation(value="좋아요한 비디오 조회")
+    public ResponseEntity<List<Video>> getVideoLikeList(HttpServletRequest request){
+        int userSeq = Integer.parseInt(request.getHeader("userSeq"));
+        List<Video> videoLikeList = videoService.getVideoLikeList(userSeq);
+        return new ResponseEntity<List<Video>>(videoLikeList,HttpStatus.OK);
+    }
 
+    @GetMapping("/{videoId}/isLikeVideo")
+    @ApiOperation(value="해당 비디오를 좋아요했는지 확인")
+    public ResponseEntity<Integer> checkVideoLike(@PathVariable String videoId, HttpServletRequest request){
+        int userSeq = Integer.parseInt(request.getHeader("userSeq"));
+        return new ResponseEntity<Integer>(videoService.checkVideoLike(userSeq,videoId),HttpStatus.OK);
+    }
+
+    @GetMapping("/{videoId}/doVideoLike")
+    @ApiOperation(value="비디오 좋아요")
+    public ResponseEntity<Boolean> doVideoLike(@PathVariable String videoId, HttpServletRequest request){
+        int userSeq = Integer.parseInt(request.getHeader("userSeq"));
+        boolean isLikeDone = videoService.doVideoLike(userSeq,videoId);
+        if (!isLikeDone)
+            return new ResponseEntity<Boolean>(isLikeDone,HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<Boolean>(isLikeDone,HttpStatus.ACCEPTED);
+    }
+
+    @DeleteMapping("/{videoId}/undoVideoLike")
+    @ApiOperation(value="비디오 좋아요")
+    public ResponseEntity<Boolean> undoVideoLike(@PathVariable String videoId, HttpServletRequest request){
+        int userSeq = Integer.parseInt(request.getHeader("userSeq"));
+        boolean isLikeUndone = videoService.undoVideoLike(userSeq,videoId);
+        if (!isLikeUndone)
+            return new ResponseEntity<Boolean>(isLikeUndone,HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<Boolean>(isLikeUndone,HttpStatus.ACCEPTED);
+    }
 
 }

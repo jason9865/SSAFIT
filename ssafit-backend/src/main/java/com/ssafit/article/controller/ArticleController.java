@@ -49,6 +49,13 @@ public class ArticleController {
 		ArticleResponse articleResponse = articleService.readArticle(articleId);
 		return new ResponseEntity<ArticleResponse>(articleResponse, HttpStatus.OK);
 	}
+
+	@GetMapping("/articleLikeList")
+	@ApiOperation(value="좋아요한 게시글 목록 조회")
+	public ResponseEntity<List<ArticleResponse>> getArticleLikeList(HttpServletRequest request) {
+		int userSeq = Integer.parseInt(request.getParameter("userSeq"));
+		return new ResponseEntity<List<ArticleResponse>>(articleService.getArticleLikeList(userSeq),HttpStatus.OK);
+	}
 	
 
 	@PostMapping("/write")

@@ -76,6 +76,14 @@
 		OFFSET #{offsetParam}
 		;
  	</select>
+
+	<select id="selectByUserSeq" parameterType="int">
+		SELECT *
+		FROM article
+		WHERE
+		user_seq = #{userSeq}
+		;
+	</select>
  	
  	<select id="selectById" parameterType="int" resultMap="articleMap">
 		SELECT
@@ -118,6 +126,12 @@
  	</delete>
 
 	<!-- 좋아요 -->
+	<select id="selectArticleLikeList" parameterType="int">
+		SELECT article_id
+		FROM article_like
+		WHERE user_seq = #{userSeq}
+		;
+	</select>
 
 	<select id="findLike" parameterType="Map">
 		SELECT COUNT(*)

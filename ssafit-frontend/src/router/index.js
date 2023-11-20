@@ -26,6 +26,9 @@ import UserInfo from "../components/user/UserInfo.vue"
 import UserSignupForm from "../components/user/UserSignupForm.vue"
 import UserUpdateForm from "../components/user/UserUpdateForm.vue"
 
+import FollowList from "../components/follow/FollowList.vue"
+import ArticleLikeList from "../components/article/ArticleLikeList.vue"
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -152,6 +155,16 @@ const router = createRouter({
       name : "map",
       component : KakaoMapView,
       // component : () => import("@/views/KakaoMapView.vue")
+    },
+    {
+      path : "/followList",
+      name : "followList",
+      component : FollowList,
+    },
+    {
+      path : "/articleLikeList",
+      name : "articleLikeList",
+      component : ArticleLikeList,
     }
 
 

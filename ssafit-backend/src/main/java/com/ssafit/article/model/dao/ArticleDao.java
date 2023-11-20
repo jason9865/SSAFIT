@@ -24,6 +24,9 @@ public interface ArticleDao {
 								  @Param("offsetParam")int offsetParam
 								  );
 
+	// 유저 별 article 검색
+	List<Article> selectByUserSeq(int userSeq);
+
 	// article id로 검색
 	Article selectById(int articleId);
 	
@@ -38,6 +41,9 @@ public interface ArticleDao {
 	
 	// 조회 수 증가
 	void updateViewCnt(int articleId);
+
+	// 특정 유저가 누른 좋아요 개수 파악하기
+	List<Integer> selectArticleLikeList(int userSeq);
 
 	// 좋아요 개수 확인
 	ArticleLike selectArticleLike(@Param("articleId")int articleId, @Param("userSeq")int userSeq);

@@ -18,6 +18,7 @@
   import CommentWrite from './CommentWrite.vue';
   import CommentListItem from "./CommentListItem.vue"
 
+
   const props = defineProps({
     articleId : String
   })

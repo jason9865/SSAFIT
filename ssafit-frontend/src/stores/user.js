@@ -10,8 +10,8 @@ export const useUserStore = defineStore('user', () => {
     const router = useRouter()
 
     const userList = ref([])
-    const loginUser = ref(null)
-    const currentUser = ref(null)
+    const loginUser = ref({})
+    const currentUser = ref({})
 
     const getUserList = () => {
         axios({
@@ -145,14 +145,14 @@ export const useUserStore = defineStore('user', () => {
 
     return {
         userList,
+        loginUser,
+        currentUser,
         getUserList,
         getUser,
         updateUser,
         createUser,
         deleteUser,
         login,
-        loginUser,
         logout,
-        currentUser,
     }
 })

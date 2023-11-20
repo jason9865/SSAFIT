@@ -139,3 +139,10 @@ VALUES
 (2,6),
 (2,8);
 commit;
+
+-- 비디오 좋아요 데미 데이터
+INSERT INTO video_like (video_id, user_seq)
+VALUES
+("OuLzqmMg5bE",1),
+("4i9v30ahpQw",1);
+commit;

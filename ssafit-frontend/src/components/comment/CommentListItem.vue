@@ -1,7 +1,10 @@
 <template>
     <div>
         <div v-show="!modifyMode">
-            <h4>{{ comment.nickName }}</h4>
+            <div style="display:flex; justify-content: space;">
+                <h3>{{ comment.nickName }}</h3>
+                <FollowItem :user-seq="comment.userSeq" v-show="comment.userSeq !=currUserSeq"/>
+            </div>
             <div>댓글 내용 : {{ comment.content  }}</div>
             <div> 작성날짜 : {{ comment.createdAt }}</div>
             <div v-show="currUserSeq === comment.userSeq">
@@ -22,6 +25,7 @@
 <script setup>
 import {ref} from 'vue'
 import {useCommentStore} from '../../stores/comment'
+import FollowItem from '../follow/FollowItem.vue';
 
 const props = defineProps({
     comment:Object,
