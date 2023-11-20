@@ -46,6 +46,7 @@
 		    ON b.board_id = a.board_id
 		    LEFT JOIN user u
 			ON a.user_seq = u.user_seq
+		ORDER BY modified_at desc
 		;
  	</select>
  	
@@ -59,6 +60,7 @@
 		    LEFT JOIN user u
 			ON a.user_seq = u.user_seq
 		WHERE b.board_id = #{boardId}
+		ORDER BY modified_at desc
 		;
  	</select>
  	
@@ -72,6 +74,7 @@
 		    LEFT JOIN user u
 			ON a.user_seq = u.user_seq
 		WHERE b.board_id = #{boardId}
+		ORDER BY modified_at desc
 		LIMIT #{articlePerPage}
 		OFFSET #{offsetParam}
 		;
@@ -82,6 +85,7 @@
 		FROM article
 		WHERE
 		user_seq = #{userSeq}
+		ORDER BY modified_at desc
 		;
 	</select>
  	
