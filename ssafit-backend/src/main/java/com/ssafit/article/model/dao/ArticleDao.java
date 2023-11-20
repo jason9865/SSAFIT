@@ -1,10 +1,14 @@
 package com.ssafit.article.model.dao;
 
+import com.ssafit.article.model.dto.response.ArticleResponse;
 import com.ssafit.article.model.entity.Article;
 import com.ssafit.article.model.entity.ArticleDislike;
 import com.ssafit.article.model.entity.ArticleLike;
+import com.ssafit.board.model.entity.SearchCondition;
+
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +28,8 @@ public interface ArticleDao {
 								  @Param("offsetParam")int offsetParam
 								  );
 
+	List<Article> searchArticles(Map<String, Object> map);
+	
 	// 유저 별 article 검색
 	List<Article> selectByUserSeq(int userSeq);
 
@@ -74,5 +80,6 @@ public interface ArticleDao {
 
 	// 싫어요 취소
 	int deleteDislike(Map<String,Integer>map);
+
 
 }

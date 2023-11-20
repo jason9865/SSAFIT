@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div class="col-1">
-                <button class="btn btn-outline-warning" @click="searchBoardList">검색</button>
+                <button class="btn btn-outline-warning" @click="searchArticles">검색</button>
             </div>
         </div>
     </div>
@@ -53,8 +53,18 @@ const searchInfo = ref({
     orderBy: "none",
     orderByDir: "asc",
 });
-const searchBoardList = function () {
-    store.searchBoardList(searchInfo.value);
+
+const searchArticles = function () {
+    if(searchInfo.value.key == "none") {
+        alert("검색 기준을 선택해주세요.")
+        return ;
+    }
+    if(searchInfo.value.word == ""){
+        alert("검색어를 입력해주세요.")
+        return ;
+    }
+    store.searchCondition = searchInfo.value
+    store.getArticlesBySearchInfo(searchInfo.value);
 };
 
 const sortChange = function () {

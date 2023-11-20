@@ -52,13 +52,12 @@ export const useBoardStore = defineStore('board', () => {
             console.log(err)
           })
 
-        getBoard(boardId)
     }
 
     const getArticlesByPage = function(currentPage, boardId) {
       axios({
-          url : `http://localhost:8080/board/${boardId}`,
-          method : "GET",
+          url : `${REST_API}/${boardId}`,
+          method : "GET", 
           headers : {
               'currentPage' : currentPage,
           }
@@ -69,7 +68,37 @@ export const useBoardStore = defineStore('board', () => {
         .catch((err) => {
           console.log(err)
         })
-  }
+    }
+
+    // const searchCondition = ref(null)
+
+    const getArticlesBySearchInfo = function(searchCondition) {
+      console.log(boardId.value)
+      console.log(searchCondition)
+      axios({
+        url : `${REST_API}/${boardId.value}`,
+        method : "GET",
+        headers : {
+          "Content-Type" : "application/json",
+        },
+        params : {
+          "key" : searchCondition.key,
+          "word" : searchCondition.word,
+          "orderBy" : searchCondition.orderBy,
+          "orderByDir" : searchCondition.orderByDir,
+        }
+    })
+      .then((res) => {
+        articleList.value = res.data
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    }
+
+    const getArticlesBySearchInfoWithPage = function() {
+
+    }
 
     return {
         board,
@@ -80,5 +109,8 @@ export const useBoardStore = defineStore('board', () => {
         getBoard,
         boardId,
         getArticlesByPage,
+        // searchCondition,
+        getArticlesBySearchInfo,
+        getArticlesBySearchInfoWithPage,
     }
 })
