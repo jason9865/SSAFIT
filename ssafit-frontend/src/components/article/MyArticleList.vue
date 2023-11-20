@@ -26,6 +26,8 @@ onMounted(() => {
 
 </script>
 
-<style lang="scss" scoped>
-
+<style scoped>
+a {
+    text-decoration-line: none;
+}
 </style>

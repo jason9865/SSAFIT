@@ -37,4 +37,8 @@ const user = computed(() => store.loginUser)
     justify-content: flex-start;
 }
 
+a {
+    text-decoration-line: none;
+}
+
 </style>
