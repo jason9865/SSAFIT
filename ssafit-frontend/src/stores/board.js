@@ -7,6 +7,7 @@ const REST_API = 'http://localhost:8080/board'
 export const useBoardStore = defineStore('board', () => {
 
     const board = ref(null)
+    const boardId = ref(null)
 
     const getBoard = (boardId) => {
       axios({
@@ -61,5 +62,6 @@ export const useBoardStore = defineStore('board', () => {
         articleList,
         getArticleList,
         getBoard,
+        boardId,
     }
 })
