@@ -60,7 +60,7 @@ const entireArticleLength = ref(null);
 
 // paging된 게시글 list
 const articleList = computed(() => {
-  return articleStore.articleList
+  return boardStore.articleList
 })
 
 // pagination ui를 위한 변수.
@@ -97,14 +97,14 @@ const pagePerGroupComputed = computed(() => {
 // 페이지 이동 시 currentPage를 기반으로 그 페이지에 해당하는 게시글을 불러와서 articleList에 저장.
 const clickPage = function (page) {
   currentPage.value = page
-  articleStore.getArticlesByPage(currentPage.value, 1)
+  boardStore.getArticlesByPage(currentPage.value, 1)
   
 }
 
 const API_URL = `http://localhost:8080/board/1`
 // mount와 동시에 currentPage = 1로 게시글 호출해서 articleList에 저장.
 onMounted(() => {
-    articleStore.getArticlesByPage(1, 1)
+    boardStore.getArticlesByPage(1, 1)
 
     axios({url: API_URL, method: "GET"})
     .then((res) => {entireArticleLength.value = res.data.length})

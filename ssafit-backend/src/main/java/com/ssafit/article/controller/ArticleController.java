@@ -51,7 +51,7 @@ public class ArticleController {
 		return new ResponseEntity<ArticleResponse>(articleResponse, HttpStatus.OK);
 	}
 
-	@GetMapping("/userArticleList")
+	@GetMapping("/myArticleList")
 	@ApiOperation(value="유저가 쓴 게시글 조회")
 	public ResponseEntity<List<ArticleResponse>> getArticleList(HttpServletRequest request) {
 		int userSeq = Integer.parseInt(request.getHeader("userSeq"));
