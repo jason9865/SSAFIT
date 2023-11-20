@@ -52,6 +52,7 @@ export const useVideoCommentStore = defineStore("videoComment", () => {
         })
         .then((res) => {
             alert("비디오 댓글 등록 완료")
+            getVideoCommentList(videoComment.videoId)
         })
         .catch((err) => {
             console.log(err)
@@ -59,7 +60,7 @@ export const useVideoCommentStore = defineStore("videoComment", () => {
         })
     }
 
-    const modifyVideoComment = function(videoComment){
+    const updateVideoComment = function(videoComment){
         axios({
             url : `${REST_API}/${videoComment.videoCommentId}/update`,
             method : "PUT",
@@ -67,10 +68,11 @@ export const useVideoCommentStore = defineStore("videoComment", () => {
                 "Content-Type" : "application/json",
                 "userSeq" : sessionStorage.getItem("userSeq"),
             },
-            data : videoComment,
+            data : videoComment
         })
         .then((res) => {
             alert("비디오 댓글 수정 완료")
+            getVideoCommentList(videoComment.videoId)
         })
         .catch((err) => {
             console.log(err)
@@ -78,13 +80,14 @@ export const useVideoCommentStore = defineStore("videoComment", () => {
         })
     }
 
-    const deleteVideoComment = function(videoCommentId) {
+    const deleteVideoComment = function(videoCommentId, videoId) {
         axios({
             url : `${REST_API}/${videoCommentId}/delete`,
             method : "DELETE"
         })
         .then((res) => {
             alert("비디오 댓글 삭제 완료")
+            getVideoCommentList(videoId)
         })
         .catch((err) => {
             console.log(err)
@@ -93,7 +96,7 @@ export const useVideoCommentStore = defineStore("videoComment", () => {
     }
     return{
         videoComment, videoCommentList,
-        getVideoComment, getVideoCommentList, writeVideoComment, modifyVideoComment, deleteVideoComment,
+        getVideoComment, getVideoCommentList, writeVideoComment, updateVideoComment, deleteVideoComment,
     }
 
 })

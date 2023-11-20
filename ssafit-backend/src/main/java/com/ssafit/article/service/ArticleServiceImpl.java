@@ -259,9 +259,6 @@ public class ArticleServiceImpl implements ArticleService {
 	public 	boolean isAvailable(int articleId, int userSeq){
 		return findArticleLike(articleId, userSeq) == null && findArticleDislike(articleId,userSeq) == null;
 	}
-
-
-}
 	
 
 }

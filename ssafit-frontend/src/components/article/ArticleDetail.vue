@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <h2>제목 : {{ store.article.title }}</h2>
     <h3>작성자 : {{ store.article.nickName }}</h3>
     <h4>최종 수정 일자 : {{ store.article.createdAt }}</h4>
