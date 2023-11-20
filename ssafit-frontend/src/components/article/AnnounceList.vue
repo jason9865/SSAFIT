@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <BoardSearchInput/>
     <div v-if="articleList.length">
       <table class="table table-hover text-center">
         <thead>
@@ -46,12 +47,21 @@
 import { ref, onMounted, computed } from 'vue';
 import axios from 'axios';
 import { useRoute, useRouter } from 'vue-router';
+import { useArticleStore } from '../../stores/article';
+import { useBoardStore } from '../../stores/board';
+import { storeToRefs } from 'pinia';
+import BoardSearchInput from '../board/BoardSearchInput.vue';
+
+const articleStore = useArticleStore()
+const boardStore = useBoardStore()
 
 // 게시판의 전체 개시글 수
 const entireArticleLength = ref(null);
 
 // paging된 게시글 list
-const articleList = ref([]);
+const articleList = computed(() => {
+return boardStore.articleList
+})
 
 // pagination ui를 위한 변수.
 const weight = computed(() => {
@@ -71,32 +81,30 @@ return Math.ceil(entireArticleLength.value / articlePerPage)
 const pagePerGroup = 5;
 // 실제 쓰이는 값
 const pagePerGroupComputed = computed(() => {
-  if(entireArticleLength.value/articlePerPage < pagePerGroup) {     // 전체 게시글이 50개보다 작을 때,
-    if(entireArticleLength.value/articlePerPage > 4) {
-      return 5
-    }
-    return (Math.ceil(entireArticleLength.value/articlePerPage)%5)
-  } else if((entireArticleLength.value / articlePerPage)%5 == 0) {    // (전체 게시글/한페이지에 출력될 게시글 수) % 5가 0일 때,
+if(entireArticleLength.value/articlePerPage < pagePerGroup) {     // 전체 게시글이 50개보다 작을 때,
+  if(entireArticleLength.value/articlePerPage > 4) {
     return 5
-  } else {    // 그 외
-    return currentPage.value > Math.floor((Math.floor(entireArticleLength.value / articlePerPage))/pagePerGroup)*pagePerGroup ? (Math.ceil(entireArticleLength.value / articlePerPage)%5) : 5;
   }
+  return (Math.ceil(entireArticleLength.value/articlePerPage)%5)
+} else if((entireArticleLength.value / articlePerPage)%5 == 0) {    // (전체 게시글/한페이지에 출력될 게시글 수) % 5가 0일 때,
+  return 5
+} else {    // 그 외
+  return currentPage.value > Math.floor((Math.floor(entireArticleLength.value / articlePerPage))/pagePerGroup)*pagePerGroup ? (Math.ceil(entireArticleLength.value / articlePerPage)%5) : 5;
+}
 })
+
 
 // 페이지 이동 시 currentPage를 기반으로 그 페이지에 해당하는 게시글을 불러와서 articleList에 저장.
 const clickPage = function (page) {
 currentPage.value = page
-axios({url: API_URL, method: "GET", headers : {'currentPage' : currentPage.value,}})
-  .then((res) => {articleList.value = res.data})
-  .catch((err) => {console.log(err)})
+boardStore.getArticlesByPage(currentPage.value, 2)
+
 }
 
 const API_URL = `http://localhost:8080/board/2`
 // mount와 동시에 currentPage = 1로 게시글 호출해서 articleList에 저장.
 onMounted(() => {
-  axios({url: API_URL, method: "GET", headers : {'currentPage' : 1,}})
-  .then((res) => {articleList.value = res.data})
-  .catch((err) => {console.log(err)})
+  boardStore.getArticlesByPage(1, 2)
 
   axios({url: API_URL, method: "GET"})
   .then((res) => {entireArticleLength.value = res.data.length})

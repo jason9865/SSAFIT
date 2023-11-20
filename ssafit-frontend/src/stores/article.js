@@ -16,23 +16,6 @@ export const useArticleStore = defineStore('article', () => {
     const articleDislikeCount = ref('')
     const isDisliked = ref('');
     
-
-    const getArticlesByPage = function(currentPage, boardId) {
-        axios({
-            url : `http://localhost:8080/board/${boardId}`,
-            method : "GET",
-            headers : {
-                'currentPage' : currentPage,
-            }
-        })
-          .then((res) => {
-            articleList.value = res.data
-          })
-          .catch((err) => {
-            console.log(err)
-          })
-    }
-
     const writeArticle = function(article) {
         console.log("article의 boardID가 뭘까",article.boardId)
         axios({
@@ -234,8 +217,6 @@ export const useArticleStore = defineStore('article', () => {
         })
     }
 
-    const articleList = ref([])
-
     const getArticle = function(articleId) {
         axios({
             url : `${REST_API}/${articleId}`,
@@ -311,8 +292,6 @@ export const useArticleStore = defineStore('article', () => {
         getArticle,writeArticle,updateArticle,deleteArticle,
         checkLiked,getArticleLike,doArticleLike, undoArticleLike,
         checkDisliked,getArticleDislike,doArticleDislike,undoArticleDislike,
-        articleList,
-        getArticlesByPage,
         videoLikeList,getVideoLikeList,
         articleLikeList, getArticleLikeList,
         myArticleList, getMyArticleList

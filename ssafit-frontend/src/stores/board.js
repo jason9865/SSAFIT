@@ -55,6 +55,22 @@ export const useBoardStore = defineStore('board', () => {
         getBoard(boardId)
     }
 
+    const getArticlesByPage = function(currentPage, boardId) {
+      axios({
+          url : `http://localhost:8080/board/${boardId}`,
+          method : "GET",
+          headers : {
+              'currentPage' : currentPage,
+          }
+      })
+        .then((res) => {
+          articleList.value = res.data
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+  }
+
     return {
         board,
         boardList,
@@ -63,5 +79,6 @@ export const useBoardStore = defineStore('board', () => {
         getArticleList,
         getBoard,
         boardId,
+        getArticlesByPage,
     }
 })
