@@ -21,8 +21,8 @@ const {videoLikeList} = storeToRefs(videoStore)
 const userSeq = JSON.parse(sessionStorage.getItem("userSeq"))
 
 onMounted(()=>{
-    console.log("userSeq => ",userSeq)
-    videoStore.getVideoLikeList(userSeq)
+    // console.log("userSeq => ",userSeq)
+    videoStore.getVideoLikeList()
 })
 
 </script>
