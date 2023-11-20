@@ -18,10 +18,6 @@
                     <label class="form-check-label" for="title"><i class="bi bi-fonts"></i></label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input v-model="searchInfo.orderBy" class="form-check-input" type="radio" id="writer" value="writer" />
-                    <label class="form-check-label" for="writer"><i class="bi bi-person-fill"></i></label>
-                </div>
-                <div class="form-check form-check-inline">
                     <input v-model="searchInfo.orderBy" class="form-check-input" type="radio" id="viewCnt"
                         value="view_cnt" />
                     <label class="form-check-label" for="viewCnt"><i class="bi bi-eye-fill"></i></label>
@@ -51,7 +47,7 @@ const searchInfo = ref({
     key: "none",
     word: "",
     orderBy: "none",
-    orderByDir: "asc",
+    orderByDir: "desc",
 });
 
 const searchArticles = function () {
@@ -65,6 +61,7 @@ const searchArticles = function () {
     }
     store.searchCondition = searchInfo.value
     store.getArticlesBySearchInfo(searchInfo.value);
+    store.getArticlesBySearchInfoWithPage(1);
 };
 
 const sortChange = function () {

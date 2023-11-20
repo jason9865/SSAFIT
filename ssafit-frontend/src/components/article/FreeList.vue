@@ -56,7 +56,9 @@ const articleStore = useArticleStore()
 const boardStore = useBoardStore()
 
 // 게시판의 전체 개시글 수
-const entireArticleLength = ref(null);
+const entireArticleLength = computed(() => {
+  return boardStore.articleListLength
+});
 
 // paging된 게시글 list
 const articleList = computed(() => {
@@ -97,8 +99,11 @@ const pagePerGroupComputed = computed(() => {
 // 페이지 이동 시 currentPage를 기반으로 그 페이지에 해당하는 게시글을 불러와서 articleList에 저장.
 const clickPage = function (page) {
   currentPage.value = page
-  boardStore.getArticlesByPage(currentPage.value, 1)
-  
+  if(boardStore.searchCondition == null) {
+    boardStore.getArticlesByPage(currentPage.value, 1)
+  } else {
+    boardStore.getArticlesBySearchInfoWithPage(currentPage.value)
+  }
 }
 
 const API_URL = `http://localhost:8080/board/1`
@@ -107,7 +112,7 @@ onMounted(() => {
     boardStore.getArticlesByPage(1, 1)
     boardStore.boardId = 1
     axios({url: API_URL, method: "GET"})
-    .then((res) => {entireArticleLength.value = res.data.length})
+    .then((res) => {boardStore.articleListLength = res.data.length})
     .catch((err) => {console.log(err)})
 })
 
