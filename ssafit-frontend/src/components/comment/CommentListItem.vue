@@ -25,7 +25,7 @@
 <script setup>
 import {ref} from 'vue'
 import {useCommentStore} from '../../stores/comment'
-import FollowItem from '../follow/FollowItem.vue';
+import FollowItem from '@/components/follow/FollowItem.vue';
 
 const props = defineProps({
     comment:Object,
