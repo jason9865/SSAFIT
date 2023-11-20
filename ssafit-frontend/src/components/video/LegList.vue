@@ -87,4 +87,6 @@ const currentPageVideoList = computed(() => {
 
 </script>
   
-<style scoped></style>
+<style scoped>
+
+</style>

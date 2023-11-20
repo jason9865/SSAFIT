@@ -29,5 +29,6 @@ onMounted(() => {
 <style scoped>
 a {
     text-decoration-line: none;
+    color:black;
 }
 </style>
