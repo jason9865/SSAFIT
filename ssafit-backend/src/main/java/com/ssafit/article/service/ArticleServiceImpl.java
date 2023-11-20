@@ -85,6 +85,28 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 	
 	@Override
+	public List<ArticleResponse> searchArticles(int boardId, int currentPage, SearchCondition condition) {
+		int offsetParam = ((currentPage) - 1) * articlePerPage;
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("boardId", boardId);
+		map.put("key", condition.getKey());
+		map.put("word", condition.getWord());
+		map.put("orderBy", condition.getOrderBy());
+		map.put("orderBydir", condition.getOrderByDir());
+		map.put("currentPage", currentPage);
+		map.put("articlePerPage", articlePerPage);
+		map.put("offsetParam", offsetParam);
+		return articleDao.searchArticlesPaging(map).stream()
+				.map(article ->
+				ArticleResponse.from(
+						article,
+						userDao.selectByUserSeq(article.getUserSeq()),
+						boardDao.selectOne(article.getBoardId())
+						))
+				.collect(toList());
+	}
+	
+	@Override
 	public List<ArticleResponse> getArticleListByUser(int userSeq) {
 		return articleDao.selectByUserSeq(userSeq).stream()
 				.map(article ->
@@ -259,6 +281,6 @@ public class ArticleServiceImpl implements ArticleService {
 	public 	boolean isAvailable(int articleId, int userSeq){
 		return findArticleLike(articleId, userSeq) == null && findArticleDislike(articleId,userSeq) == null;
 	}
-	
+
 
 }

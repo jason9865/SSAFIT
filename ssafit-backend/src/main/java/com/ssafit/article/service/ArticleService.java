@@ -26,6 +26,8 @@ public interface ArticleService {
 	List<ArticleResponse> getArticleLikeList(int userSeq);
 	
 	List<ArticleResponse> searchArticles(int boardId, SearchCondition condition);
+	
+	List<ArticleResponse> searchArticles(int boardId, int currentPage, SearchCondition condition);
 
 	ArticleResponse getArticle(int articleId);
 	

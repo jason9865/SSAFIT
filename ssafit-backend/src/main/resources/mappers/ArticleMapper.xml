@@ -103,6 +103,31 @@
 		</if>
 	</select>
 	
+	<select id="searchArticlesPaging" resultType="Article" parameterType="Map">
+		SELECT *
+		FROM
+			board b
+		    RIGHT JOIN article a
+		    ON b.board_id = a.board_id
+		    LEFT JOIN user u
+			ON a.user_seq = u.user_seq
+		<!-- 검색 조건 (동적쿼리), key == 'writer'인 경우, article에 nickname이 없기 때문에-->
+		<if test="key == 'writer'">
+			WHERE b.board_id = #{boardId}
+				and u.nickname LIKE concat('%', #{word}, '%')
+		</if>
+		<if test="key != 'writer'">
+			WHERE b.board_id = #{boardId}
+				and ${key} LIKE concat('%', #{word}, '%')
+		</if>
+		<!-- 어떤 기준으로 어떤 방향으로 정렬 -->
+		<if test="orderBy != 'none'">
+			ORDER BY ${orderBy} ${orderByDir}
+		</if>
+		LIMIT #{articlePerPage}
+		OFFSET #{offsetParam}
+	</select>
+	
 	<select id="selectByUserSeq" parameterType="int">
 		SELECT *
 		FROM article

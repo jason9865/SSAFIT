@@ -39,6 +39,8 @@ export const useBoardStore = defineStore('board', () => {
     }
 
     const articleList = ref([])
+    const articleListLength = ref(null)
+    const currentPage = ref(1)
 
     const getArticleList = (boardId) => {
         axios({
@@ -70,22 +72,40 @@ export const useBoardStore = defineStore('board', () => {
         })
     }
 
-    // const searchCondition = ref(null)
+    const searchCondition = ref(null)
 
-    const getArticlesBySearchInfo = function(searchCondition) {
-      console.log(boardId.value)
-      console.log(searchCondition)
+    const getArticlesBySearchInfo = function(searchInfo) {
+      axios({
+        url : `${REST_API}/${boardId.value}`,
+        method : "GET",
+        params : {
+          "key" : searchInfo.key,
+          "word" : searchInfo.word,
+          "orderBy" : searchInfo.orderBy,
+          "orderByDir" : searchInfo.orderByDir,
+        }
+    })
+      .then((res) => {
+        articleListLength.value = res.data.length
+        currentPage.value = 1
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    }
+
+    const getArticlesBySearchInfoWithPage = function(currentPage) {
       axios({
         url : `${REST_API}/${boardId.value}`,
         method : "GET",
         headers : {
-          "Content-Type" : "application/json",
+          'currentPage' : currentPage,
         },
         params : {
-          "key" : searchCondition.key,
-          "word" : searchCondition.word,
-          "orderBy" : searchCondition.orderBy,
-          "orderByDir" : searchCondition.orderByDir,
+          "key" : searchCondition.value.key,
+          "word" : searchCondition.value.word,
+          "orderBy" : searchCondition.value.orderBy,
+          "orderByDir" : searchCondition.value.orderByDir,
         }
     })
       .then((res) => {
@@ -96,21 +116,19 @@ export const useBoardStore = defineStore('board', () => {
       })
     }
 
-    const getArticlesBySearchInfoWithPage = function() {
-
-    }
-
     return {
         board,
         boardList,
         getBoardList,
         articleList,
         getArticleList,
+        articleListLength,
         getBoard,
         boardId,
         getArticlesByPage,
-        // searchCondition,
+        searchCondition,
         getArticlesBySearchInfo,
         getArticlesBySearchInfoWithPage,
+        currentPage,
     }
 })
