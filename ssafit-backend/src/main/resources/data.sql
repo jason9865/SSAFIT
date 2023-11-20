@@ -130,7 +130,7 @@ VALUES
 commit;
 
 -- 팔로우 더미 데이터
-INSERT INTO follow (user_seq,target_user_seq)
+INSERT INTO follow (from_user_seq,to_user_seq)
 VALUES
 (1,2),
 (1,3),
@@ -140,9 +140,16 @@ VALUES
 (2,8);
 commit;
 
--- 비디오 좋아요 데미 데이터
+-- 비디오 좋아요 더미 데이터
 INSERT INTO video_like (video_id, user_seq)
 VALUES
 ("OuLzqmMg5bE",1),
 ("4i9v30ahpQw",1);
+commit;
+
+-- 비디오 댓글 더미 데이터
+INSERT INTO video_comment (content,user_seq,video_id)
+VALUES
+("히히 댓글 합체 발사",1,"OuLzqmMg5bE"),
+("헤헤 댓글 합체 발사 222",1,"4i9v30ahpQw");
 commit;

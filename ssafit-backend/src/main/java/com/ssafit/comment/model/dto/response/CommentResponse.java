@@ -17,7 +17,7 @@ public class CommentResponse {
     private int boardId;
     private String createdAt;
 
-    public static CommentResponse from(final Comment comment, User user){
+    public static CommentResponse of(final Comment comment, User user){
         return new CommentResponse(
                 comment.getCommentId(),
                 comment.getContent(),

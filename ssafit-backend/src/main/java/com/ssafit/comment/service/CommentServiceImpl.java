@@ -34,7 +34,7 @@ public class CommentServiceImpl implements CommentService {
         return commentDao.selectAll()
                 .stream()
                 .filter(c -> c.getArticleId() == article_id)
-                .map(c -> CommentResponse.from(c,userDao.selectByUserSeq(c.getUserSeq()) ))
+                .map(c -> CommentResponse.of(c,userDao.selectByUserSeq(c.getUserSeq()) ))
                 .collect(Collectors.toList())
                 ;
     }
@@ -43,7 +43,7 @@ public class CommentServiceImpl implements CommentService {
     public CommentResponse getComment(int commentId) {
         Comment comment = commentDao.selectOne(commentId);
         User user = userDao.selectByUserSeq(comment.getUserSeq());
-        return CommentResponse.from(commentDao.selectOne(commentId),user);
+        return CommentResponse.of(commentDao.selectOne(commentId),user);
     }
 
     @Override

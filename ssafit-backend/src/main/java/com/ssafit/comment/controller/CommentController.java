@@ -38,13 +38,13 @@ public class CommentController {
         return new ResponseEntity<List<CommentResponse>>(commentList,HttpStatus.OK);
     }
 
-    @GetMapping("/detail/{commentId}")
+    @GetMapping("/{commentId}/detail")
     @ApiOperation(value="댓글 1개 조회", notes="댓글 1개를 보여줍니다.")
     public ResponseEntity<CommentResponse> commentDetail(@PathVariable int commentId) {
         return new ResponseEntity<CommentResponse>(commentService.getComment(commentId),HttpStatus.OK);
     }
 
-    @PostMapping("/{articleId}")
+    @PostMapping("/{articleId}/write")
     @ApiOperation(value="댓글 작성", notes="로그인한 사용자만 댓글작성이 가능합니다.")
     public ResponseEntity<Boolean> writeComment(
             @RequestBody CommentRegistRequest commentRegistRequest,
@@ -60,7 +60,7 @@ public class CommentController {
         return new ResponseEntity<Boolean>(isWritten,HttpStatus.OK);
     }
 
-    @PutMapping("/{commentId}")
+    @PutMapping("/{commentId}/update")
     @ApiOperation(value="댓글 수정", notes="해당 댓글 작성만 수정이 가능합니다.")
     public ResponseEntity<Boolean> modifyComment(
             @RequestBody CommentModifyRequest commentModifyRequest,
@@ -75,7 +75,7 @@ public class CommentController {
         return new ResponseEntity<Boolean>(isModified,HttpStatus.OK);
     }
 
-    @DeleteMapping("/{commentId}")
+    @DeleteMapping("/{commentId}/delete")
     @ApiOperation(value="댓글 삭제", notes="로그인 유저만 사용 가능합니다.")
     public ResponseEntity<Boolean> removeComment(@PathVariable int commentId) {
         boolean isModified = commentService.removeComment(commentId);
