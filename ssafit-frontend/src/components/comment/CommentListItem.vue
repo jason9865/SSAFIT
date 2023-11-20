@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="card p-2">
         <div v-show="!modifyMode">
             <div style="display:flex; justify-content: space;">
                 <h4>{{ comment.nickName }}</h4>
@@ -11,13 +11,11 @@
                 <button class="btn btn-primary" @click="modifyModeChange">댓글 수정</button>
                 <button class="btn btn-danger" @click="deleteComment(comment.commentId)">댓글 삭제</button>
             </div>
-            <hr>
         </div>
         <div v-show="modifyMode">
             <textarea class="form-control" v-model="comment.content"></textarea>
             <button class="btn btn-success" @click="modifyComment(comment.commentId,comment.content)">댓글 수정하기</button>    
             <button class="btn btn-outline-danger" @click="modifyModeChange">댓글 수정 취소</button>
-            <hr>
         </div>
     </div>
 </template>

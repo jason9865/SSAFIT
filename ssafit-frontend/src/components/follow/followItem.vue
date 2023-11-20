@@ -19,7 +19,6 @@
                     <p>아이디 : {{ currentUser.userId }}</p>
                     <p>이메일 : {{ currentUser.email }}</p>
                     <p>회원가입날짜 : {{ currentUser.joinedAt }}</p>
-                    <p>마이페이지 가기</p>
                 </div>
                 <div class="modal-footer">
                     <button v-show="isFollowing === 0" type="button" class="btn btn-outline-secondary" @click="doFollow(currentUser.userSeq)">팔로우</button>

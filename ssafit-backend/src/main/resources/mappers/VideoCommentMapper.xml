@@ -48,7 +48,7 @@
         UPDATE video_comment
         SET
             content = #{content},
-            created_at = now
+            created_at = now()
         WHERE
             video_comment_id = #{videoCommentId}
         ;

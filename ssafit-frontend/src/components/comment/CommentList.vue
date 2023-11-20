@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container">
       <h3>댓글 리스트</h3>
       <hr>
       <div v-for="comment in commentList" :key="comment.commentId">
