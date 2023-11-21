@@ -1,7 +1,6 @@
 <template>
     <div class="container">
-      <h3>댓글 리스트</h3>
-      <hr>
+      <h4>댓글 {{ commentList.length }} 개</h4>
       <div v-for="comment in commentList" :key="comment.commentId">
         <CommentListItem :comment="comment" :article-id="articleId"/>
       </div>

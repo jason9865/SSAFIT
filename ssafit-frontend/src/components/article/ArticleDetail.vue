@@ -1,17 +1,17 @@
 <template>
-  <div class="container">
-    <h2>제목 : {{ store.article.title }}</h2>
-    <h3>작성자 : {{ store.article.nickName }}</h3>
-    <h4>최종 수정 일자 : {{ store.article.createdAt }}</h4>
-    <h4>조회 수 : {{ store.article.viewCnt }}</h4>
-    <p>{{ store.article.content }}</p>
-    
-    <ArticleLikeDislike :article-id="articleId"/>
-
+  <div class="container mt-3 p-3" style="background-color: white; border-radius: 0.3cm;">
+    <h2>{{ store.article.title }}</h2>
+    <p style="font-size: medium; margin: 0;" >{{ store.article.nickName }}</p>
+    <span style="font-size: small; margin: 0;">{{ store.article.createdAt }} 조회 수 {{ store.article.viewCnt }}</span>
+    <hr>
+    <p class="px-3 py-5 my-5">{{ store.article.content }}</p>
+    <ArticleLikeDislike :article-id="articleId" class="text-center"/>
+  </div>
+  <div>
     <!-- 게시글 작성자와 로그인 유저가 동일인이어야 게시글 수정/삭제 버튼이 뜬다.. -->
-    <div class="buttons" v-if="currUserSeq && (currUserSeq === store.article.userSeq)">
-      <button class="btn btn-success m-3" @click="modifyArticle"> 게시글 수정</button>
-      <button class="btn btn-danger m-3" @click="deleteArticle"> 게시글 삭제</button>
+    <div class="container buttons text-center" v-if="currUserSeq && (currUserSeq === store.article.userSeq)">
+      <button class="btn btn-secondary m-3" @click="modifyArticle"> 게시글 수정</button>
+      <button class="btn btn-secondary m-3" @click="deleteArticle"> 게시글 삭제</button>
     </div>
 
     <hr>

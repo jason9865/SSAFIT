@@ -1,10 +1,10 @@
 <template>
-    <div>
+    <div class="py-3">
         <!-- <p>articleId => {{ props.articleId }} {{ articleId }}</p> -->
-        <button v-show="isLiked===1" class="btn btn-info" @click="undoLike">좋아요 {{ articleLikeCount }}</button>
-        <button v-show="isLiked!==1" class="btn btn-outline-info" @click="doLike">좋아요 {{ articleLikeCount }}</button>
-        <button v-show="isDisliked===1" class="btn btn-warning" @click="undoDislike"> 싫어요 {{ articleDislikeCount }}</button>
-        <button v-show="isDisliked!==1" class="btn btn-outline-warning" @click="doDislike"> 싫어요 {{ articleDislikeCount }}</button>
+        <button v-show="isLiked===1" class="btn btn-danger" @click="undoLike">좋아요 {{ articleLikeCount }}</button>
+        <button v-show="isLiked!==1" class="btn btn-outline-danger" @click="doLike">좋아요 {{ articleLikeCount }}</button>&nbsp;
+        <button v-show="isDisliked===1" class="btn btn-info" @click="undoDislike"> 싫어요 {{ articleDislikeCount }}</button>
+        <button v-show="isDisliked!==1" class="btn btn-outline-info" @click="doDislike"> 싫어요 {{ articleDislikeCount }}</button>
     </div>
 </template>
 

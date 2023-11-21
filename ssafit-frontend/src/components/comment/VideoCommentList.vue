@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1> 댓글 </h1>
+        <h2> 댓글 {{ videoCommentList.length }} 개</h2>
         <div v-for="videoComment in videoCommentList" :key="videoComment.videoCommentId">
             <VideoCommentListItem :video-comment="videoComment" :video-id="videoId"/>
         </div>

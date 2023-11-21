@@ -140,7 +140,7 @@ export const useUserStore = defineStore('user', () => {
         loginUser.value = null;
         alert("로그아웃!")
         router.push("/")
-        window.location.reload()
+        window.location.replace("/")
       };
     
 

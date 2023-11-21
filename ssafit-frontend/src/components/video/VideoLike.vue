@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <button v-show="isVideoLike!==1" class="btn btn-outline-warning" @click="doLike">찜하기</button>
+    <div class="pt-2 text-center">
+        <button v-show="isVideoLike!==1" class="btn btn-secondary" @click="doLike">찜하기</button>
         <button v-show="isVideoLike===1" class="btn btn-warning" @click="undoLike">찜하기 취소</button>
     </div>
 </template>

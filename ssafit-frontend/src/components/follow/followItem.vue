@@ -1,8 +1,8 @@
 <template>
     <div>
         <!-- Button trigger modal 누르면 모달창이 뜸 -->
-        <button @click="seeUserInfo" type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            유저 상세정보
+        <button @click="seeUserInfo" type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            상세정보
         </button>
 
         <!-- Modal -->
