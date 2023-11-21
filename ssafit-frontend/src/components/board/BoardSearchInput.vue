@@ -1,5 +1,5 @@
 <template>
-    <div class="text-center">
+    <div class="text-center py-4">
         <div class="row align-items-center">
             <div class="col-2">
                 <select class="form-select" v-model="searchInfo.key">
@@ -22,8 +22,6 @@
                         value="view_cnt" />
                     <label class="form-check-label" for="viewCnt"><i class="bi bi-eye-fill"></i></label>
                 </div>
-            </div>
-            <div class="col-1">
                 <div @click="sortChange">
                     <span v-if="searchInfo.orderByDir === 'asc'">
                         <i class="bi bi-arrow-up-right-square-fill"></i>

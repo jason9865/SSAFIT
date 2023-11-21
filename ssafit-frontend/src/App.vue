@@ -1,6 +1,7 @@
 <template>
-  <div>
+  <div style="background-color: rgb(170, 182, 250);">
     <HeaderNav />
+    <hr style="margin: 0px;">
     <RouterView />
     <FooterNav/>
   </div>

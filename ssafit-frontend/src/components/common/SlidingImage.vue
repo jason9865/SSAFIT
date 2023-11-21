@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <!-- <div class="container"> -->
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" data-interval="10000">
             <div id="image-container" class="carousel-inner">
                 <div class="carousel-item active">
@@ -21,7 +21,7 @@
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
-    </div>
+    <!-- </div> -->
 </template>
 
 <script setup>

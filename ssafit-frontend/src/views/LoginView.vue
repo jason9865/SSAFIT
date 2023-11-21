@@ -1,8 +1,8 @@
 <template>
-  <div class="wrapper fadeInDown">
-    <div id="formContent">
+  <div class="wrapper fadeInDown" style="padding-bottom: 300px; padding-top: 200px;">
+    <div id="formContent" style="padding-bottom: 50px; padding-top: 50px; width: 1000px;">
       <!-- Login Form -->
-      <fieldset>
+      <fieldset >
           <input type="text" id="login" class="fadeIn second" name="login" placeholder="아이디" v-model="id">
           <input type="password" id="password" class="fadeIn third" name="login" placeholder="비밀번호" v-model="password" @keyup.enter="login">
           <input type="submit" class="fadeIn fourth" value="로그인" @click="login"/>

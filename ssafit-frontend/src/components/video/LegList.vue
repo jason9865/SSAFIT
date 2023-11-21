@@ -1,16 +1,18 @@
 <template>
-  <div>
-    <div class="row">
-      <div class="card my-2 col-12 col-sm-6 col-md-3" v-for="(video) in currentPageVideoList" :key="video.videoId">
+  <div class="row">
+    <div class="col-3"></div>
+    <div class="row col-7">
+      <div class="card col-5 p-3 bg-body-tertiary m-3"
+          v-for="(video) in currentPageVideoList" :key="video.videoId">
         <img :src="`https://img.youtube.com/vi/${video.videoId}/0.jpg`" class="card-img-top" alt="...">
         <div class="card-body">
-          <RouterLink :to="`/video/${video.videoId}`">
+          <RouterLink :to="`/video/${video.videoId}`" class="link-secondary" style="font-size: large;">
             {{ video.title }}
           </RouterLink>
+          <p>-----------------------------------------------------------</p>
           <p class="card-text text-truncate">{{ video.description }}</p>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">조회수 : {{ video.viewCnt }}</li>
-          </ul>
+          <p class="card-text"> {{ video.channelTitle }}</p>
+          <p class="card-text">조회수 {{ video.viewCnt }} 회</p>
         </div>
       </div>
     </div>
@@ -88,6 +90,4 @@ const currentPageVideoList = computed(() => {
 
 </script>
   
-<style scoped>
-
-</style>
+<style scoped></style>
