@@ -3,7 +3,7 @@
         <div v-show="!modifyMode">
             <div style="display:flex; justify-content: space;">
                 <h4>{{ videoComment.nickName }}</h4>
-                <FollowItem :user-seq="videoComment.userSeq" v-show="videoComment.userSeq !=currUserSeq"/>
+                <FollowItem :user-seq="videoComment.userSeq" />
             </div>
             <div>댓글 내용 : {{ videoComment.content  }}</div>
             <div> 작성날짜 : {{ videoComment.createdAt }}</div>
