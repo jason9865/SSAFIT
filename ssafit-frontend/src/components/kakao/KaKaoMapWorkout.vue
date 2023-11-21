@@ -8,7 +8,7 @@
                     <div>
                         <h4>원하는 장소를 입력하세요</h4>
                         <form onsubmit="searchPlaces(); return false;">
-                             <input class="form-control" type="text" id="keyword" size="15"> 
+                             <input class="form-control" type="text" id="keyword" size="20"> 
                             <button class="btn btn-info" id="submit_btn" type="submit">검색하기</button> 
                         </form>
                     </div>
@@ -82,9 +82,6 @@ function placesSearchCB(data, status, pagination) {
         // 검색 목록과 마커를 표출합니다
         displayPlaces(data);
 
-        console.log(data)
-        itemList.value = data;
-
         // 페이지 번호를 표출합니다
         displayPagination(pagination);
 
@@ -116,7 +113,7 @@ function displayPlaces(places) {
     // 지도에 표시되고 있는 마커를 제거합니다
     removeMarker();
     
-    for ( var i=0; i<places.length; i++ ) {
+    for ( var i=0; i<6; i++ ) {
 
         // 마커를 생성하고 지도에 표시합니다
         var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x),
@@ -175,7 +172,6 @@ function getListItem(index, places) {
     }
                  
       itemStr += '  <span class="tel">' + places.phone  + '</span>' 
-                // + '<button class="btn btn-warning" @onclick="addLikeList">관심 목록 추가</button>' + 
                 '</div>';           
 
     el.innerHTML = itemStr;
@@ -225,10 +221,10 @@ function displayPagination(pagination) {
     }
 
     for (i=1; i<=pagination.last; i++) {
+        console.log(pagination.last)
         var el = document.createElement('a');
         el.href = "#";
         el.innerHTML = i;
-
         if (i===pagination.current) {
             el.className = 'on';
         } else {
@@ -280,8 +276,8 @@ function removeAllChildNods(el) {
   </script>
   
   <style scoped>
-  .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
-.map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
+.map_wrap, .map_wrap * {margin:2px;padding:2px;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;}
+/* .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;} */
 .map_wrap {position:relative;width:100%;height:500px;}
 #menu_wrap {position : absolute; left:700px; top:0px;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
 /* #menu_wrap {position : absolute; left:700px; top:50px} */
@@ -314,8 +310,8 @@ function removeAllChildNods(el) {
 #placesList .item .marker_13 {background-position: 0 -562px;}
 #placesList .item .marker_14 {background-position: 0 -608px;}
 #placesList .item .marker_15 {background-position: 0 -654px;}
-#pagination {margin:10px auto;text-align: center;}
-#pagination a {display:inline-block;margin-right:10px;}
-#pagination .on {font-weight: bold; cursor: default;color:#777;}
+#pagination {margin:10px auto;text-align: center; font-size:20px; }
+#pagination a {display:inline-block;margin-right:10px; text-decoration: none; color:black;}
+#pagination .on {font-weight: bold; cursor: default;color:#777; text-decoration: none;}
   </style>
   
