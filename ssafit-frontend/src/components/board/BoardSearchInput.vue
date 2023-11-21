@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="col-1">
-                <button class="btn btn-outline-warning" @click="searchArticles">검색</button>
+                <button class="btn btn-secondary" @click="searchArticles">검색</button>
             </div>
         </div>
     </div>

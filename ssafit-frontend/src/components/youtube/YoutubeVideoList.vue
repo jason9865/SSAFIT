@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" style="background-color: white;">
         <YoutubeVideoListItem v-for="video in store.videos" :key="video.id.videoId" :video="video" />
     </div>
 </template>

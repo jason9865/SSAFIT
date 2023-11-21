@@ -52,8 +52,6 @@ public class BoardController {
 									String key, String word, String orderBy, String orderByDir) {
 		List<ArticleResponse> articleList = new ArrayList<>();
 		
-		System.out.println(key + " " + word);
-		
 		if(key != null) {
 			SearchCondition condition = SearchCondition.builder()
 											.key(key)
