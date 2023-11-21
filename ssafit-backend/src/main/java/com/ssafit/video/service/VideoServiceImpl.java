@@ -36,6 +36,7 @@ public class VideoServiceImpl implements VideoService {
         return videoDao.selectById(videoId);
     }
 
+
     @Override
     public List<Video> getVideoLikeList(int userSeq){
         return videoDao.selectVideoLikeList(userSeq).stream()
