@@ -1,6 +1,6 @@
 <template>
-  <div class="position-relative">
-    <header class="sticky-top">
+  <div>
+    <header>
       <div class="row">
         <nav class="header-nav">
           <div style="margin-right: 120px;">
@@ -78,12 +78,5 @@ header a {
   font-weight: bold;
   color: white;
   margin: 0;
-}
-.sticky-top {
-  position: sticky;
-  top: 0;
-}
-.position-relative {
-  position: relative;
-}
+} 
 </style>
