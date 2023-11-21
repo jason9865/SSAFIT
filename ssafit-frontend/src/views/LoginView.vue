@@ -3,13 +3,9 @@
     <div id="formContent">
       <!-- Login Form -->
       <fieldset>
-        <div>
           <input type="text" id="login" class="fadeIn second" name="login" placeholder="아이디" v-model="id">
-        </div>
-        <div>
           <input type="password" id="password" class="fadeIn third" name="login" placeholder="비밀번호" v-model="password" @keyup.enter="login">
-        </div>
-      <h2 class="btn" @click="login" >로그인</h2>
+          <input type="submit" class="fadeIn fourth" value="로그인" @click="login"/>
       </fieldset>
 
       <!-- Remind Passowrd -->

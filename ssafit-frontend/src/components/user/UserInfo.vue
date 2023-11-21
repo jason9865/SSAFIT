@@ -15,6 +15,7 @@
             <ArticleLikeList class="my-5 mx-3"/>
             <MyArticleList class="my-5 mx-3"/>
         </div>
+
     </div>
 </template>
 

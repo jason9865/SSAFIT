@@ -21,8 +21,10 @@
                     <p>회원가입날짜 : {{ currentUser.joinedAt }}</p>
                 </div>
                 <div class="modal-footer">
-                    <button v-show="isFollowing === 0" type="button" class="btn btn-outline-secondary" @click="doFollow(currentUser.userSeq)">팔로우</button>
-                    <button v-show="isFollowing === 1" type="button" class="btn btn-secondary" @click="doUnfollow(currentUser.userSeq)">팔로우 취소</button>
+                    <div  v-show="currentUser.userSeq != currUserSeq">
+                        <button v-show="isFollowing === 0" type="button" class="btn btn-outline-secondary" @click="doFollow(currentUser.userSeq)">팔로우</button>
+                        <button v-show="isFollowing === 1" type="button" class="btn btn-secondary" @click="doUnfollow(currentUser.userSeq)">팔로우 취소</button>
+                    </div>
                     <button type="button" class="btn btn-light" data-bs-dismiss="modal">닫기</button>
                 </div>
                 </div>
@@ -41,6 +43,8 @@ import {useUserStore} from '../../stores/user'
 const props = defineProps({
     "userSeq" : Number
 })
+
+const currUserSeq = ref(JSON.parse(sessionStorage.getItem("userSeq")))
 
 
 const followStore = useFollowStore();
