@@ -1,8 +1,8 @@
 <template>
     <div>  
-        <h4>댓글 작성</h4>
+        <b>댓글 작성</b>
         <textarea class="form-control" v-model="videoComment.content"></textarea>
-        <button class="btn btn-success" @click="writeVideoComment">댓글 등록</button>
+        <button class="btn btn-success btn-sm" @click="writeVideoComment">댓글 등록</button>
     </div>
 </template>
 

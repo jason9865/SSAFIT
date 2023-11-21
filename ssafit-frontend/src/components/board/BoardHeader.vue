@@ -1,12 +1,13 @@
 <template>
     <div class="row " style="font-size: large;">
-        <div class="container text-center py-3 row">
-            <div class="col-1"></div>
-            <div class="col-5">
-                <RouterLink :to="{ name: 'free' }" @click="getFree" style="color: white">자유게시판</RouterLink>
+        <div class="container text-center py-3 row nav nav-underline">
+            <div class="col-3"></div>
+            <div class="col-2 nav-item">
+                <RouterLink class="nav-link" :class="free" :to="{ name: 'free' }" @click="getFree" style="color: white">자유게시판</RouterLink>
             </div>
-            <div class="col-5">
-                <RouterLink :to="{ name: 'announce' }" @click="getAnnounce" style="color: white">공지사항</RouterLink>
+            <div class="col-2"></div>
+            <div class="col-2 nav-item">
+                <RouterLink class="nav-link" :class="announce" :to="{ name: 'announce' }" @click="getAnnounce" style="color: white">공지사항</RouterLink>
             </div>
         </div>
     </div>
@@ -19,6 +20,16 @@
 
 <script setup>
 import { useBoardStore } from '../../stores/board';
+import { useRoute } from 'vue-router';
+import { computed } from 'vue'
+const route = useRoute()
+
+const free = computed(() => {
+  if (route.name === 'free') return { active: true }
+})
+const announce = computed(() => {
+  if (route.name === 'announce') return { active: true }
+})
 
 const boardStore = useBoardStore()
 
