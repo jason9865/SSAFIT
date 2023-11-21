@@ -1,9 +1,12 @@
 <template>
-  <li @click="clickVideo">
+  <div class="container py-2">
     <img :src="video.snippet.thumbnails.default.url" >
-    <span>{{video.snippet.title}}</span>
-    <span class="text-truncate">{{video.snippet.description}}</span>
-  </li>
+    <span @click="clickVideo" style="font-size: large; padding-left: 15px; cursor: pointer;">
+      {{ video.snippet.title }}, 
+      {{ video.snippet.channelTitle }}
+    </span>
+    <p style="font-size: small;" class="">{{ video.snippet.description }}</p>
+  </div>
 </template>
 
 <script setup>
