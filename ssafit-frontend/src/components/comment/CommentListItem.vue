@@ -1,21 +1,23 @@
 <template>
     <div class="card p-2">
         <div v-show="!modifyMode">
-            <div style="display:flex; justify-content: space;">
-                <p style="font-size: large; margin: 0;">{{ comment.nickName }}</p>
-                <FollowItem :user-seq="comment.userSeq" />
+            <div class="d-flex; justify-content-space;">
+                <!-- <p style="font-size: large; margin: 0;">{{ comment.nickName }}</p> -->
+                <FollowItem :user-seq="comment.userSeq" :nick-name="comment.nickName" style="cursor:pointer">
+                  {{ comment.nickName }}
+                </FollowItem>
             </div>
-            <p style="font-size: large; margin: 0; padding: 5px">{{ comment.content  }}</p>
-            <p style="font-size: small; margin: 0;">{{ comment.createdAt }}</p>
+            <p style="font-size: large; margin: 0; padding: 5px;">{{ comment.content  }}</p>
+            <p style="font-size: small; margin: 0; padding: 5px;">{{ comment.createdAt }}</p>
 
-            <div class="mt-1"  v-show="currUserSeq === comment.userSeq">
+            <div v-show="currUserSeq === comment.userSeq" style="padding:5px">
                 <button title="Button fade blue/green" class="button btnFade btnBlueGreen" @click="modifyModeChange">수정</button>
                 <button title="Button fade orange" class="button btnFade btnOrange" @click="deleteComment(comment.commentId)">삭제</button>
             </div>
         </div>
-        <div v-show="modifyMode">
+        <div v-show="modifyMode" style="padding:5px;">
             <textarea class="form-control" v-model="comment.content"></textarea>
-            <button title="Button fade blue/green" class="button btnFade btnBlueGreen" @click="modifyComment(comment.commentId,comment.content)">수정</button>    
+            <button title="Button fade lightblue" class="button btnFade btnLightBlue"  @click="modifyComment(comment.commentId,comment.content)">수정</button>    
             <button title="Button fade orange" class="button btnFade btnOrange" @click="modifyModeChange">취소</button>
         </div>
     </div>

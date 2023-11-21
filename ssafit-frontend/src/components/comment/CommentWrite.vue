@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <div class="form-control p-2" style="padding:5px;">
         <b>댓글 작성</b>
         <textarea class="form-control" v-model="comment.content"></textarea>
-        <button class="btn btn-success btn-sm" @click="writeComment">댓글 등록</button>
+        <button title="Button fade green" class="button btnFade btnGreen" @click="writeComment">댓글 등록</button>
     </div>
 </template>
 
@@ -43,5 +43,26 @@ function writeComment() {
 </script>
 
 <style scoped>
+button.button {
+width: 100px;
+/* padding: 0; */
+margin: 10px 10px 10px 0;
+font-weight: 600;
+text-align: center;
+line-height: 50px;
+color: #FFF;
+border-radius: 5px;
+transition: all 0.2s ;
+text-decoration: none;
+border:none
+}
+
+.btnGreen {
+background: #219C90;
+}
+
+.btnFade.btnGreen:hover {
+background: #557C55;
+}
 
 </style>

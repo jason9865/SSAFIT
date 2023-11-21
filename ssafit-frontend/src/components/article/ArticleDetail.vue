@@ -11,7 +11,7 @@
     <!-- 게시글 작성자와 로그인 유저가 동일인이어야 게시글 수정/삭제 버튼이 뜬다.. -->
     <div class="container buttons text-center" v-if="currUserSeq && (currUserSeq === store.article.userSeq)">
       <button title="Button fade lightblue" class="button btnFade btnLightBlue" @click="modifyArticle"> 게시글 수정</button>
-      <button title="Button fade purple" class="button btnFade btnPurple" @click="deleteArticle"> 게시글 삭제</button>
+      <button title="Button fade red" class="button btnFade btnRed" @click="deleteArticle"> 게시글 삭제</button>
     </div>
 
     <hr>
@@ -90,6 +90,10 @@ background: #FFAA40;
 background: #A74982;
 }
 
+.btnRed {
+  background:#D83F31;
+}
+
 /* FADE */
 .btnFade.btnBlueGreen:hover {
 background: #21825B;
@@ -105,6 +109,10 @@ background: #FF8E00;
 
 .btnFade.btnPurple:hover {
 background: #6D184B;
+}
+
+.btnFade.btnRed:hover {
+  background: #B31312 ;
 }
 
 </style>

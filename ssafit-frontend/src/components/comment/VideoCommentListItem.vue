@@ -2,20 +2,21 @@
     <div class="card p-2">
         <div v-show="!modifyMode">
             <div style="display:flex; justify-content: space;">
-                <p style="font-size: large; margin: 0;">{{ videoComment.nickName }}</p>
-                <FollowItem :user-seq="videoComment.userSeq" />
+                <FollowItem :user-seq="videoComment.userSeq" :nick-name="videoComment.nickName" style="cursor:pointer">
+                    {{ videoComment.nickName }}
+                </FollowItem>
             </div>
             <p style="font-size: large; margin: 0; padding: 5px">{{ videoComment.content  }}</p>
-            <p style="font-size: small; margin: 0;">{{ videoComment.createdAt }}</p>
-            <div class="mt-1" v-show="currUserSeq === videoComment.userSeq">
-                <button class="btn btn-primary btn-sm" @click="modifyModeChange">수정</button>
-                <button class="btn btn-danger btn-sm" @click="deleteComment(videoComment.videoCommentId)">삭제</button>
+            <p style="font-size: small; margin: 0; padding: 5px">{{ videoComment.createdAt }}</p>
+            <div v-show="currUserSeq === videoComment.userSeq" style="padding:5px;">
+                <button title="Button fade blue/green" class="button btnFade btnBlueGreen" @click="modifyModeChange">수정</button>
+                <button title="Button fade orange" class="button btnFade btnRed" @click="deleteComment(videoComment.videoCommentId)">삭제</button>
             </div>
         </div>
-        <div v-show="modifyMode">
+        <div v-show="modifyMode" style="padding:5px;">
             <textarea class="form-control" v-model="videoComment.content"></textarea>
-            <button class="btn btn-success" @click="modifyComment(videoComment.videoCommentId,videoComment.content)">댓글 수정하기</button>    
-            <button class="btn btn-outline-danger" @click="modifyModeChange">댓글 수정 취소</button>
+            <button title="Button fade lightblue" class="button btnFade btnLightBlue" @click="modifyComment(videoComment.videoCommentId,videoComment.content)">수정</button>    
+            <button title="Button fade orange" class="button btnFade btnRed" @click="modifyModeChange">취소</button>
         </div>
     </div>
 </template>
@@ -66,5 +67,79 @@ function deleteComment(videoCommentId) {
 </script>
 
 <style scoped>
+button.button {
+
+width: 50px;
+/* padding: 0; */
+margin: 5px 5px 5px 0;
+font-weight: 600;
+text-align: center;
+/* line-height: 50px; */
+color: #FFF;
+border-radius: 5px;
+transition: all 0.2s ;
+text-decoration: none;
+border:none
+}
+
+
+.btnBlueGreen {
+background: #00AE68;
+}
+
+.btnLightBlue {
+background: #5DC8CD;
+}
+
+.btnOrange {
+background: #FFAA40;
+}
+
+.btnPurple {
+background: #A74982;
+}
+
+.btnRed{
+    background: #B70404;
+}
+
+.btnYellow.btnFloat:before {
+  background: #8D336A;
+}
+
+
+.btnFloat:before {
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.4);
+}
+
+
+.btnFloat:hover:before {
+  margin-top: -2px;
+  margin-left: 0px;
+  transform: scale(1.1,1.1);
+  -ms-transform: scale(1.1,1.1);
+  -webkit-transform: scale(1.1,1.1);
+  box-shadow: 0px 5px 5px -2px rgba(0, 0, 0, 0.25);
+}
+/* FADE */
+.btnFade.btnBlueGreen:hover {
+background: #21825B;
+}
+
+.btnFade.btnLightBlue:hover {
+background: #01939A;
+}
+
+.btnFade.btnOrange:hover {
+background: #FF8E00;
+}
+
+.btnFade.btnPurple:hover {
+background: #6D184B;
+}
+
+.btnFade.btnRed:hover{
+    background: #CD1818;
+}
 
 </style>

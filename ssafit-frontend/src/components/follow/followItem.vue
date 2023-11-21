@@ -1,9 +1,9 @@
 <template>
     <div>
         <!-- Button trigger modal 누르면 모달창이 뜸 -->
-        <button @click="seeUserInfo" type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            상세정보
-        </button>
+        <h4 style="padding:5px" @click="seeUserInfo" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            {{ nickName }}
+        </h4>
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -41,7 +41,8 @@ import {useFollowStore} from '../../stores/follow'
 import {useUserStore} from '../../stores/user'
 
 const props = defineProps({
-    "userSeq" : Number
+    "userSeq" : Number,
+    "nickName" : String,
 })
 
 const currUserSeq = ref(JSON.parse(sessionStorage.getItem("userSeq")))
