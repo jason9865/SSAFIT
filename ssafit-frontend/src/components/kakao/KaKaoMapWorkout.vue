@@ -9,7 +9,9 @@
                         <h4>원하는 장소를 입력하세요</h4>
                         <form onsubmit="searchPlaces(); return false;">
                              <input class="form-control" type="text" id="keyword" size="20"> 
-                            <button class="btn btn-info" id="submit_btn" type="submit">검색하기</button> 
+                            <button class="btn" id="submit_btn" type="submit" style="background-color:#cb99c5; color:white; padding:5px; font-weight: bold;">
+                                검색하기
+                            </button> 
                         </form>
                     </div>
                 </div>
@@ -279,7 +281,7 @@ function removeAllChildNods(el) {
 .map_wrap, .map_wrap * {margin:2px;padding:2px;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;}
 /* .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;} */
 .map_wrap {position:relative;width:100%;height:500px;}
-#menu_wrap {position : absolute; left:700px; top:0px;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
+#menu_wrap {position : absolute; left:700px; top:0px;width:500px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
 /* #menu_wrap {position : absolute; left:700px; top:50px} */
 .bg_white {background:#fff;}
 #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}

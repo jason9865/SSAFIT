@@ -1,14 +1,17 @@
 <template>
-    <div class="container">
-        <h3>팔로우 유저</h3>
-        <div class="card border-dark mb-3" style="width: 18rem;"  v-for="user in followList">
-            <div class="card-header"><b>{{ user.nickName }}</b></div>
-            <div class="card-body text-dark">
-                <h5 class="card-title">{{ user.userName }}</h5>
-                <p class="card-text">{{ user.usedId }}</p>
-                <p class="card-text">{{ user.email }}</p>
-                <p class="card-text">{{ user.joinedAt }}</p>
-                <button class="btn btn-outline-danger" @click="doUnfollow(user.userSeq)">팔로우 취소</button>
+    <div class="container justify-content-center p-3">
+        <h3>팔로우 유저 목록</h3>
+        <h4>팔로우 중인 유저 수 : {{ followList.length }}명</h4>
+        <div class="row">
+            <div class="card border-dark mb-3 col-md-3 m-5 p-1"  v-for="user in followList">
+                <div class="card-header"><b>{{ user.nickName }}</b></div>
+                <div class="card-body text-dark">
+                    <h5 class="card-title">{{ user.userName }}</h5>
+                    <p class="card-text">{{ user.usedId }}</p>
+                    <p class="card-text">{{ user.email }}</p>
+                    <p class="card-text">{{ user.joinedAt }}</p>
+                    <button class="btn" @click="doUnfollow(user.userSeq)" style="background-color:#cb99c5; color:white; padding:5px; font-weight: bold;">팔로우 취소</button>
+                </div>
             </div>
         </div>
     </div>
