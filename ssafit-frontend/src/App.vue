@@ -10,7 +10,6 @@
 import FooterNav from './components/common/FooterNav.vue';
 import HeaderNav from './components/common/HeaderNav.vue';
 
-
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import axios from "axios";

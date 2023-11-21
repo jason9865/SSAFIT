@@ -37,19 +37,6 @@
         order by view_cnt desc
         ;
     </select>
-    
-    <!-- <insert id="insertVideo" parameterType="video">
-        INSERT INTO
-        video(title,part,channel,name,url)
-        VALUES(#{title}, #{part}, #{channel}, #{name},#{url})
-        ;
-    </insert>
-
-    <delete id="deleteVideo" parameterType="int">
-        DELETE FROM video
-        WHERE video_id=#{videoId}
-        ;
-    </delete> -->
 
     <update id="updateViewCnt" parameterType="String">
         UPDATE video
