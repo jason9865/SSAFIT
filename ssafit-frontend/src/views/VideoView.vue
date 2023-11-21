@@ -1,8 +1,6 @@
 <template>
   <div>
-    <hr>
     <VideoHeader/>
-    <hr>
     <RouterView/>
   </div>
 </template>

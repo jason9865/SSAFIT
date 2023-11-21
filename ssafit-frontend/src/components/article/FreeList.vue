@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container pt-3">
       <BoardSearchInput/>
       <div v-if="articleList.length">
         <table class="table table-hover text-center">

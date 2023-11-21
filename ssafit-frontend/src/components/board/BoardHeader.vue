@@ -1,10 +1,10 @@
 <template>
-    <hr>
-    <div class="container text-center">
+    <hr style="margin: 0px;">
+    <div class="container text-center py-3">
         <RouterLink :to="{ name: 'free' }" @click="getFree">자유게시판</RouterLink> | 
         <RouterLink :to="{ name: 'announce' }" @click="getAnnounce">공지사항</RouterLink> | 
     </div>
-    <hr>
+    <hr style="margin: 0px;">
 </template>
 
 <script setup>

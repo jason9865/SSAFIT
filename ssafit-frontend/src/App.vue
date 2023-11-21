@@ -9,7 +9,7 @@
 <script setup>
 import FooterNav from './components/common/FooterNav.vue';
 import HeaderNav from './components/common/HeaderNav.vue';
-import MainPage from '@/components/common/MainPage.vue';
+
 
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";

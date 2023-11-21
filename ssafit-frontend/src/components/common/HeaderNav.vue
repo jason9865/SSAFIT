@@ -1,13 +1,17 @@
 <template>
-    <header>
-      <nav class="header-nav">
-        <div>
-          <RouterLink to="/" class="logo">SSAFIT </RouterLink>
+  <div class="position-relative">
+    <header class="sticky-top">
+      <div class="row">
+        <nav class="header-nav">
+          <div style="margin-right: 120px;">
+          <RouterLink to="/" class="logo" style="font-size: 3rem;">SSAFIT </RouterLink>
+          </div>
+        <div style="font-size: x-large;">
+          <RouterLink to="/video">운동영상</RouterLink>&nbsp;
+          <RouterLink to="/board/free" @click="loadBoardList">커뮤니티</RouterLink>&nbsp;
+          <RouterLink to="/map">헬스장 검색</RouterLink>
         </div>
         <div>
-          <RouterLink to="/video">운동영상</RouterLink>
-          <RouterLink to="/board/free" @click="loadBoardList">커뮤니티</RouterLink>
-          <RouterLink to="/map">헬스장 검색</RouterLink>
           <RouterLink to="/login" v-if="!loginUser.userName">로그인</RouterLink>
           <RouterLink to="/signup" v-if="!loginUser.userName">회원가입</RouterLink>
           <span v-else>
@@ -16,8 +20,10 @@
             <RouterLink to="/mypage">마이페이지</RouterLink>
           </span>
         </div>
-      </nav>
+        </nav>
+      </div>
     </header>
+  </div>
   </template>
 
 <script setup>
@@ -49,7 +55,7 @@ const loadBoardList = () => {
 <style scoped>
 header {
   height: 70px;
-  background-color: rgb(90, 223, 247);
+  background-color: rgb(170, 182, 250);
   line-height: 70px;
   padding: 0px 30px;
 }
@@ -63,6 +69,7 @@ header a {
 .header-nav {
   display: flex;
   justify-content: space-between;
+  color: white;
 }
 
 .logo {
@@ -71,5 +78,12 @@ header a {
   font-weight: bold;
   color: white;
   margin: 0;
+}
+.sticky-top {
+  position: sticky;
+  top: 0;
+}
+.position-relative {
+  position: relative;
 }
 </style>
