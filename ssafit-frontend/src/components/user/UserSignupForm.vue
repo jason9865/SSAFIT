@@ -1,26 +1,27 @@
 <template>
     <div class="container">
       <div id="form-container">
-        <div id="sign-up-container">
-          <h3>회원 가입</h3>
-          <fieldset>
-              <label for="id">아이디</label>
-              <input type="text" id="id" v-model="id" class="form-control view" /><br />
-              <label for="password">비밀번호</label>
-              <input type="password" id="password" v-model="password" class="form-control view" /><br />
-              <label for="password">비밀번호 확인</label>
-              <input type="password" id="password2" v-model="password2" class="form-control view"/><br />
-              <label for="name">이름</label>
-              <input type="text" id="name" v-model="name" class="form-control view" /><br />
-              <label for="email">이메일</label>
-              <input type="email" id="email" v-model="email" class="form-control view" /><br />
-              <label for="nickName">닉네임</label>
-              <input type="text" id="nickName" v-model="nickName" class="form-control view" /><br />
-              <div id="form-controls">
-                <button id="registBtn" class="btn btn-outline-success" @click="regist">등록</button>
-              </div>
-          </fieldset>
-
+        <div id="form-inner-container">
+          <div id="sign-up-container">
+            <h3>회원 가입</h3>
+            <fieldset style="width:500px">
+                <label for="id">아이디</label>
+                <input type="text" id="id" v-model="id" class="form-control" /><br />
+                <label for="password">비밀번호</label>
+                <input type="password" id="password" v-model="password" class="form-control" /><br />
+                <label for="password">비밀번호 확인</label>
+                <input type="password" id="password2" v-model="password2" class="form-control"/><br />
+                <label for="name">이름</label>
+                <input type="text" id="name" v-model="name" class="form-control" /><br />
+                <label for="email">이메일</label>
+                <input type="email" id="email" v-model="email" class="form-control" /><br />
+                <label for="nickName">닉네임</label>
+                <input type="text" id="nickName" v-model="nickName" class="form-control" /><br />
+                <div id="form-controls">
+                  <button id="registBtn" class="btn btn-outline-success" @click="regist">등록</button>
+                </div>
+            </fieldset>
+          </div>
         </div>
       </div>
     </div>
@@ -105,7 +106,7 @@ const regist = () => {
 
 <style scoped>
 body {
-    background-color: #F3F4F9;
+    background-color: #9b9ca0;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
@@ -113,6 +114,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin:20px;
 }
 
 #form-inner-container {
