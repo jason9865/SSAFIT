@@ -1,34 +1,32 @@
 <template>
   <div>
     <header>
-      <div class="row">
+      <div class="row d-flex justify-content-between">
         <nav class="header-nav">
-          <div style="margin-right: 120px;">
           <RouterLink to="/" class="logo" style="font-size: 3rem;">SSAFIT </RouterLink>
+          <div style="font-size: x-large;">
+            <RouterLink to="/video">운동영상</RouterLink>&nbsp;
+            <RouterLink to="/board/free" @click="loadBoardList">커뮤니티</RouterLink>&nbsp;
+            <RouterLink to="/map">헬스장 검색</RouterLink>
           </div>
-        <div style="font-size: x-large;">
-          <RouterLink to="/video">운동영상</RouterLink>&nbsp;
-          <RouterLink to="/board/free" @click="loadBoardList">커뮤니티</RouterLink>&nbsp;
-          <RouterLink to="/map">헬스장 검색</RouterLink>
-        </div>
-        <div>
-          <RouterLink to="/login" v-if="!loginUser.userName">로그인</RouterLink>
-          <RouterLink to="/signup" v-if="!loginUser.userName">회원가입</RouterLink>
-          <span v-else>
-            <span> {{ loginUser.userName }} 님</span>
-            <a href="#" class="mx-3" @click="logout">로그아웃</a>
-            <RouterLink to="/mypage">마이페이지</RouterLink>
-          </span>
-        </div>
+          <div>
+            <RouterLink to="/login" v-if="!loginUser.userName">로그인</RouterLink>
+            <RouterLink to="/signup" v-if="!loginUser.userName">회원가입</RouterLink>
+            <span v-else>
+              <span> {{ loginUser.userName }} 님</span>
+              <a href="#" class="mx-3" @click="logout">로그아웃</a>
+              <RouterLink to="/mypage">마이페이지</RouterLink>
+            </span>
+          </div>
         </nav>
       </div>
     </header>
   </div>
-  </template>
+</template>
 
 <script setup>
 import { storeToRefs } from "pinia";
-import { ref,computed } from "vue";
+import { ref, computed } from "vue";
 import { RouterLink } from "vue-router";
 import { useUserStore } from "@/stores/user";
 import { useBoardStore } from "@/stores/board";
@@ -78,5 +76,5 @@ header a {
   font-weight: bold;
   color: white;
   margin: 0;
-} 
+}
 </style>
