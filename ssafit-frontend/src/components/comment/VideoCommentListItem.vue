@@ -2,14 +2,14 @@
     <div class="card p-2">
         <div v-show="!modifyMode">
             <div style="display:flex; justify-content: space;">
-                <h4>{{ videoComment.nickName }}</h4>
+                <p style="font-size: large; margin: 0;">{{ videoComment.nickName }}</p>
                 <FollowItem :user-seq="videoComment.userSeq" />
             </div>
-            <div>댓글 내용 : {{ videoComment.content  }}</div>
-            <div> 작성날짜 : {{ videoComment.createdAt }}</div>
-            <div v-show="currUserSeq === videoComment.userSeq">
-                <button class="btn btn-primary" @click="modifyModeChange">댓글 수정</button>
-                <button class="btn btn-danger" @click="deleteComment(videoComment.videoCommentId)">댓글 삭제</button>
+            <p style="font-size: large; margin: 0; padding: 5px">{{ videoComment.content  }}</p>
+            <p style="font-size: small; margin: 0;">{{ videoComment.createdAt }}</p>
+            <div class="mt-1" v-show="currUserSeq === videoComment.userSeq">
+                <button class="btn btn-primary btn-sm" @click="modifyModeChange">수정</button>
+                <button class="btn btn-danger btn-sm" @click="deleteComment(videoComment.videoCommentId)">삭제</button>
             </div>
         </div>
         <div v-show="modifyMode">
