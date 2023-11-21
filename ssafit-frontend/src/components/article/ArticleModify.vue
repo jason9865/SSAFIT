@@ -11,7 +11,7 @@
           <label for="content">Content</label>
       </div>
       <div class="d-flex justify-content-end">
-          <button class="btn btn-success" @click="modifyArticle">게시글 수정</button>
+          <button title="Button fade blue/green" class="button btnFade btnBlueGreen" @click="modifyArticle">게시글 수정</button>
       </div>
     </div>
   </template>
@@ -44,5 +44,27 @@ onMounted(() => {
 </script>
 
 <style scoped>
+button.button {
+  width: 100px;
+  /* padding: 0; */
+  margin: 10px 0px 10px 0;
+  font-weight: 600;
+  text-align: center;
+  line-height: 50px;
+  color: #FFF;
+  border-radius: 5px;
+  transition: all 0.2s ;
+  text-decoration: none;
+  border:none
+}
+
+.btnBlueGreen {
+  background: #00AE68;
+}
+
+.btnFade.btnBlueGreen:hover {
+background: #21825B;
+}
+
 
 </style>

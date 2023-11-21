@@ -7,15 +7,16 @@
             </div>
             <p style="font-size: large; margin: 0; padding: 5px">{{ comment.content  }}</p>
             <p style="font-size: small; margin: 0;">{{ comment.createdAt }}</p>
-            <div class="mt-1" v-show="currUserSeq === comment.userSeq">
-                <button class="btn btn-primary btn-sm" @click="modifyModeChange">수정</button>
-                <button class="btn btn-danger btn-sm" @click="deleteComment(comment.commentId)">삭제</button>
+
+            <div class="mt-1"  v-show="currUserSeq === comment.userSeq">
+                <button title="Button fade blue/green" class="button btnFade btnBlueGreen" @click="modifyModeChange">수정</button>
+                <button title="Button fade orange" class="button btnFade btnOrange" @click="deleteComment(comment.commentId)">삭제</button>
             </div>
         </div>
         <div v-show="modifyMode">
             <textarea class="form-control" v-model="comment.content"></textarea>
-            <button class="btn btn-success" @click="modifyComment(comment.commentId,comment.content)">댓글 수정하기</button>    
-            <button class="btn btn-outline-danger" @click="modifyModeChange">댓글 수정 취소</button>
+            <button title="Button fade blue/green" class="button btnFade btnBlueGreen" @click="modifyComment(comment.commentId,comment.content)">수정</button>    
+            <button title="Button fade orange" class="button btnFade btnOrange" @click="modifyModeChange">취소</button>
         </div>
     </div>
 </template>
@@ -64,6 +65,55 @@ function deleteComment(commentId) {
 
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
+
+button.button {
+
+  width: 50px;
+  /* padding: 0; */
+  margin: 5px 5px 5px 0;
+  font-weight: 600;
+  text-align: center;
+  /* line-height: 50px; */
+  color: #FFF;
+  border-radius: 5px;
+  transition: all 0.2s ;
+  text-decoration: none;
+  border:none
+}
+
+.btnBlueGreen {
+  background: #00AE68;
+}
+
+.btnLightBlue {
+  background: #5DC8CD;
+}
+
+.btnOrange {
+  background: #FFAA40;
+}
+
+.btnPurple {
+  background: #A74982;
+}
+
+/* FADE */
+.btnFade.btnBlueGreen:hover {
+  background: #21825B;
+}
+
+.btnFade.btnLightBlue:hover {
+  background: #01939A;
+}
+
+.btnFade.btnOrange:hover {
+  background: #FF8E00;
+}
+
+.btnFade.btnPurple:hover {
+  background: #6D184B;
+}
+
 
 </style>
