@@ -153,6 +153,8 @@ export const useUserStore = defineStore('user', () => {
         })
           .then((res) => {
             console.log(res.data)
+            alert(res.data)
+            window.location.replace("/login")
           })
       }
 

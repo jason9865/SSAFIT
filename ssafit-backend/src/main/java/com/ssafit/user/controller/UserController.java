@@ -132,7 +132,7 @@ public class UserController {
 		
 		User user = userService.searchByUserId(userId);
 		if(user == null) {	// 아이디 유효 검증
-			message = "아이디를 확인해주세요.";
+			message = "존재하지 않는 아이디입니다.";
 		} else {
 			if(user.getEmail().equals(email)) {	// 이메일 유효 검증
 				Mail mail = userService.createMailAndChangePwd(userId, email);
