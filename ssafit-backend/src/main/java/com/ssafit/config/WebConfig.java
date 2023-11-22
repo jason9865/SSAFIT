@@ -35,22 +35,4 @@ public class WebConfig implements WebMvcConfigurer{
 		registry.addMapping("/**").allowedMethods("GET","POST"); // 메서드 가지고 허용
 	}
 	
-	@Bean
-	public MailSender getMailSender() {
-		return new MailSender() {
-			
-			@Override
-			public void send(SimpleMailMessage... simpleMessages) throws MailException {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void send(SimpleMailMessage simpleMessage) throws MailException {
-				// TODO Auto-generated method stub
-				
-			}
-		};
-	}
-	
 }

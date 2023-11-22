@@ -9,10 +9,10 @@ import com.ssafit.user.model.entity.Mail;
 import com.ssafit.user.model.entity.User;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -125,7 +125,6 @@ public class UserServiceImpl implements UserService {
         message.setReplyTo(from);
         System.out.println(message);
         mailSender.send(message);
-
 	}
 
 	@Override
