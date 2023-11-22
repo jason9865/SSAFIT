@@ -143,6 +143,18 @@ export const useUserStore = defineStore('user', () => {
         window.location.replace("/")
       };
     
+      const sendMail = (userIdEmail) => {
+        console.log(userIdEmail.value.userId)
+        console.log(userIdEmail.value.email)
+        axios({
+            url : `http://localhost:8080/user/sendMail`,
+            method : "POST",
+            data : userIdEmail.value
+        })
+          .then((res) => {
+            console.log(res.data)
+          })
+      }
 
     return {
         userList,
@@ -155,5 +167,6 @@ export const useUserStore = defineStore('user', () => {
         deleteUser,
         login,
         logout,
+        sendMail,
     }
 })

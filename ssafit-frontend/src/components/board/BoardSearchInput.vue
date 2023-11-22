@@ -3,32 +3,45 @@
         <div class="row align-items-center">
             <div class="col-2">
                 <select class="form-select" v-model="searchInfo.key">
-                    <option value="none">전체</option>
+                    <option value="none">검색기준</option>
                     <option value="writer">글쓰니</option>
                     <option value="title">제목</option>
                     <option value="content">내용</option>
                 </select>
             </div>
             <div class="col-6">
-                <input type="text" class="form-control" v-model="searchInfo.word" />
+                <input type="text" placeholder="검색내용" class="form-control" v-model="searchInfo.word" />
             </div>
             <div class="col-2">
-                <div class="form-check form-check-inline">
-                    <input v-model="searchInfo.orderBy" class="form-check-input" type="radio" id="title" value="title" />
-                    <label class="form-check-label" for="title"><i class="bi bi-fonts"></i></label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input v-model="searchInfo.orderBy" class="form-check-input" type="radio" id="viewCnt"
-                        value="view_cnt" />
-                    <label class="form-check-label" for="viewCnt"><i class="bi bi-eye-fill"></i></label>
-                </div>
-                <div @click="sortChange">
-                    <span v-if="searchInfo.orderByDir === 'asc'">
-                        <i class="bi bi-arrow-up-right-square-fill"></i>
-                    </span>
-                    <span v-else><i class="bi bi-arrow-down-right-square-fill"></i></span>
-                </div>
+                <select class="form-select" v-model="searchInfo.orderBy">
+                    <option value="none">정렬기준</option>
+                    <option value="title">제목</option>
+                    <option value="viewCnt">조회수</option>
+                </select>
             </div>
+            <div class="col-1 p-0">
+                <span v-if="searchInfo.orderByDir === 'asc'">
+                    <button class="btn btn-secondary" @click="sortChange" style="font-size: medium; padding: 6px">내림차순</button>
+                </span>
+                <span v-else>
+                    <button class="btn btn-secondary" @click="sortChange" style="font-size: medium; padding: 6px">오름차순</button>  
+                </span>
+            </div>
+            <!-- <div class="form-check form-check-inline">
+                <input v-model="searchInfo.orderBy" class="form-check-input" type="radio" id="title" value="title" />
+                <label class="form-check-label" for="title"><i class="bi bi-fonts"></i></label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input v-model="searchInfo.orderBy" class="form-check-input" type="radio" id="viewCnt"
+                    value="view_cnt" />
+                <label class="form-check-label" for="viewCnt"><i class="bi bi-eye-fill"></i></label>
+            </div>
+            <div @click="sortChange">
+                <span v-if="searchInfo.orderByDir === 'asc'">
+                    <i class="bi bi-arrow-up-right-square-fill"></i>
+                </span>
+                <span v-else><i class="bi bi-arrow-down-right-square-fill"></i></span>
+            </div> -->
             <div class="col-1">
                 <button class="btn btn-secondary" @click="searchArticles">검색</button>
             </div>
