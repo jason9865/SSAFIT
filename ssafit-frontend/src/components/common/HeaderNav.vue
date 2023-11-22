@@ -13,7 +13,7 @@
             <RouterLink to="/login" v-if="!loginUser.userName">로그인</RouterLink>
             <RouterLink to="/signup" v-if="!loginUser.userName">회원가입</RouterLink>
             <span v-else>
-              <span> {{ loginUser.userName }} 님</span>
+              <span style="font-weight:bold;"> {{ loginUser.userName }} 님</span>
               <a href="#" class="mx-3" @click="logout">로그아웃</a>
               <RouterLink to="/mypage">마이페이지</RouterLink>
             </span>
@@ -59,6 +59,7 @@ header {
 }
 
 header a {
+  font-weight:bold;
   margin: 10px;
   text-decoration: none;
   color: white;

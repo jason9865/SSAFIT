@@ -4,13 +4,14 @@
             <div class="col-6">
                 <div id="videoCards" class="carousel slide" data-bs-ride="carousel" style="width:600px; height:300px;">
                     <div class="d-flex justify-content-between">
-                        <h2>인기 동영상</h2>
+                        <h2 class="mt-3 mb-3">인기 동영상</h2>
                     <div>
-                        <a class="btn btn-outline-primary mb-3 mr-1" href="#videoCards" role="button"
+                        <a class="btn btn-outline-primary mt-3 mb-3" href="#videoCards" role="button" style="color:white; border-color: white; font-weight:bold;"
                             data-bs-slide="prev">
                             <b>PREV</b>
                         </a>
-                        <a class="btn btn-outline-primary mb-3 " href="#videoCards" role="button" data-bs-slide="next">
+                        <a class="btn btn-outline-primary mt-3 mb-3" href="#videoCards" role="button" style="color:white; border-color: white; font-weight:bold;"
+                            data-bs-slide="next">
                             <b>NEXT</b>
                         </a>
                     </div>
@@ -31,8 +32,8 @@
                     
                 </div>
             </div>
-            <div class="col-6">
-                <h2>인기 게시글</h2>
+            <div class="col-6 mb-3">
+                <h2 class="mt-3 mb-3">인기 게시글</h2>
                 <div class="row" style="width:600px;height:400px;">
                     <div class="col card p-4" >
                         <h4>자유게시판</h4>
@@ -116,5 +117,15 @@ a {
     text-decoration-line: none;
     color:black;
     border-color:black
+}
+
+h2{
+    color:white;
+    font-weight: bold;
+}
+
+h4 {
+    font-weight:bold;
+    text-align: center;
 }
 </style>
