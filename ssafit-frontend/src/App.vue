@@ -40,7 +40,7 @@ onMounted(() => {
       }
     })
       .then((res) => {
-        console.log(res.data)
+        // console.log(res.data)
         userStore.currentUser = res.data
         userStore.loginUser = res.data
       })

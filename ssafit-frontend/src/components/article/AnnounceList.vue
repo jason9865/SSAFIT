@@ -28,7 +28,7 @@
       </table>
     </div>
     <div v-else>등록된 게시글이 없습니다.</div>
-    <router-link to="/board/create" title="Button border purple" class="button btnFloat btnPurple"></router-link>
+    <router-link to="" title="Button border purple" class="button btnFloat btnPurple" @click.native="checkEdit"></router-link>
   </div>
   <nav aria-label="Page navigation">
   <ul class="pagination d-flex justify-content-center">
@@ -51,6 +51,21 @@ import { useArticleStore } from '../../stores/article';
 import { useBoardStore } from '../../stores/board';
 import { storeToRefs } from 'pinia';
 import BoardSearchInput from '../board/BoardSearchInput.vue';
+
+const router = useRouter()
+const currUserSeq = JSON.parse(sessionStorage.getItem("userSeq"))
+
+function checkEdit() {
+  if (!currUserSeq) {
+        if (confirm("로그인이 필요한 서비스입니다. 로그인하시겠습니까?") === true) {
+            router.push("/login")
+        }
+        return;
+  }
+
+  router.push("/board/create")
+}
+
 
 const articleStore = useArticleStore()
 const boardStore = useBoardStore()
