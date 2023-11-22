@@ -6,12 +6,12 @@
         <input type="text" id="login" class="fadeIn second" name="login" placeholder="아이디" v-model="id">
         <input type="password" id="password" class="fadeIn third" name="login" placeholder="비밀번호" v-model="password"
           @keyup.enter="login">
-        <input type="submit" class="fadeIn fourth" value="로그인" @click="login" />
+        <input type="submit" class="fadeIn fourth" value="로그인" @click="login"/>
       </fieldset>
 
       <!-- Remind Passowrd -->
       <div id="formFooter">
-        <span class="underlineHover" data-bs-toggle="modal" data-bs-target="#findPw">Forgot Password?</span>
+        <span class="underlineHover" data-bs-toggle="modal" data-bs-target="#findPw" style="cursor: pointer;">Forgot Password?</span>
       </div>
       
     </div>

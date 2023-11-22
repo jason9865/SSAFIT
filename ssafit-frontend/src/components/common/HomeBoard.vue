@@ -89,7 +89,6 @@ onMounted(() => {
     })
     .then((res) => {
         freeList.value = res.data
-        console.log(freeList.value)
     })
     .catch((err) => {
         console.log(err)
@@ -101,7 +100,6 @@ onMounted(() => {
     })
     .then((res) => {
         announceList.value = res.data
-        console.log(announceList.value)
     })
     .catch((err) => {
         console.log(err)

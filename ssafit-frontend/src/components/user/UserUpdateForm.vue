@@ -9,7 +9,7 @@
                 <label for="id">아이디</label>
                 <input readonly type="text" id="id" v-model="userDetail.userId" class="form-control"/><br />
                 <label for="password">비밀번호</label>
-                <input type="password" id="password" v-model="userDetail.pwd" class="form-control" /><br />
+                <input type="password" id="password" v-model="userDetail.userPwd" class="form-control" /><br />
                 <label for="password">비밀번호 확인</label>
                 <input type="password" id="password2" v-model="userDetail.userConfirmedPwd" class="form-control"/><br />
                 <label for="name">이름</label>
@@ -58,6 +58,7 @@ const update = () => {
   }
 
   if (userDetail.userPwd !== userDetail.userConfirmedPwd) {
+    console.log(userDetail.userPwd, "<->",userDetail.userConfirmedPwd)
     alert("비밀번호가 일치하지 않습니다.");
     return;
   }
