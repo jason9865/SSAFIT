@@ -4,7 +4,7 @@
       <div id="form-container">
         <div id="form-inner-container">
           <div id="sign-up-container">
-            <h3>회원 가입</h3>
+            <h3 style="text-align: center;">회원 정보 수정</h3>
             <fieldset style="width:500px">
                 <label for="id">아이디</label>
                 <input readonly type="text" id="id" v-model="userDetail.userId" class="form-control"/><br />

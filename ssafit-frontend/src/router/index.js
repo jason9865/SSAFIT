@@ -22,12 +22,14 @@ import ShoulderList from '../components/video/ShoulderList.vue'
 import VideoDetail from '../components/video/VideoDetail.vue'
 import Youtube from '../components/youtube/Youtube.vue'
 
-import UserInfo from "../components/user/UserInfo.vue"
+import Mypage from "../components/user/Mypage.vue"
 import UserSignupForm from "../components/user/UserSignupForm.vue"
 import UserUpdateForm from "../components/user/UserUpdateForm.vue"
 
 import FollowList from "../components/follow/FollowList.vue"
+import VideoLikeList from "../components/video/VideoLikeList.vue"
 import ArticleLikeList from "../components/article/ArticleLikeList.vue"
+import MyArticleList from "../components/article/MyArticleList.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -83,18 +85,39 @@ const router = createRouter({
       path : "/mypage",
       name : "Mypage",
       component : MypageView,
+      props : true,
       children : [
         {
           path : "",
-          name : "userName",
-          component : UserInfo,
+          name : "Mypage",
+          component : Mypage,
+          props : true,
         },
         {
           path : "/update",
           name : "userUpdate",
           component : UserUpdateForm,
-        }
-        ,
+        },
+        {
+          path : "/followList",
+          name : "followList",
+          component : FollowList,
+        },
+        {
+          path : "/articleLikeList",
+          name : "articleLikeList",
+          component : ArticleLikeList,
+        },
+        {
+          path : "/videoLikeList",
+          name : "videoLikeList",
+          component : VideoLikeList ,
+        },
+        {
+          path : "/myArticleList",
+          name : "MyArticleList",
+          component : MyArticleList ,
+        },
       ]
     },
     
@@ -165,7 +188,7 @@ const router = createRouter({
       path : "/articleLikeList",
       name : "articleLikeList",
       component : ArticleLikeList,
-    }
+    },
 
 
   ]

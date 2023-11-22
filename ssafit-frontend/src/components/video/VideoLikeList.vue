@@ -1,13 +1,35 @@
 <template>
     <div class="container">
-        <div class="card p-2" style="width: 18rem;">
-            <h3>비디오 좋아요 리스트</h3>
-            <ul class="list-group list-group-flush" v-for="video in videoLikeList" :key="video.videoId" >
-                <RouterLink :to="`/video/${video.videoId}`">
-                    <li class="list-group-item">{{ video.title }}</li>
-                </RouterLink>
-            </ul>
+        <div class="m-5">
+            <h1 style="color : white; font-weight: bold; text-align: center; margin:50px;">내가 좋아요 한 비디오</h1>
+            <div v-if="videoLikeList.length">
+            <table class="table table-hover text-center">
+                <thead>
+                <tr>
+                    <td>번호</td>
+                    <td>제목</td>
+                    <td>채널명</td>
+                    <td>조회수</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="(video,index) in videoLikeList" :key="video.videoId">
+                    <td>{{ index + 1}}</td>
+                    <td>
+                    <RouterLink  :to="`/video/${video.videoId}`">
+                        {{ video.title }}   
+                    </RouterLink>
+                    </td>
+                    <td>{{ video.channelTitle }}</td>
+                    <td>{{ video.viewCnt }}</td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+            <div v-else>등록된 게시글이 없습니다.</div>
         </div>
+
+        
     </div>
 </template>
 
@@ -30,5 +52,6 @@ onMounted(()=>{
 <style scoped>
 a {
     text-decoration-line: none;
+    color:black;
 }
 </style>

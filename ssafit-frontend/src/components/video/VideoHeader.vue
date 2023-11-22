@@ -1,7 +1,7 @@
 <template>
   <div class="row" style="font-size: large;">
     <div class="col-3"></div>
-    <div class="container text-center py-2 row col-9 nav nav-underline">
+    <div class="container text-center py-2 row col-9 nav nav-underline" style="font-weight: bold;">
       <div class="col-1 nav-item">
         <RouterLink class="nav-link" :class="videoList" :to="{ name: 'VideoList' }" style="color: white;">전체</RouterLink>
       </div>

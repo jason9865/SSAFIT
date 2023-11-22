@@ -1,23 +1,23 @@
 <template>
-    <div>
+    <div >
         <div class="map_wrap">
             <div id="map" style="width:700px;height:500px;position:relative;overflow:hidden;"></div>
 
             <div id="menu_wrap" class="bg_white">
                 <div class="option">
                     <div class="m-3">
-                        <h4>원하는 장소를 입력하세요</h4>
+                        <h4 style="font-weight: bold;">원하는 장소를 입력하세요</h4>
                         <form onsubmit="searchPlaces(); return false;">
-                             <input class="form-control" type="text" id="keyword" size="20"> 
-                            <button class="btn" id="submit_btn" type="submit" style="background-color:#cb99c5; color:white; padding:5px; font-weight: bold;">
+                             <input class="form-control mt-4" type="text" id="keyword" size="20"> 
+                            <button class="btn mt-4" id="submit_btn" type="submit" style="background-color:#cb99c5; color:white; padding:5px; font-weight: bold;">
                                 검색하기
                             </button> 
                         </form>
                     </div>
                 </div>
                 <hr>
-                <div id="pagination"></div>
-                <ul id="placesList"></ul>
+                <div id="pagination" style="text-decoration-line: none;"></div>
+                <ul id="placesList" class="p-3"></ul>
             </div>
         </div>
             
@@ -114,7 +114,7 @@ function displayPlaces(places) {
     // 지도에 표시되고 있는 마커를 제거합니다
     removeMarker();
     
-    for ( var i=0; i<6; i++ ) {
+    for ( var i=0; i<5; i++ ) {
 
         // 마커를 생성하고 지도에 표시합니다
         var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x),
@@ -277,6 +277,7 @@ function removeAllChildNods(el) {
   </script>
   
   <style scoped>
+  a{text-decoration: none; color:black;}
 .map_wrap, .map_wrap * {margin:0px;padding:0px;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
 .map_wrap {position:relative;width:100%;height:500px;}

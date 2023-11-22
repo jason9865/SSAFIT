@@ -68,7 +68,6 @@ function deleteComment(commentId) {
 </script>
 
 <style scoped>
-
 button.button {
 
   width: 50px;
