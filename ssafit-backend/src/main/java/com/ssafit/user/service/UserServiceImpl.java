@@ -130,7 +130,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void updatePwd(String userId, String pwd) {
-		// TODO Auto-generated method stub
+		// 비밀번호 변경
 
 	}
 
