@@ -1,7 +1,7 @@
 <template>
     <div container>
 
-        <div class="row" style="margin:100px">
+        <div class="row" style="margin:200px">
             <div class="col-2">
                 <Sidebar/>
             </div>

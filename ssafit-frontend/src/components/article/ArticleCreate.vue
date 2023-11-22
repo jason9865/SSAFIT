@@ -6,7 +6,7 @@
       </select>
 
 
-      <h4>게시글 작성</h4>
+      <h4 style="color : white; font-weight: bold; margin-top:10px; margin-bottom: 10px;">게시글 작성</h4>
       <div class="form-floating mb-3">
           <input type="text" class="form-control" id="title" placeholder="제목" v-model="article.title">
           <label for="title">Title</label>
@@ -17,7 +17,10 @@
           <label for="content">Content</label>
       </div>
       <div class="d-flex justify-content-end">
-          <button class="btn btn-outline-primary" @click="writeArticle">등록</button>
+          <button title="Button fade BlueGreen" class="button btnFade btnBlueGreen" @click="writeArticle" style="margin-right:10px">
+            등록
+          </button>
+          <button title="Button fade lightblue" class="button btnFade btnLightBlue" @click="goBack">취소</button>
       </div>
   </div>
 </template>
@@ -26,8 +29,10 @@
 import { ref, computed,onMounted } from "vue";  
 import { useArticleStore } from "@/stores/article";
 import { useBoardStore } from "@/stores/board";
+import { useRouter } from "vue-router";
 
 const boardId = ref("");
+const router = useRouter()
 
 const article = ref({
   boardId : boardId,
@@ -48,9 +53,46 @@ const writeArticle = function () {
   }
 };
 
+const goBack = function () {
+  if(confirm("게시글 작성을 취소하시겠습니까?") === true) {
+    router.go(-1)
+  }
+}
+
 onMounted(() => {
   boardStore.getBoardList()
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+button.button {
+  width: 100px;
+  /* padding: 0; */
+  margin: 10px 0px 10px 0;
+  font-weight: 600;
+  text-align: center;
+  line-height: 50px;
+  color: #FFF;
+  border-radius: 5px;
+  transition: all 0.2s ;
+  text-decoration: none;
+  border:none
+}
+
+.btnBlueGreen {
+background: #00AE68;
+}
+
+.btnLightBlue {
+background: #5DC8CD;
+}
+
+.btnFade.btnBlueGreen:hover {
+background: #21825B;
+}
+
+.btnFade.btnLightBlue:hover {
+background: #01939A;
+}
+
+</style>

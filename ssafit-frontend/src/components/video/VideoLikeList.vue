@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="m-5">
+        <div style="margin-top:100px;margin-bottom:300px;">
             <h1 style="color : white; font-weight: bold; text-align: center; margin:50px;">내가 좋아요 한 비디오</h1>
             <div v-if="videoLikeList.length">
             <table class="table table-hover text-center">
@@ -26,7 +26,9 @@
                 </tbody>
             </table>
             </div>
-            <div v-else>등록된 게시글이 없습니다.</div>
+            <div v-else>
+                <h3 style="color : white; font-weight: bold; text-align: center; margin:50px;">찜한 비디오가 없습니다.</h3>
+            </div>
         </div>
 
         
