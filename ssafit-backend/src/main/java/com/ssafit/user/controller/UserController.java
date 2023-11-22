@@ -94,6 +94,7 @@ public class UserController {
 	@ApiOperation(value="단일 회원 가져오기")
 	public ResponseEntity<UserResponse> getUserInfo(HttpServletRequest request) {
 		String token = (String)request.getHeader("access-token");
+		System.out.println(token);
 		try {
 			Jws<Claims> claims = jwtUtil.getClaims(token);
 			return new ResponseEntity<UserResponse>(userService.searchByUserSeq(Integer.parseInt((String)claims.getBody().get("seq"))),HttpStatus.OK);
