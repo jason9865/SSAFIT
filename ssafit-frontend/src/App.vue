@@ -3,7 +3,7 @@
     <HeaderNav />
     <hr style="margin: 0px;">
     <RouterView />
-    <FooterNav/>
+    <FooterNav class="footer" />
   </div>
 </template>
 
@@ -26,15 +26,13 @@ const boardStore = useBoardStore()
 const userStore = useUserStore()
 
 onMounted(() => {
-  if(sessionStorage.getItem("loginUser")){
+  if (sessionStorage.getItem("loginUser")) {
     userStore.loginUser = JSON.parse(sessionStorage.getItem("loginUser"))
   }
-    
+
 });
 
 
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
