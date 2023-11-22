@@ -28,7 +28,7 @@
         </table>
       </div>
       <div v-else>등록된 게시글이 없습니다.</div>
-      <router-link to="/board/create">글 작성</router-link>
+      <router-link to="/board/create" title="Button border purple" class="button btnFloat btnPurple"></router-link>
     </div>
     <nav aria-label="Page navigation">
     <ul class="pagination d-flex justify-content-center">
@@ -131,6 +131,51 @@ onMounted(() => {
 a {
   text-decoration-line: none;
   color: black;
+}
+
+a.button {
+  width: 120px;
+  padding: 0;
+  margin: 10px 20px 10px 0;
+  font-weight: 600;
+  text-align: center;
+  line-height: 50px;
+  color: #FFF;
+  border-radius: 5px;
+  transition: all 0.2s ;
+}
+
+.btnFloat {
+  background: none;
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.5);
+}
+
+
+.btnFloat:before {
+  content: '글쓰기';
+  display: block;
+  top: 0;
+  left: 0;
+  width: 120px;
+  height: 50px;
+  border-radius: 5px;
+  transition: all 0.2s ;
+}
+.btnPurple.btnFloat:before {
+    background:#3D1766;
+}
+
+.btnFloat:before {
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.4);
+}
+
+.btnFloat:hover:before {
+  margin-top: -2px;
+  margin-left: 0px;
+  transform: scale(1.1,1.1);
+  -ms-transform: scale(1.1,1.1);
+  -webkit-transform: scale(1.1,1.1);
+  box-shadow: 0px 5px 5px -2px rgba(0, 0, 0, 0.25);
 }
 
 </style>

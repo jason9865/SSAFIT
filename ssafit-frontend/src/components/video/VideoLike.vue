@@ -1,7 +1,7 @@
 <template>
     <div class="pt-2 text-center">
-        <button v-show="isVideoLike!==1" class="btn btn-secondary" @click="doLike">찜하기</button>
-        <button v-show="isVideoLike===1" class="btn btn-warning" @click="undoLike">찜하기 취소</button>
+        <button v-show="isVideoLike!==1" title="Button border yellow" class="button btnFade btnYellow" @click="doLike">찜하기</button>
+        <button v-show="isVideoLike===1" title="Button border orange" class="button btnFade btnOrange" @click="undoLike">찜하기 취소</button>
     </div>
 </template>
 
@@ -36,5 +36,72 @@ onMounted(() => {
 </script>
 
 <style scoped>
+
+button.button {
+width: 100px;
+/* padding: 0; */
+margin: 5px 5px 5px 0;
+font-weight: 600;
+text-align: center;
+line-height: 50px;
+color: #FFF;
+border-radius: 5px;
+transition: all 0.2s ;
+text-decoration: none;
+border:none
+}
+
+.btnYellow {
+  background: #FFB84C;
+}
+
+.btnOrange {
+  background: #FFAA40;
+}
+
+.btnFade.btnYellow:hover {
+    background: #FFAA40;
+}
+
+.btnFade.btnOrange:hover {
+    background: #FFB84C;
+}
+
+.btnFloat {
+  background: none;
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.5);
+}
+
+
+.btnFloat:before {
+  content: '찜하기';
+  display: block;
+  top: 0;
+  left: 0;
+  width: 120px;
+  height: 50px;
+  border-radius: 5px;
+  transition: all 0.2s ;
+}
+.btnYellow.btnFloat:before {
+    background:#F7D060;
+}
+.btnOrange.btnFloat:before {
+  background: #FFAA40;
+}
+
+.btnFloat:before {
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.4);
+}
+
+.btnFloat:hover:before {
+  margin-top: -2px;
+  margin-left: 0px;
+  transform: scale(1.1,1.1);
+  -ms-transform: scale(1.1,1.1);
+  -webkit-transform: scale(1.1,1.1);
+  box-shadow: 0px 5px 5px -2px rgba(0, 0, 0, 0.25);
+}
+
 
 </style>

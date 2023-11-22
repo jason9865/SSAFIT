@@ -1,6 +1,6 @@
 <template>
-    <div class="container">
-        <div class="m-5 p-5">
+    <div class="container my-5">
+        <div>
             <KaKaoMapWorkout/>
         </div>
     </div>

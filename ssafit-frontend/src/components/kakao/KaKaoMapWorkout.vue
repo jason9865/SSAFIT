@@ -1,11 +1,11 @@
 <template>
-    <div class="container">
+    <div>
         <div class="map_wrap">
-            <div id="map" style="width:500px;height:400px;position:relative;overflow:hidden;"></div>
+            <div id="map" style="width:700px;height:500px;position:relative;overflow:hidden;"></div>
 
             <div id="menu_wrap" class="bg_white">
                 <div class="option">
-                    <div>
+                    <div class="m-3">
                         <h4>원하는 장소를 입력하세요</h4>
                         <form onsubmit="searchPlaces(); return false;">
                              <input class="form-control" type="text" id="keyword" size="20"> 
@@ -79,7 +79,6 @@ function searchPlaces() {
 // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
 function placesSearchCB(data, status, pagination) {
     if (status === kakao.maps.services.Status.OK) {
-
         // 정상적으로 검색이 완료됐으면
         // 검색 목록과 마커를 표출합니다
         displayPlaces(data);
@@ -278,10 +277,10 @@ function removeAllChildNods(el) {
   </script>
   
   <style scoped>
-.map_wrap, .map_wrap * {margin:2px;padding:2px;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;}
-/* .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;} */
+.map_wrap, .map_wrap * {margin:0px;padding:0px;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;}
+.map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
 .map_wrap {position:relative;width:100%;height:500px;}
-#menu_wrap {position : absolute; left:700px; top:0px;width:500px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
+#menu_wrap {position : absolute; left:750px; top:0px;width:500px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
 /* #menu_wrap {position : absolute; left:700px; top:50px} */
 .bg_white {background:#fff;}
 #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
