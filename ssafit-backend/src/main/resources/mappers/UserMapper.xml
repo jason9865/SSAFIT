@@ -57,5 +57,11 @@
 		DELETE FROM user
 		WHERE user_seq = #{userSeq};
 	</delete>
-
+	
+	<update id="updatePwd" parameterType="Map">
+		UPDATE user
+		SET user_pwd=#{pwd}
+		WHERE user_id=#{userId};
+	</update>
+	
 </mapper>
