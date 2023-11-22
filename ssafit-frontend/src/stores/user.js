@@ -113,21 +113,16 @@ export const useUserStore = defineStore('user', () => {
           }
         })
           .then((response) => {
-            // console.log(atob(response.data["access-token"].split('.')[1]))
-            // console.log(response.data["loginUser"])
-
-            sessionStorage.setItem('access-token', response.data["access-token"])
-            
-            // console.log(sessionStorage.getItem("userSeq"))
-            // console.log(JSON.parse(sessionStorage.getItem("loginUser")))
-
-            alert("로그인 성공!")
-            // 일단은 유저 정보 전체 저장
-            window.location.replace("/")
+            if(response.data["access-token"]) {
+                sessionStorage.setItem('access-token', response.data["access-token"])
+                alert("로그인 성공!")
+                window.location.replace("/")
+            } else {
+                alert("아이디 혹은 비밀번호를 확인해주세요.");
+            }
           })
           .catch((err) => {
             console.log(err);
-            alert("아이디 혹은 비밀번호를 확인해주세요.");
           });
       };
 
