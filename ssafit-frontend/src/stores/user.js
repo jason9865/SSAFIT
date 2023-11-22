@@ -115,6 +115,7 @@ export const useUserStore = defineStore('user', () => {
           .then((response) => {
             if(response.data["access-token"]) {
                 sessionStorage.setItem('access-token', response.data["access-token"])
+                sessionStorage.setItem("userSeq",response.data["userSeq"])
                 alert("로그인 성공!")
                 window.location.replace("/")
             } else {
@@ -128,6 +129,7 @@ export const useUserStore = defineStore('user', () => {
 
       const logout = () => {
         sessionStorage.removeItem("access-token")
+        sessionStorage.removeItem("userSeq")
         loginUser.value = null;
         alert("로그아웃!")
         window.location.replace("/")

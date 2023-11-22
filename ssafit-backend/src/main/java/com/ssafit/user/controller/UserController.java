@@ -59,13 +59,12 @@ public class UserController {
 		
 		if (loginUser != null) {
 			try {
-				result.put("access-token", jwtUtil.createToken("seq", ""+loginUser.getUserSeq()));
-				result.put("loginUser", loginUser);	
+				result.put("access-token", jwtUtil.createToken("userSeq", ""+loginUser.getUserSeq()));
+				result.put("userSeq",loginUser.getUserSeq());
 				result.put("message", SUCCESS);
 				status = HttpStatus.ACCEPTED;
 				String token = (String)result.get("access-token");
 				Jws<Claims> claims = jwtUtil.getClaims(token);
-//				System.out.println(claims.getBody().get("seq"));
 			} catch (Exception e) {
 				result.put("message", FAIL);
 				status = HttpStatus.NO_CONTENT;
@@ -97,7 +96,8 @@ public class UserController {
 		System.out.println(token);
 		try {
 			Jws<Claims> claims = jwtUtil.getClaims(token);
-			return new ResponseEntity<UserResponse>(userService.searchByUserSeq(Integer.parseInt((String)claims.getBody().get("seq"))),HttpStatus.OK);
+			System.out.println((String)claims.getBody().get("userSeq"));
+			return new ResponseEntity<UserResponse>(userService.searchByUserSeq(Integer.parseInt((String)claims.getBody().get("userSeq"))),HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
