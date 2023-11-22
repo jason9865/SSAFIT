@@ -31,21 +31,23 @@ onMounted(() => {
   // }
   // console.log(sessionStorage.getItem("access-token"))
 
-  axios({
-    url : `http://localhost:8080/user/userInfo`,
-    method : "GET",
-    headers : {
-      "access-token" : sessionStorage.getItem("access-token"),
-    }
-  })
-    .then((res) => {
-      console.log(res.data)
-      userStore.currentUser = res.data
-      userStore.loginUser = res.data
+  if (sessionStorage.getItem("access-token")) {
+    axios({
+      url: `http://localhost:8080/user/userInfo`,
+      method: "GET",
+      headers: {
+        "access-token": sessionStorage.getItem("access-token"),
+      }
     })
-    .catch((err) => {
-      console.log(err)
-    })
+      .then((res) => {
+        console.log(res.data)
+        userStore.currentUser = res.data
+        userStore.loginUser = res.data
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
 });
 
 
