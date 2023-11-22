@@ -30,7 +30,6 @@ const articleStore = useArticleStore()
 const {article} = storeToRefs(articleStore)
 
 const modifyArticle = () => {
-  console.log(article.value)
   if(confirm("게시글을 수정하시겠습니까?") === true) {
     articleStore.updateArticle(article.value)
   }

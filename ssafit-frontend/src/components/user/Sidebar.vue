@@ -6,14 +6,14 @@
       <a href="#"><i class="fa-solid fa-cat"></i>회원 정보</a>
       <ul>
         <li><RouterLink to="/mypage/update">회원 정보 수정</RouterLink></li>
-        <li><RouterLink to="/mypage/followList">팔로우 중인 유저 보기</RouterLink></li>
+        <li><RouterLink to="/mypage/myFollowList">팔로우 중인 유저 보기</RouterLink></li>
       </ul>
     </li>
     <li>
       <a href="#"><i class="fa-solid fa-cat"></i>저장한 목록</a>
       <ul>
         <li><RouterLink to="/mypage/myArticleList">내가 쓴 게시글</RouterLink></li>
-        <li><RouterLink to="/mypage/articleLikeList">좋아요 게시글</RouterLink></li>
+        <li><RouterLink to="/mypage/myArticleLikeList">좋아요 게시글</RouterLink></li>
         <li><RouterLink to="/mypage/videoLikeList">좋아요 비디오</RouterLink></li>
       </ul>
     </li>
