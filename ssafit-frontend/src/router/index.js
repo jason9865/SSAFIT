@@ -95,22 +95,22 @@ const router = createRouter({
         },
         {
           path : "update",
-          name : "userUpdate",
+          name : "UserUpdate",
           component : UserUpdateForm,
         },
         {
-          path : "followList",
-          name : "followList",
+          path : "myFollowList",
+          name : "MyFollowList",
           component : FollowList,
         },
         {
-          path : "articleLikeList",
-          name : "articleLikeList",
+          path : "myArticleLikeList",
+          name : "MyArticleLikeList",
           component : ArticleLikeList,
         },
         {
           path : "videoLikeList",
-          name : "videoLikeList",
+          name : "VideoLikeList",
           component : VideoLikeList ,
         },
         {

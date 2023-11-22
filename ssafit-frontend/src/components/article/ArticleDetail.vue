@@ -4,7 +4,7 @@
     <p style="font-size: medium; margin: 0;" >{{ store.article.nickName }}</p>
     <span style="font-size: small; margin: 0;">{{ store.article.createdAt }} 조회 수 {{ store.article.viewCnt }}</span>
     <hr>
-    <p class="px-3 py-5 my-5">{{ store.article.content }}</p>
+    <div class="px-3 py-5 my-5" style="white-space: pre-line;">{{ store.article.content }}</div>
     <ArticleLikeDislike :article-id="articleId" class="text-center"/>
   </div>
   <div>
@@ -29,7 +29,6 @@ import ArticleLikeDislike from '@/components/article/ArticleLikeDislike.vue'
 
 const route = useRoute();
 const router = useRouter();
-const article =ref({});
 const store = useArticleStore()
 const articleId = ref(route.params.articleId)
 
