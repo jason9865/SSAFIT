@@ -36,7 +36,9 @@ const emits = defineEmits(["logout"]);
 
 const store = useUserStore()
 const boardstore = useBoardStore()
-const loginUser = computed(() => store.loginUser)
+const loginUser = computed(() => {
+  return store.loginUser
+})
 
 // const userName = ref(JSON.parse(localStorage.getItem("loginUser"))?.data.userName)
 

@@ -10,6 +10,8 @@ import com.ssafit.user.model.entity.User;
 import com.ssafit.user.service.UserService;
 import com.ssafit.util.JwtUtil;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +54,6 @@ public class UserController {
 	public ResponseEntity<Map<String, Object>> login(@RequestBody UserLoginRequest loginRequest, HttpSession session) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		UserResponse loginUser = userService.login(loginRequest);
-		System.out.println(loginUser);
 		
 		HttpStatus status = null;
 		
@@ -62,7 +63,10 @@ public class UserController {
 				result.put("loginUser", loginUser);	
 				result.put("message", SUCCESS);
 				status = HttpStatus.ACCEPTED;
-			} catch (UnsupportedEncodingException e) {
+				String token = (String)result.get("access-token");
+				Jws<Claims> claims = jwtUtil.getClaims(token);
+//				System.out.println(claims.getBody().get("seq"));
+			} catch (Exception e) {
 				result.put("message", FAIL);
 				status = HttpStatus.NO_CONTENT;
 			}
@@ -85,7 +89,21 @@ public class UserController {
 	public ResponseEntity<List<UserResponse>> getUsers() {
 		return new ResponseEntity<List<UserResponse>>(userService.getUserList(),HttpStatus.OK);
 	}
-
+	
+	@GetMapping("/userInfo")
+	@ApiOperation(value="단일 회원 가져오기")
+	public ResponseEntity<UserResponse> getUserInfo(HttpServletRequest request) {
+		String token = (String)request.getHeader("access-token");
+		try {
+			Jws<Claims> claims = jwtUtil.getClaims(token);
+			return new ResponseEntity<UserResponse>(userService.searchByUserSeq(Integer.parseInt((String)claims.getBody().get("seq"))),HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
 	@GetMapping("/{userSeq}")
 	@ApiOperation(value="단일 회원 가져오기")
 	public ResponseEntity<UserResponse> getUser(@PathVariable int userSeq) {

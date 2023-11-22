@@ -26,10 +26,26 @@ const boardStore = useBoardStore()
 const userStore = useUserStore()
 
 onMounted(() => {
-  if (sessionStorage.getItem("loginUser")) {
-    userStore.loginUser = JSON.parse(sessionStorage.getItem("loginUser"))
-  }
+  // if (sessionStorage.getItem("loginUser")) {
+  //   userStore.loginUser = JSON.parse(sessionStorage.getItem("loginUser"))
+  // }
+  // console.log(sessionStorage.getItem("access-token"))
 
+  axios({
+    url : `http://localhost:8080/user/userInfo`,
+    method : "GET",
+    headers : {
+      "access-token" : sessionStorage.getItem("access-token"),
+    }
+  })
+    .then((res) => {
+      console.log(res.data)
+      userStore.currentUser = res.data
+      userStore.loginUser = res.data
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 });
 
 

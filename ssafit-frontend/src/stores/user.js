@@ -117,15 +117,13 @@ export const useUserStore = defineStore('user', () => {
             // console.log(response.data["loginUser"])
 
             sessionStorage.setItem('access-token', response.data["access-token"])
-            sessionStorage.setItem('userSeq', response.data["loginUser"].userSeq)
-            sessionStorage.setItem('loginUser', JSON.stringify(response.data["loginUser"]))
+            
             // console.log(sessionStorage.getItem("userSeq"))
             // console.log(JSON.parse(sessionStorage.getItem("loginUser")))
 
             alert("로그인 성공!")
             // 일단은 유저 정보 전체 저장
-            loginUser.value = response.data["loginUser"]
-            router.push("/")
+            window.location.replace("/")
           })
           .catch((err) => {
             console.log(err);
@@ -134,12 +132,9 @@ export const useUserStore = defineStore('user', () => {
       };
 
       const logout = () => {
-        sessionStorage.removeItem("loginUser")
-        sessionStorage.removeItem("userSeq")
         sessionStorage.removeItem("access-token")
         loginUser.value = null;
         alert("로그아웃!")
-        router.push("/")
         window.location.replace("/")
       };
     

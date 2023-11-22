@@ -1,13 +1,17 @@
 package com.ssafit.util;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Date;
 
 import org.springframework.stereotype.Component;
 
 import com.ssafit.user.model.dto.response.UserResponse;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
 
 @Component
 public class JwtUtil {
@@ -26,8 +30,33 @@ public class JwtUtil {
 				.compact();
 	}
 	
-	//토큰 유효성 검사 메서드
-	public void valid(String token) throws Exception {
-		Jwts.parser().setSigningKey(SALT.getBytes("UTF-8")).parseClaimsJws(token);
+	// String으로 된 코드를 복호화
+	public Jws<Claims> getClaims(String token) throws Exception {
+		// 암호화 키로 복호화. 즉 암호화 키가 다르면 에러가 발생.
+		try {
+			return Jwts.parser().setSigningKey(SALT.getBytes("UTF-8")).parseClaimsJws(token);
+		} catch (SignatureException e) {
+			return null;
+		}
 	}
+	
+	// 토큰 검증 함수
+	public boolean validateToken(Jws<Claims> claims) {
+		return !claims.getBody()
+					  .getExpiration()
+					  .before(new Date());
+	}
+	
+	// 토큰을 통해 PayLoad의 ID를 가져옴
+	public String getKey(Jws<Claims> claims) {
+		// ID 가져오기
+		return claims.getBody().getId();
+	}
+	
+	// 토큰을 통해 PayLoad의 데이터를 가져옴
+	public Object getClaims(Jws<Claims> claims, String key) {
+		// 데이터 가져오기
+		return claims.getBody().get(key);
+	}
+	
 }
