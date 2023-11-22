@@ -94,27 +94,27 @@ const router = createRouter({
           props : true,
         },
         {
-          path : "/update",
+          path : "update",
           name : "userUpdate",
           component : UserUpdateForm,
         },
         {
-          path : "/followList",
+          path : "followList",
           name : "followList",
           component : FollowList,
         },
         {
-          path : "/articleLikeList",
+          path : "articleLikeList",
           name : "articleLikeList",
           component : ArticleLikeList,
         },
         {
-          path : "/videoLikeList",
+          path : "videoLikeList",
           name : "videoLikeList",
           component : VideoLikeList ,
         },
         {
-          path : "/myArticleList",
+          path : "myArticleList",
           name : "MyArticleList",
           component : MyArticleList ,
         },
