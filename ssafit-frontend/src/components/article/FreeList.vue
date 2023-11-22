@@ -5,11 +5,11 @@
         <table class="table table-hover text-center">
           <thead>
             <tr>
-              <td>게시글ID</td>
-              <td>제목</td>
-              <td>작성자</td>
-              <td>조회수</td>
-              <td>등록일자</td>
+              <td class="table-head">게시글ID</td>
+              <td class="table-head">제목</td>
+              <td class="table-head">작성자</td>
+              <td class="table-head">조회수</td>
+              <td class="table-head">등록일자</td>
             </tr>
           </thead>
           <tbody>
@@ -176,6 +176,9 @@ a.button {
   -ms-transform: scale(1.1,1.1);
   -webkit-transform: scale(1.1,1.1);
   box-shadow: 0px 5px 5px -2px rgba(0, 0, 0, 0.25);
+}
+.table-head {
+  background-color: rgb(252, 255, 224);
 }
 
 </style>

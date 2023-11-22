@@ -2,22 +2,37 @@
   <div class="wrapper fadeInDown" style="padding-bottom: 300px; padding-top: 200px;">
     <div id="formContent" style="padding-bottom: 50px; padding-top: 50px; width: 1000px;">
       <!-- Login Form -->
-      <fieldset >
-          <input type="text" id="login" class="fadeIn second" name="login" placeholder="아이디" v-model="id">
-          <input type="password" id="password" class="fadeIn third" name="login" placeholder="비밀번호" v-model="password" @keyup.enter="login">
-          <input type="submit" class="fadeIn fourth" value="로그인" @click="login"/>
+      <fieldset>
+        <input type="text" id="login" class="fadeIn second" name="login" placeholder="아이디" v-model="id">
+        <input type="password" id="password" class="fadeIn third" name="login" placeholder="비밀번호" v-model="password"
+          @keyup.enter="login">
+        <input type="submit" class="fadeIn fourth" value="로그인" @click="login" />
       </fieldset>
 
       <!-- Remind Passowrd -->
       <div id="formFooter">
-        <a class="underlineHover" href="#">Forgot Password?</a>
+        <span class="underlineHover" data-bs-toggle="modal" data-bs-target="#findPw">Forgot Password?</span>
       </div>
-
+      
     </div>
   </div>
-  
-
-  
+  <div class="modal fade" id="findPw" tabindex="-1" aria-labelledby="findPwLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="findPwLabel">비밀번호 찾기</h1>
+        </div>
+        <div class="modal-body">
+          아이디<input type="text" name="userId" class="form-control" v-model="userInfo.userId" required>
+          이메일<input type="email" name="userEmail" class="form-control" v-model="userInfo.email" required>
+        </div>
+        <div class="modal-footer">
+          <button type="button" @click="getTempPw" class="btn btn-light">임시비밀번호 발급</button>
+          <button type="button" class="btn btn-light" data-bs-dismiss="modal">닫기</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -28,6 +43,15 @@ const id = ref("");
 const password = ref("");
 
 const store = useUserStore()
+
+const userInfo = ref({
+  userId : "",
+  email : "",
+})
+
+const getTempPw = () => {
+  store.sendMail(userInfo)
+}
 
 const login = () => {
   let user = {
@@ -50,7 +74,7 @@ body {
 
 a {
   color: #92badd;
-  display:inline-block;
+  display: inline-block;
   text-decoration: none;
   font-weight: 400;
 }
@@ -60,8 +84,8 @@ h2 {
   font-size: 16px;
   font-weight: 600;
   text-transform: uppercase;
-  display:inline-block;
-  margin: 40px 8px 10px 8px; 
+  display: inline-block;
+  margin: 40px 8px 10px 8px;
   color: #cccccc;
 }
 
@@ -72,7 +96,7 @@ h2 {
 .wrapper {
   display: flex;
   align-items: center;
-  flex-direction: column; 
+  flex-direction: column;
   justify-content: center;
   width: 100%;
   min-height: 100%;
@@ -88,8 +112,8 @@ h2 {
   max-width: 450px;
   position: relative;
   padding: 0px;
-  -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
-  box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  -webkit-box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
   text-align: center;
 }
 
@@ -119,7 +143,10 @@ h2.active {
 
 /* FORM TYPOGRAPHY*/
 
-input[type=button], input[type=submit], input[type=reset],input[type=password]  {
+input[type=button],
+input[type=submit],
+input[type=reset],
+input[type=password] {
   background-color: #56baed;
   border: none;
   color: white;
@@ -129,8 +156,8 @@ input[type=button], input[type=submit], input[type=reset],input[type=password]  
   display: inline-block;
   text-transform: uppercase;
   font-size: 13px;
-  -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
-  box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+  -webkit-box-shadow: 0 10px 30px 0 rgba(95, 186, 233, 0.4);
+  box-shadow: 0 10px 30px 0 rgba(95, 186, 233, 0.4);
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
   margin: 5px 20px 40px 20px;
@@ -141,11 +168,17 @@ input[type=button], input[type=submit], input[type=reset],input[type=password]  
   transition: all 0.3s ease-in-out;
 }
 
-input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover, input[type=password]:hover  {
+input[type=button]:hover,
+input[type=submit]:hover,
+input[type=reset]:hover,
+input[type=password]:hover {
   background-color: #39ace7;
 }
 
-input[type=button]:active, input[type=submit]:active, input[type=reset]:active,input[type=password]:active   {
+input[type=button]:active,
+input[type=submit]:active,
+input[type=reset]:active,
+input[type=password]:active {
   -moz-transform: scale(0.95);
   -webkit-transform: scale(0.95);
   -o-transform: scale(0.95);
@@ -153,7 +186,8 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active,i
   transform: scale(0.95);
 }
 
-input[type=text], input[type=password] {
+input[type=text],
+input[type=password] {
   background-color: #f6f6f6;
   border: none;
   color: #0d0d0d;
@@ -174,12 +208,14 @@ input[type=text], input[type=password] {
   border-radius: 5px 5px 5px 5px;
 }
 
-input[type=text]:focus, input[type=password]:focus {
+input[type=text]:focus,
+input[type=password]:focus {
   background-color: #fff;
   border-bottom: 2px solid #5fbae9;
 }
 
-input[type=text]:placeholder, input[type=password]:placeholder {
+input[type=text]:placeholder,
+input[type=password]:placeholder {
   color: #cccccc;
 }
 
@@ -203,6 +239,7 @@ input[type=text]:placeholder, input[type=password]:placeholder {
     -webkit-transform: translate3d(0, -100%, 0);
     transform: translate3d(0, -100%, 0);
   }
+
   100% {
     opacity: 1;
     -webkit-transform: none;
@@ -216,6 +253,7 @@ input[type=text]:placeholder, input[type=password]:placeholder {
     -webkit-transform: translate3d(0, -100%, 0);
     transform: translate3d(0, -100%, 0);
   }
+
   100% {
     opacity: 1;
     -webkit-transform: none;
@@ -224,23 +262,49 @@ input[type=text]:placeholder, input[type=password]:placeholder {
 }
 
 /* Simple CSS3 Fade-in Animation */
-@-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-@-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
 
 .fadeIn {
-  opacity:0;
-  -webkit-animation:fadeIn ease-in 1;
-  -moz-animation:fadeIn ease-in 1;
-  animation:fadeIn ease-in 1;
+  opacity: 0;
+  -webkit-animation: fadeIn ease-in 1;
+  -moz-animation: fadeIn ease-in 1;
+  animation: fadeIn ease-in 1;
 
-  -webkit-animation-fill-mode:forwards;
-  -moz-animation-fill-mode:forwards;
-  animation-fill-mode:forwards;
+  -webkit-animation-fill-mode: forwards;
+  -moz-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
 
-  -webkit-animation-duration:1s;
-  -moz-animation-duration:1s;
-  animation-duration:1s;
+  -webkit-animation-duration: 1s;
+  -moz-animation-duration: 1s;
+  animation-duration: 1s;
 }
 
 .fadeIn.first {
@@ -283,7 +347,7 @@ input[type=text]:placeholder, input[type=password]:placeholder {
   color: #0d0d0d;
 }
 
-.underlineHover:hover:after{
+.underlineHover:hover:after {
   width: 100%;
 }
 
@@ -292,11 +356,10 @@ input[type=text]:placeholder, input[type=password]:placeholder {
 /* OTHERS */
 
 *:focus {
-    outline: none;
-} 
-
-#icon {
-  width:60%;
+  outline: none;
 }
 
+#icon {
+  width: 60%;
+}
 </style>

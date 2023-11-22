@@ -5,6 +5,7 @@ import com.ssafit.user.model.dto.request.UserModifyRequest;
 import com.ssafit.user.model.dto.request.UserRegistRequest;
 import com.ssafit.user.model.dto.response.UserResponse;
 import com.ssafit.user.model.entity.User;
+import com.ssafit.user.model.entity.Mail;
 
 import java.util.List;
 
@@ -26,4 +27,11 @@ public interface UserService {
 	
 	UserResponse login(UserLoginRequest loginRequest);
 	
+	Mail createMailAndChangePwd(String userId, String email);
+	
+	String getTempPwd();
+	
+	void sendMail(Mail mail);
+	
+	void updatePwd(String userId, String pwd);
 }

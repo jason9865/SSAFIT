@@ -1,9 +1,11 @@
 package com.ssafit.user.controller;
 
+import com.ssafit.user.model.dto.request.FindPwRequest;
 import com.ssafit.user.model.dto.request.UserLoginRequest;
 import com.ssafit.user.model.dto.request.UserModifyRequest;
 import com.ssafit.user.model.dto.request.UserRegistRequest;
 import com.ssafit.user.model.dto.response.UserResponse;
+import com.ssafit.user.model.entity.Mail;
 import com.ssafit.user.model.entity.User;
 import com.ssafit.user.service.UserService;
 import com.ssafit.util.JwtUtil;
@@ -117,7 +119,32 @@ public class UserController {
 			return new ResponseEntity<Boolean>(isRemoved,HttpStatus.BAD_REQUEST);
 		return new ResponseEntity<Boolean>(isRemoved,HttpStatus.OK);
 	}
-
+	
+	@PostMapping("/sendMail")
+	@ApiOperation(value="비밀번호 찾기", notes="userId와 userEmail 유효성 검증 이후 이메일로 임시비밀번호 발급")
+	public ResponseEntity<String> sendMail(@RequestBody FindPwRequest FindPwRequest) {
+		String message = "이메일로 임시비밀번호가 발급되었습니다.";
+		System.out.println(FindPwRequest.getUserId());
+		System.out.println(FindPwRequest.getEmail());
+		
+		String userId = FindPwRequest.getUserId();
+		String email = FindPwRequest.getEmail();
+		
+		User user = userService.searchByUserId(userId);
+		if(user == null) {	// 아이디 유효 검증
+			message = "아이디를 확인해주세요.";
+		} else {
+			if(user.getEmail().equals(email)) {	// 이메일 유효 검증
+				Mail mail = userService.createMailAndChangePwd(userId, email);
+				userService.sendMail(mail);
+			} else {
+				message = "이메일을 확인해주세요.";
+			}
+		}
+		
+		
+		return new ResponseEntity<String>(message,HttpStatus.OK);
+	}
 
 
 }
