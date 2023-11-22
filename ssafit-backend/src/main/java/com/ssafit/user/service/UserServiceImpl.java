@@ -17,8 +17,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 import static java.util.stream.Collectors.*;
+
+import java.util.HashMap;
 
 @Service
 @RequiredArgsConstructor
@@ -83,17 +86,18 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Mail createMailAndChangePwd(String userId, String email) {
-		String tempPw = getTempPwd();
+		String tempPwd = getTempPwd();
 		Mail mail  = new Mail();
 		mail.setAddress(email);
 		mail.setTitle("SSAFIT 임시비밀번호 발급");
 		
 		mail.setMessage("안녕하세요, SSAFIT 임시비밀번호 발급 메일입니다."
 						+"회원님의 임시 비밀번호는"
-						+ tempPw
+						+ tempPwd
 						+"입니다. 로그인 후 비밀번호를 변경해주세요.");
 		
-		updatePwd(userId, tempPw);
+		updatePwd(userId, tempPwd);
+		System.out.println("임시비밀번호" + " " + tempPwd);
 		
 		return mail;
 	}
@@ -129,8 +133,11 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void updatePwd(String userId, String pwd) {
-		// 비밀번호 변경
-
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("userId", userId);
+		map.put("pwd", pwd);
+		
+		userDao.updatePwd(map);
 	}
 
 }
