@@ -27,7 +27,9 @@
         </tbody>
       </table>
     </div>
-    <div v-else>등록된 게시글이 없습니다.</div>
+    <div v-else style="margin-top:100px; margin-bottom: 100px;">
+      <h3 style="text-align:center;color:white; font-weight:bold;">등록된 게시글이 없습니다.</h3>
+    </div>
     <router-link to="" title="Button border purple" class="button btnFloat btnPurple" @click.native="checkEdit"></router-link>
   </div>
   <nav aria-label="Page navigation">

@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" >
     <BoardSearchInput />
     <div v-if="articleList.length">
       <table class="table table-hover text-center">
@@ -31,7 +31,9 @@
         </tbody>
       </table>
     </div>
-    <div v-else>등록된 게시글이 없습니다.</div>
+    <div v-else>
+      <h3 style="text-align:center;color:white; font-weight:bold;">등록된 게시글이 없습니다.</h3>
+    </div>
     <router-link to="" title="Button border purple" @click.native="loginCheck"
       class="button btnFloat btnPurple"></router-link>
   </div>
