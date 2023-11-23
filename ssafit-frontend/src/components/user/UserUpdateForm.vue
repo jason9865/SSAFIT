@@ -1,6 +1,9 @@
 <template>
 
 <div class="container">
+      <!-- <div id="left-button-container">
+        <button id="leftButton" class="btn btn-outline-primary" @click="router.push(-1)">뒤로 가기</button>
+      </div> -->
       <div id="form-container">
         <div id="form-inner-container">
           <div id="sign-up-container">
@@ -32,6 +35,8 @@
 <script setup>
 import {computed} from 'vue';
 import { useUserStore } from '../../stores/user';
+import { useRouter } from 'vue-router';
+const router = useRouter()
 
 const userStore = useUserStore()
 const userDetail = userStore.loginUser // store에서 가져온 것 -> value필요없다
@@ -116,6 +121,27 @@ fieldset input:not(:last-of-type) {
 
 #form-controls {
     margin-bottom: 20px;
+}
+
+#left-button-container {
+  position: fixed;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+  z-index: 999; /* Ensure the button is above other elements */
+}
+
+#leftButton {
+  padding: 10px 20px;
+  background-color: #007bff; /* Change the color as needed */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#leftButton:hover {
+  background-color: #0056b3; /* Change the color on hover as needed */
 }
 
 
