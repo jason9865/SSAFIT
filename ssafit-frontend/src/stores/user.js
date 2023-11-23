@@ -1,13 +1,15 @@
 import {ref, computed} from 'vue'
 import {defineStore} from 'pinia'
 import axios from 'axios'
-import {useRouter} from 'vue-router'
+import {useRouter, useRoute} from 'vue-router'
 
 
 const REST_API = 'http://localhost:8080/user'
 
 export const useUserStore = defineStore('user', () => {
     const router = useRouter()
+    const route = useRoute()
+    const prevPage = ref(null)
 
     const userList = ref([])
     const loginUser = ref({})
@@ -33,7 +35,7 @@ export const useUserStore = defineStore('user', () => {
             method : "GET"
         })
         .then((res) => {
-            currentUser.value = res.data
+            loginUser.value = res.data
         })
         .catch((err) => {
             console.log(err)
@@ -116,8 +118,9 @@ export const useUserStore = defineStore('user', () => {
             if(response.data["access-token"]) {
                 sessionStorage.setItem('access-token', response.data["access-token"])
                 sessionStorage.setItem("userSeq",response.data["userSeq"])
+                getUser(response.data["userSeq"])
                 alert("로그인 성공!")
-                window.location.replace("/")
+                router.go(-1)
             } else {
                 alert("아이디 혹은 비밀번호를 확인해주세요.");
             }
@@ -162,5 +165,6 @@ export const useUserStore = defineStore('user', () => {
         login,
         logout,
         sendMail,
+        prevPage,
     }
 })

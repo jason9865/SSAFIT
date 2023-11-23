@@ -17,7 +17,7 @@ import { onMounted } from 'vue';
 const store = useYoutubeStore()
 
 onMounted(() => {
-    store.youtubeSearch("페이커" + "운동")
+    store.youtubeSearch("페이커 운동")
 })
 
 </script>

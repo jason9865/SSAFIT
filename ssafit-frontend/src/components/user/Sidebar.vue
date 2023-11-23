@@ -1,20 +1,19 @@
 <template>
-<aside class="side-bar">
-
+<aside class="side-bar m-5">
   <ul>
     <li>
       <a href="#"><i class="fa-solid fa-cat"></i>회원 정보</a>
       <ul class="second">
         <li><RouterLink to="/mypage/update">회원 정보 수정</RouterLink></li>
-        <li><RouterLink to="/mypage/myFollowList">팔로우 중인 유저 보기</RouterLink></li>
+        <li><RouterLink to="/mypage/myFollowList">팔로우 중인 유저</RouterLink></li>
       </ul>
     </li>
     <li>
       <a href="#"><i class="fa-solid fa-cat"></i>저장한 목록</a>
       <ul class="second">
         <li><RouterLink to="/mypage/myArticleList">내가 쓴 게시글</RouterLink></li>
-        <li><RouterLink to="/mypage/myArticleLikeList">좋아요 게시글</RouterLink></li>
-        <li><RouterLink to="/mypage/videoLikeList">좋아요 비디오</RouterLink></li>
+        <li><RouterLink to="/mypage/myArticleLikeList">좋아요한 게시글</RouterLink></li>
+        <li><RouterLink to="/mypage/videoLikeList">찜한 비디오</RouterLink></li>
       </ul>
     </li>
     
@@ -34,8 +33,6 @@ body, ul {
   list-style: none;   	    /* 해당 태그의 list-style을 none으로 하는 것으로 ●을 제거한다 */
 }
 
-li {
-}
 
 a {
   color: inherit;   	    /* 부모 엘리먼트의 값을 물려받는다 */

@@ -1,41 +1,46 @@
 <template>
-    <div class="container">
-      <BoardSearchInput/>
-      <div v-if="articleList.length">
-        <table class="table table-hover text-center">
-          <thead>
-            <tr>
-              <td class="table-head">게시글ID</td>
-              <td class="table-head">제목</td>
-              <td class="table-head">작성자</td>
-              <td class="table-head">조회수</td>
-              <td class="table-head">등록일자</td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="article in articleList" :key="article.articleId">
-              <td>{{ article.articleId }}</td>
-              <td>
-                <RouterLink  :to="`/board/${article.articleId}`">
-                  {{ article.title }}   
-                </RouterLink>
-              </td>
-              <td>{{ article.nickName }}</td>
-              <td>{{ article.viewCnt }}</td>
-              <td>{{ article.modifiedAt }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div v-else>등록된 게시글이 없습니다.</div>
-      <router-link to="/board/create" title="Button border purple" class="button btnFloat btnPurple"></router-link>
+  <div class="container">
+    <BoardSearchInput />
+    <div v-if="articleList.length">
+      <table class="table table-hover text-center">
+        <thead>
+          <tr>
+            <td class="table-head">게시글ID</td>
+            <td class="table-head">제목</td>
+            <td class="table-head">작성자</td>
+            <td class="table-head">조회수</td>
+            <td class="table-head">등록일자</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="article in articleList" :key="article.articleId">
+            <td>{{ article.articleId }}</td>
+            <td>
+              <RouterLink :to="`/board/${article.articleId}`">
+                {{ article.title }}
+              </RouterLink>
+            </td>
+            <td>
+            <FollowItem :user-seq="article.userSeq" :nick-name="article.nickName" style="cursor:pointer;" >
+                {{ article.nickName }}
+            </FollowItem>
+            </td>
+            <td>{{ article.viewCnt }}</td>
+            <td>{{ article.modifiedAt }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <nav aria-label="Page navigation">
+    <div v-else>등록된 게시글이 없습니다.</div>
+    <router-link to="" title="Button border purple" @click.native="loginCheck"
+      class="button btnFloat btnPurple"></router-link>
+  </div>
+  <nav aria-label="Page navigation">
     <ul class="pagination d-flex justify-content-center">
       <li class="page-item"><a class="page-link" :class="{ disabled: currentPage <= 1 }" href="#"
           @click.prevent="clickPage(--boardStore.currentPage)">&lt;</a></li>
-      <li :class="{ active: currentPage === page+weight }" v-for="page in pagePerGroupComputed" :key="page">
-        <a class="page-link" href="#" @click.prevent="clickPage(page+weight)">{{ page+weight }}</a>
+      <li :class="{ active: currentPage === page + weight }" v-for="page in pagePerGroupComputed" :key="page">
+        <a class="page-link" href="#" @click.prevent="clickPage(page + weight)">{{ page + weight }}</a>
       </li>
       <li class="page-item"><a class="page-link" :class="{ disabled: currentPage >= totalPageCount }" href="#"
           @click.prevent="clickPage(++boardStore.currentPage)">&gt;</a></li>
@@ -51,6 +56,7 @@ import { useArticleStore } from '../../stores/article';
 import { useBoardStore } from '../../stores/board';
 import { storeToRefs } from 'pinia';
 import BoardSearchInput from '../board/BoardSearchInput.vue';
+import FollowItem from '@/components/follow/FollowItem.vue';
 
 const articleStore = useArticleStore()
 const boardStore = useBoardStore()
@@ -67,7 +73,7 @@ const articleList = computed(() => {
 
 // pagination ui를 위한 변수.
 const weight = computed(() => {
-  return Math.floor((boardStore.currentPage-1) / pagePerGroup)*5
+  return Math.floor((boardStore.currentPage - 1) / pagePerGroup) * 5
 })
 
 // 현재 페이지
@@ -101,28 +107,42 @@ const endPageNum = computed(() => {
 
 // 실제 쓰이는 값
 const pagePerGroupComputed = computed(() => {
-  return endPageNum.value-startPageNum.value+1
+  return endPageNum.value - startPageNum.value + 1
 })
 
 
 // 페이지 이동 시 currentPage를 기반으로 그 페이지에 해당하는 게시글을 불러와서 articleList에 저장.
 const clickPage = function (page) {
   boardStore.currentPage = page
-  if(boardStore.searchCondition == null) {
+  if (boardStore.searchCondition == null) {
     boardStore.getArticlesByPage(currentPage.value, 1)
   } else {
     boardStore.getArticlesBySearchInfoWithPage(currentPage.value)
   }
 }
 
+const router = useRouter()
+const currUserSeq = JSON.parse(sessionStorage.getItem("userSeq"))
+
+function loginCheck() {
+  if (!currUserSeq) {
+    if (confirm("로그인이 필요한 서비스입니다. 로그인하시겠습니까?") === true) {
+      router.push("/login")
+    }
+    return;
+  }
+
+  router.push("/board/create")
+}
+
 const API_URL = `http://localhost:8080/board/1`
 // mount와 동시에 currentPage = 1로 게시글 호출해서 articleList에 저장.
 onMounted(() => {
-    boardStore.getArticlesByPage(1, 1)
-    boardStore.boardId = 1
-    axios({url: API_URL, method: "GET"})
-    .then((res) => {boardStore.articleListLength = res.data.length})
-    .catch((err) => {console.log(err)})
+  boardStore.getArticlesByPage(1, 1)
+  boardStore.boardId = 1
+  axios({ url: API_URL, method: "GET" })
+    .then((res) => { boardStore.articleListLength = res.data.length })
+    .catch((err) => { console.log(err) })
 })
 
 </script>
@@ -142,7 +162,7 @@ a.button {
   line-height: 50px;
   color: #FFF;
   border-radius: 5px;
-  transition: all 0.2s ;
+  transition: all 0.2s;
 }
 
 .btnFloat {
@@ -159,10 +179,11 @@ a.button {
   width: 120px;
   height: 50px;
   border-radius: 5px;
-  transition: all 0.2s ;
+  transition: all 0.2s;
 }
+
 .btnPurple.btnFloat:before {
-    background:#3D1766;
+  background: #3D1766;
 }
 
 .btnFloat:before {
@@ -172,13 +193,13 @@ a.button {
 .btnFloat:hover:before {
   margin-top: -2px;
   margin-left: 0px;
-  transform: scale(1.1,1.1);
-  -ms-transform: scale(1.1,1.1);
-  -webkit-transform: scale(1.1,1.1);
+  transform: scale(1.1, 1.1);
+  -ms-transform: scale(1.1, 1.1);
+  -webkit-transform: scale(1.1, 1.1);
   box-shadow: 0px 5px 5px -2px rgba(0, 0, 0, 0.25);
 }
+
 .table-head {
   background-color: rgb(252, 255, 224);
 }
-
 </style>

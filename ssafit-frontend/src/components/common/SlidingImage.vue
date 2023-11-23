@@ -11,6 +11,9 @@
                 <div class="carousel-item">
                 <img src="@/assets/image/main_img3.jpg" class="d-block w-100" alt="main_img3" style="height : 500px">
                 </div>
+                <div class="carousel-item">
+                <img src="@/assets/image/main_img4.jpg" class="d-block w-100" alt="main_img3" style="height : 500px">
+                </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
