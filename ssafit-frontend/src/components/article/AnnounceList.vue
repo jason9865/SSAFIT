@@ -119,7 +119,7 @@ const pagePerGroupComputed = computed(() => {
 const clickPage = function (page) {
   boardStore.currentPage = page
   if (boardStore.searchCondition == null) {
-    boardStore.getArticlesByPage(currentPage.value, 1)
+    boardStore.getArticlesByPage(currentPage.value, 2)
   } else {
     boardStore.getArticlesBySearchInfoWithPage(currentPage.value)
   }
@@ -139,10 +139,10 @@ function loginCheck() {
   router.push("/board/create")
 }
 
-const API_URL = `http://localhost:8080/board/1`
+const API_URL = `http://localhost:8080/board/2`
 // mount와 동시에 currentPage = 1로 게시글 호출해서 articleList에 저장.
 onMounted(() => {
-  boardStore.getArticlesByPage(2, 1)
+  boardStore.getArticlesByPage(1, 2)
   boardStore.boardId = 2
   axios({ url: API_URL, method: "GET" })
     .then((res) => { boardStore.articleListLength = res.data.length })
