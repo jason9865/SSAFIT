@@ -5,7 +5,7 @@
       <table class="table table-hover text-center">
         <thead>
           <tr>
-            <td class="table-head">게시글ID</td>
+            <!-- <td class="table-head">게시글ID</td> -->
             <td class="table-head">제목</td>
             <td class="table-head">작성자</td>
             <td class="table-head">조회수</td>
@@ -14,7 +14,7 @@
         </thead>
         <tbody>
           <tr v-for="article in articleList" :key="article.articleId">
-            <td>{{ article.articleId }}</td>
+            <!-- <td>{{ article.articleId }}</td> -->
             <td>
               <RouterLink :to="`/board/${article.articleId}`">
                 {{ article.title }}
