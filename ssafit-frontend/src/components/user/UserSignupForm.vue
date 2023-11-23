@@ -64,17 +64,17 @@ const checkId = (userId) => {
     }
 
 const checkEmail = (email) => {
-  axios({
-      url : `http://localhost:8080/user/validateEmail`,
-      method : "POST",
-      data : {
-          email : email
-      }
-  })
-  .then((res) => {
-      console.log("checkEmail => ", res.data)
-      isEmailUsable.value = res.data.isValid;
-  })
+    axios({
+        url : `http://localhost:8080/user/validateEmail`,
+        method : "POST",
+        data : {
+            email : email
+        }
+    })
+    .then((res) => {
+        console.log("checkEmail => ", res.data)
+        isEmailUsable.value = res.data.isValid;
+    })
 }
 
 const checkNickName = (nickName) => {
@@ -137,8 +137,6 @@ const regist = () => {
     alert("올바른 이메일 형식을 입력해주세요.");
     return;
   }
-
-
 
   if (!isUserIdValid.value) {
     alert("이미 사용 중인 아이디입니다. 다른 아이디를 사용해주세요.")

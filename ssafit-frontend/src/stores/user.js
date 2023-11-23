@@ -35,7 +35,7 @@ export const useUserStore = defineStore('user', () => {
             method : "GET"
         })
         .then((res) => {
-            loginUser.value = res.data
+            currentUser.value = res.data
         })
         .catch((err) => {
             console.log(err)
