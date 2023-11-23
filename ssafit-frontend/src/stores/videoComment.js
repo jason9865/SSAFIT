@@ -31,7 +31,6 @@ export const useVideoCommentStore = defineStore("videoComment", () => {
             method : "GET"
         })
         .then((res) => {
-            console.log("getVideoCommentList",res.data)
             videoCommentList.value = res.data
         })
         .catch((err) => {

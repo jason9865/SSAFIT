@@ -8,7 +8,11 @@
 
 <script setup>
 import {ref} from 'vue'
+import { useRouter } from 'vue-router';
 import { useCommentStore } from '../../stores/comment';
+import { jwtDecode } from 'jwt-decode';
+
+const router = useRouter()
 
 const props = defineProps({
     articleId:String
@@ -23,10 +27,16 @@ const comment = ref({
     content : "",
 })
 
+// const token = jwtDecode(JSON.stringify(sessionStorage.getItem("access-token")))
+const currUserSeq = JSON.parse(sessionStorage.getItem("userSeq"))
+
 function writeComment() {
-    console.log("WriteComment!")
-    console.log("Comment의 articleId => ",comment.value.articleId)
-    console.log("Comment - content => ", comment.value.content)
+    if (!currUserSeq) {
+        if (confirm("로그인이 필요한 서비스입니다. 로그인하시겠습니까?") === true) {
+            router.push("/login")
+        }
+        return;
+    }
     if(comment.value.content == ""){
         alert("내용을 입력해주세요.")
         return ;

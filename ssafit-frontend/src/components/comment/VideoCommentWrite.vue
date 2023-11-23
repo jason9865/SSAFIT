@@ -8,7 +8,10 @@
 
 <script setup>
 import {ref} from 'vue'
+import { useRouter } from 'vue-router';
 import { useVideoCommentStore } from '../../stores/videoComment';
+
+const router = useRouter()
 
 const props = defineProps({
     videoId : String
@@ -21,7 +24,16 @@ const videoComment = ref({
     content : "",
 })
 
+const currUserSeq = JSON.parse(sessionStorage.getItem("userSeq"))
+
 function writeVideoComment() {
+    if (!currUserSeq) {
+        if (confirm("로그인이 필요한 서비스입니다. 로그인하시겠습니까?") === true) {
+            router.push("/login")
+        }
+        return;
+    }
+
     if(confirm("비디오 댓글을 등록하시겠습니까?") === true){
         videoCommentStore.writeVideoComment(videoComment.value);
         videoComment.value.content=""

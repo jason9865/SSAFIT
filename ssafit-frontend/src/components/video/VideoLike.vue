@@ -9,6 +9,10 @@
 import { storeToRefs } from 'pinia';
 import { useVideoStore } from '../../stores/video';
 import { onMounted,computed } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
+
 const videoStore = useVideoStore()
 const {isVideoLike} = storeToRefs(videoStore)
 
@@ -16,7 +20,15 @@ const props = defineProps({
     videoId:String
 })
 
+const currUserSeq = JSON.parse(sessionStorage.getItem("userSeq"))
+
 function doLike () {
+    if (!currUserSeq) {
+        if (confirm("로그인이 필요한 서비스입니다. 로그인하시겠습니까?") === true) {
+            router.push("/login")
+        }
+        return;
+    }
     if(confirm("해당 비디오를 찜하시겠습니까?") === true){
         console.log("찜하기 누르기")
         videoStore.doVideoLike(props.videoId)
@@ -30,7 +42,9 @@ function undoLike() {
     }
 }
 onMounted(() => {
-    videoStore.checkVideoLike(props.videoId)
+    if (currUserSeq){
+      videoStore.checkVideoLike(props.videoId)
+    }
 })
 
 </script>

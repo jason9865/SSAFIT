@@ -50,6 +50,8 @@ const loadBoardList = () => {
   boardstore.getBoardList()
 }
 
+
+
 </script>
 
 <style scoped>
