@@ -147,6 +147,11 @@ public class UserServiceImpl implements UserService {
 		User user = userDao.selectByUserId(request.getUserId());
 		String message = "사용이 가능한 아이디입니다.";
 		Boolean isValid = true;
+		if (request.getUserId() == ""){
+			message = "아이디를 입력해주세요";
+			isValid = false;
+		}
+
 		if (user != null){
 			message = "이미 사용 중인 아이디입니다. 다른 아이디를 입력해주세요.";
 			isValid = false;
