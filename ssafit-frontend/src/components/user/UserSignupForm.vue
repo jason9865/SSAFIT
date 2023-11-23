@@ -5,11 +5,11 @@
         <div id="sign-up-container">
           <h3>회원 가입</h3>
           <fieldset style="width:500px">
-            <div>
-              <label for="id">아이디</label>
-              <input type="text" id="id" v-model="id" class="form-control" /><br />
-              <button @click="checkId(id)">중복 확인</button><br>
-            </div>
+            <label for="id">아이디</label>
+            <input type="text" id="id" v-model="id" class="form-control" /><br />
+            <button id="validId" class="btn btn-primary" @click="checkId(id)" style="margin-bottom:10px; margin-left:400px;">
+                중복 확인
+            </button><br>
             <label for="password">비밀번호</label>
             <input type="password" id="password" v-model="password" class="form-control" /><br />
             <label for="password">비밀번호 확인</label>
@@ -159,7 +159,7 @@ body {
 
 fieldset input:not(:last-of-type) {
   display: block;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
   border: 1px solid #E5E9F5;
   background-color: #F6F7FA;
   padding: 20px;
@@ -204,8 +204,15 @@ button[id="registBtn"] {
   border-color: rgb(170, 182, 250)
 }
 
-button[id="registBtn"]:hover {
+button[id="registBtn"]:hover, button[id="validId"] {
   background-color: rgb(170, 100, 250);
+}
+
+button[id="validId"] {
+  background-color: rgb(170, 182, 250);
+  border-color: rgb(170, 182, 250);
+  color: white;
+
 }
 
 

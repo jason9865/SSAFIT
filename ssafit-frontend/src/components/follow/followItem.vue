@@ -19,7 +19,6 @@
                     <p>아이디 : {{ currentUser.userId }}</p>
                     <p>이메일 : {{ currentUser.email }}</p>
                     <p>회원가입날짜 : {{ currentUser.joinedAt }}</p>
-                    <p>마이페이지로 가기</p>
                 </div>
                 <div class="modal-footer">
                     <div  v-show="currentUser.userSeq != currUserSeq">
