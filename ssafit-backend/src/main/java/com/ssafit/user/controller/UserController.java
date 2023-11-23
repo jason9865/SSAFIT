@@ -171,6 +171,4 @@ public class UserController {
 	public ResponseEntity<UserCheckResponse> validateId(@RequestBody UserCheckRequest request){
 		return new ResponseEntity<UserCheckResponse>(userService.validateId(request),HttpStatus.OK);
 	}
-
-
 }

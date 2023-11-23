@@ -16,9 +16,9 @@
                 <label for="password">비밀번호 확인</label>
                 <input type="password" id="password2" v-model="userDetail.userConfirmedPwd" class="form-control"/><br />
                 <label for="name">이름</label>
-                <input type="text" id="name" v-model="userDetail.userName" class="form-control" /><br />
+                <input readonly type="text" id="name" v-model="userDetail.userName" class="form-control" /><br />
                 <label for="email">이메일</label>
-                <input type="email" id="email" v-model="userDetail.email" class="form-control" /><br />
+                <input readonly type="email" id="email" v-model="userDetail.email" class="form-control" /><br />
                 <label for="nickName">닉네임</label>
                 <input type="text" id="nickName" v-model="userDetail.nickName" class="form-control" /><br />
                 <div id="form-controls" style="text-align: center;">

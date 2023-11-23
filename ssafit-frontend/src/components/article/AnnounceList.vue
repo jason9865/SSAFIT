@@ -16,9 +16,11 @@
           <tr v-for="article in articleList" :key="article.articleId">
             <!-- <td>{{ article.articleId }}</td> -->
             <td>
-              <RouterLink :to="`/board/${article.articleId}`">
-                {{ article.title }}
-              </RouterLink>
+              <b>
+                <RouterLink :to="`/board/${article.articleId}`">
+                  {{ article.title }}
+                </RouterLink>
+              </b>
             </td>
             <td>
             <FollowItem :user-seq="article.userSeq" :nick-name="article.nickName" style="cursor:pointer;" >

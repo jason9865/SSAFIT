@@ -6,6 +6,9 @@
       <ul class="second">
         <li><RouterLink to="/mypage/update">회원 정보 수정</RouterLink></li>
         <li><RouterLink to="/mypage/myFollowList">팔로우 중인 유저</RouterLink></li>
+        <li class="withdrawal" @click="withdrawal">
+          회원 탈퇴
+        </li>
       </ul>
     </li>
     <li>
@@ -23,6 +26,20 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router';
+import { useUserStore } from '../../stores/user';
+
+const router = useRouter()
+const userStore = useUserStore()
+
+const withdrawal = () => {
+  if(confirm("정말 탈퇴하시겠습니까?") === true) {
+    console.log("chk")
+    userStore.deleteUser()
+  } else {
+    return ;
+  }
+}
 
 </script>
 
@@ -51,14 +68,15 @@ a {
   /* padding-left: 10px; */
 }
 
-.side-bar ul.second > li > a {
+.side-bar ul.second > li > a, .withdrawal {
   display: block;
   color: white;
   font-size: 1rem;
   font-weight: bold;
   padding-top: 10px;
   padding-bottom: 10px;
-  padding-left: 50px
+  padding-left: 50px;
+  cursor: pointer;
 }
 
 /* 자식의 position이 absolute일 때 자식을 영역 안에 가두어 준다 */
