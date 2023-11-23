@@ -1,7 +1,7 @@
 package com.ssafit.user.controller;
 
 import com.ssafit.user.model.dto.request.*;
-import com.ssafit.user.model.dto.response.UserIdCheckResponse;
+import com.ssafit.user.model.dto.response.UserCheckResponse;
 import com.ssafit.user.model.dto.response.UserResponse;
 import com.ssafit.user.model.entity.Mail;
 import com.ssafit.user.model.entity.User;
@@ -108,12 +108,19 @@ public class UserController {
 	
 	@PostMapping("/signup")
 	@ApiOperation(value="회원가입", notes="bindingResult 조건 추후 추가 예정")
-	public ResponseEntity<Boolean> regist(@RequestBody UserRegistRequest userRegistRequest) {
-
-		boolean isRegisted = userService.registUser(userRegistRequest);
-		if(!isRegisted)
-			return new ResponseEntity<Boolean>(isRegisted,HttpStatus.BAD_REQUEST);
-		return new ResponseEntity<Boolean>(isRegisted,HttpStatus.OK);
+	public ResponseEntity<String> regist(@RequestBody UserRegistRequest userRegistRequest) {
+		String message = "회원가입 성공!";
+		
+		if(!userService.validateEmail(userRegistRequest).getIsValid()) {
+			message = "이미 사용 중인 이메일입니다. 다른 이메일을 입력해주세요.";
+			return new ResponseEntity<String>(message,HttpStatus.OK);
+		} else if(!userService.validateNickName(userRegistRequest).getIsValid()) {
+			message = "이미 사용 중인 닉네임입니다. 다른 닉네임을 입력해주세요.";
+			return new ResponseEntity<String>(message,HttpStatus.OK);
+		} else {
+			userService.registUser(userRegistRequest);
+			return new ResponseEntity<String>(message,HttpStatus.OK);
+		}
 	}
 
 	@PutMapping("/update/{userSeq}")
@@ -161,20 +168,8 @@ public class UserController {
 
 	@PostMapping("/validateId")
 	@ApiOperation(value="아이디 중복 검사")
-	public ResponseEntity<UserIdCheckResponse> validateId(@RequestBody UserCheckRequest request){
-		return new ResponseEntity<UserIdCheckResponse>(userService.validateId(request),HttpStatus.OK);
-	}
-
-	@PostMapping("/validateEmail")
-	@ApiOperation(value="아이디 중복 검사")
-	public ResponseEntity<UserIdCheckResponse> validateEmail(@RequestBody UserCheckRequest request){
-		return new ResponseEntity<UserIdCheckResponse>(userService.validateEmail(request),HttpStatus.OK);
-	}
-
-	@PostMapping("/validateNickName")
-	@ApiOperation(value="아이디 중복 검사")
-	public ResponseEntity<UserIdCheckResponse> validateNickName(@RequestBody UserCheckRequest request){
-		return new ResponseEntity<UserIdCheckResponse>(userService.validateNickName(request),HttpStatus.OK);
+	public ResponseEntity<UserCheckResponse> validateId(@RequestBody UserCheckRequest request){
+		return new ResponseEntity<UserCheckResponse>(userService.validateId(request),HttpStatus.OK);
 	}
 
 

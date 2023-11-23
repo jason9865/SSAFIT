@@ -4,7 +4,7 @@ import com.ssafit.user.model.dto.request.UserCheckRequest;
 import com.ssafit.user.model.dto.request.UserLoginRequest;
 import com.ssafit.user.model.dto.request.UserModifyRequest;
 import com.ssafit.user.model.dto.request.UserRegistRequest;
-import com.ssafit.user.model.dto.response.UserIdCheckResponse;
+import com.ssafit.user.model.dto.response.UserCheckResponse;
 import com.ssafit.user.model.dto.response.UserResponse;
 import com.ssafit.user.model.entity.User;
 import com.ssafit.user.model.entity.Mail;
@@ -37,9 +37,9 @@ public interface UserService {
 	
 	void updatePwd(String userId, String pwd);
 
-	UserIdCheckResponse validateId(UserCheckRequest request);
+	UserCheckResponse validateId(UserCheckRequest request);
 
-	UserIdCheckResponse validateEmail(UserCheckRequest request);
+	UserCheckResponse validateEmail(UserRegistRequest request);
 
-	UserIdCheckResponse validateNickName(UserCheckRequest request);
+	UserCheckResponse validateNickName(UserRegistRequest request);
 }
