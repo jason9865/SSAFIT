@@ -31,6 +31,20 @@
 		FROM user
 		WHERE user_id=#{userId};
 	</select>
+
+	<select id="selectByEmail" resultMap="userMap" parameterType="String">
+		SELECT *
+		FROM user
+		WHERE email = #{email}
+		;
+	</select>
+
+	<select id="selectByNickName" resultMap="userMap" parameterType="String">
+		SELECT *
+		FROM user
+		WHERE nickname = #{nickName}
+		;
+	</select>
 	
 	<select id="selectByName" resultMap="userMap" parameterType="String">
 		SELECT *
@@ -57,5 +71,11 @@
 		DELETE FROM user
 		WHERE user_seq = #{userSeq};
 	</delete>
-
+	
+	<update id="updatePwd" parameterType="Map">
+		UPDATE user
+		SET user_pwd=#{pwd}
+		WHERE user_id=#{userId};
+	</update>
+	
 </mapper>

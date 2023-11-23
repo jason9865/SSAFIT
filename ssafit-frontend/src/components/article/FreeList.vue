@@ -1,43 +1,53 @@
 <template>
-    <div class="container">
-      <div v-if="articleList.length">
-        <table class="table table-hover text-center">
-          <thead>
-            <tr>
-              <td>게시글ID</td>
-              <td>제목</td>
-              <td>작성자</td>
-              <td>조회수</td>
-              <td>등록일자</td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="article in articleList" :key="article.articleId">
-              <td>{{ article.articleId }}</td>
-              <td>
-                <RouterLink  :to="`/board/${article.articleId}`">
-                  {{ article.title }}   
+  <div class="container" >
+    <BoardSearchInput />
+    <div v-if="articleList.length">
+      <table class="table table-hover text-center">
+        <thead>
+          <tr>
+            <!-- <td class="table-head">게시글ID</td> -->
+            <td class="table-head">제목</td>
+            <td class="table-head">작성자</td>
+            <td class="table-head">조회수</td>
+            <td class="table-head">등록일자</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="article in articleList" :key="article.articleId">
+            <!-- <td>{{ article.articleId }}</td> -->
+            <td>
+              <b>
+                <RouterLink :to="`/board/${article.articleId}`">
+                  {{ article.title }}
                 </RouterLink>
-              </td>
-              <td>{{ article.nickName }}</td>
-              <td>{{ article.viewCnt }}</td>
-              <td>{{ article.modifiedAt }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div v-else>등록된 게시글이 없습니다.</div>
-      <router-link to="/board/create">글 작성</router-link>
+              </b>
+            </td>
+            <td>
+            <FollowItem :user-seq="article.userSeq" :nick-name="article.nickName" style="cursor:pointer;" >
+                <p>{{ article.nickName }}</p>
+            </FollowItem>
+            </td>
+            <td>{{ article.viewCnt }}</td>
+            <td>{{ article.modifiedAt }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <nav aria-label="Page navigation">
+    <div v-else>
+      <h3 style="text-align:center;color:white; font-weight:bold;">등록된 게시글이 없습니다.</h3>
+    </div>
+    <router-link to="" title="Button border purple" @click.native="loginCheck"
+      class="button btnFloat btnPurple"></router-link>
+  </div>
+  <nav aria-label="Page navigation">
     <ul class="pagination d-flex justify-content-center">
       <li class="page-item"><a class="page-link" :class="{ disabled: currentPage <= 1 }" href="#"
-          @click.prevent="clickPage(--currentPage)">&lt;</a></li>
-      <li :class="{ active: currentPage === page+weight }" v-for="page in pagePerGroupComputed" :key="page">
-        <a class="page-link" href="#" @click.prevent="clickPage(page+weight)">{{ page+weight }}</a>
+          @click.prevent="clickPage(--boardStore.currentPage)">&lt;</a></li>
+      <li :class="{ active: currentPage === page + weight }" v-for="page in pagePerGroupComputed" :key="page">
+        <a class="page-link" href="#" @click.prevent="clickPage(page + weight)">{{ page + weight }}</a>
       </li>
-      <li class="page-item"><a class="page-link" :class="{ disabled: currentPage >= pageCount }" href="#"
-          @click.prevent="clickPage(++currentPage)">&gt;</a></li>
+      <li class="page-item"><a class="page-link" :class="{ disabled: currentPage >= totalPageCount }" href="#"
+          @click.prevent="clickPage(++boardStore.currentPage)">&gt;</a></li>
     </ul>
   </nav>
 </template>
@@ -46,65 +56,154 @@
 import { ref, onMounted, computed } from 'vue';
 import axios from 'axios';
 import { useRoute, useRouter } from 'vue-router';
+import { useArticleStore } from '../../stores/article';
+import { useBoardStore } from '../../stores/board';
+import { storeToRefs } from 'pinia';
+import BoardSearchInput from '../board/BoardSearchInput.vue';
+import FollowItem from '@/components/follow/FollowItem.vue';
+
+const articleStore = useArticleStore()
+const boardStore = useBoardStore()
 
 // 게시판의 전체 개시글 수
-const entireArticleLength = ref(null);
+const entireArticleLength = computed(() => {
+  return boardStore.articleListLength
+});
 
 // paging된 게시글 list
-const articleList = ref([]);
+const articleList = computed(() => {
+  return boardStore.articleList
+})
 
 // pagination ui를 위한 변수.
 const weight = computed(() => {
-  return Math.floor((currentPage.value-1) / pagePerGroup)*5
+  return Math.floor((boardStore.currentPage - 1) / pagePerGroup) * 5
 })
 
 // 현재 페이지
-const currentPage = ref(1)
+const currentPage = computed(() => {
+  return boardStore.currentPage
+})
 // 한 페이지에 출력되는 게시글의 수
 const articlePerPage = 10;
 // pagination 개수, ex. 게시글이 67개면 7개.
-const pageCount = computed(() => {
+const totalPageCount = computed(() => {
   return Math.ceil(entireArticleLength.value / articlePerPage)
 })
 
 // pagination group 개수
 const pagePerGroup = 5;
+
+// 현재 속한 페이지 그룹
+const currentGroup = computed(() => {
+  return Math.floor((boardStore.currentPage - 1) / pagePerGroup) + 1
+})
+
+// 그룹의 시작 페이지 번호
+const startPageNum = computed(() => {
+  return (currentGroup.value - 1) * pagePerGroup + 1
+})
+
+// 그룹의 끝 페이지 번호
+const endPageNum = computed(() => {
+  return Math.min(currentGroup.value * pagePerGroup, totalPageCount.value)
+})
+
 // 실제 쓰이는 값
 const pagePerGroupComputed = computed(() => {
-  if(entireArticleLength.value/articlePerPage < pagePerGroup) {     // 전체 게시글이 50개보다 작을 때,
-    if(entireArticleLength.value/articlePerPage > 4) {
-      return 5
-    }
-    return (Math.ceil(entireArticleLength.value/articlePerPage)%5)
-  } else if((entireArticleLength.value / articlePerPage)%5 == 0) {    // (전체 게시글/한페이지에 출력될 게시글 수) % 5가 0일 때,
-    return 5
-  } else {    // 그 외
-    return currentPage.value > Math.floor((Math.floor(entireArticleLength.value / articlePerPage))/pagePerGroup)*pagePerGroup ? (Math.ceil(entireArticleLength.value / articlePerPage)%5) : 5;
-  }
+  return endPageNum.value - startPageNum.value + 1
 })
+
 
 // 페이지 이동 시 currentPage를 기반으로 그 페이지에 해당하는 게시글을 불러와서 articleList에 저장.
 const clickPage = function (page) {
-  currentPage.value = page
-  axios({url: API_URL, method: "GET", headers : {'currentPage' : currentPage.value,}})
-    .then((res) => {articleList.value = res.data})
-    .catch((err) => {console.log(err)})
+  boardStore.currentPage = page
+  if (boardStore.searchCondition == null) {
+    boardStore.getArticlesByPage(currentPage.value, 1)
+  } else {
+    boardStore.getArticlesBySearchInfoWithPage(currentPage.value)
+  }
+}
+
+const router = useRouter()
+const currUserSeq = JSON.parse(sessionStorage.getItem("userSeq"))
+
+function loginCheck() {
+  if (!currUserSeq) {
+    if (confirm("로그인이 필요한 서비스입니다. 로그인하시겠습니까?") === true) {
+      router.push("/login")
+    }
+    return;
+  }
+
+  router.push("/board/create")
 }
 
 const API_URL = `http://localhost:8080/board/1`
 // mount와 동시에 currentPage = 1로 게시글 호출해서 articleList에 저장.
 onMounted(() => {
-    axios({url: API_URL, method: "GET", headers : {'currentPage' : 1,}})
-    .then((res) => {articleList.value = res.data})
-    .catch((err) => {console.log(err)})
-
-    axios({url: API_URL, method: "GET"})
-    .then((res) => {entireArticleLength.value = res.data.length})
-    .catch((err) => {console.log(err)})
+  boardStore.getArticlesByPage(1, 1)
+  boardStore.boardId = 1
+  axios({ url: API_URL, method: "GET" })
+    .then((res) => { boardStore.articleListLength = res.data.length })
+    .catch((err) => { console.log(err) })
 })
 
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
+a {
+  text-decoration-line: none;
+  color: black;
+}
 
+a.button {
+  width: 120px;
+  padding: 0;
+  margin: 10px 20px 10px 0;
+  font-weight: 600;
+  text-align: center;
+  line-height: 50px;
+  color: #FFF;
+  border-radius: 5px;
+  transition: all 0.2s;
+}
+
+.btnFloat {
+  background: none;
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.5);
+}
+
+
+.btnFloat:before {
+  content: '글쓰기';
+  display: block;
+  top: 0;
+  left: 0;
+  width: 120px;
+  height: 50px;
+  border-radius: 5px;
+  transition: all 0.2s;
+}
+
+.btnPurple.btnFloat:before {
+  background: #3D1766;
+}
+
+.btnFloat:before {
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.4);
+}
+
+.btnFloat:hover:before {
+  margin-top: -2px;
+  margin-left: 0px;
+  transform: scale(1.1, 1.1);
+  -ms-transform: scale(1.1, 1.1);
+  -webkit-transform: scale(1.1, 1.1);
+  box-shadow: 0px 5px 5px -2px rgba(0, 0, 0, 0.25);
+}
+
+.table-head {
+  background-color: rgb(252, 255, 224);
+}
 </style>

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -48,6 +49,20 @@ public class ArticleController {
 
 		ArticleResponse articleResponse = articleService.readArticle(articleId);
 		return new ResponseEntity<ArticleResponse>(articleResponse, HttpStatus.OK);
+	}
+
+	@GetMapping("/myArticleList")
+	@ApiOperation(value="유저가 쓴 게시글 조회")
+	public ResponseEntity<List<ArticleResponse>> getArticleList(HttpServletRequest request) {
+		int userSeq = Integer.parseInt(request.getHeader("userSeq"));
+		return new ResponseEntity<List<ArticleResponse>>(articleService.getArticleListByUser(userSeq),HttpStatus.OK);
+	}
+
+	@GetMapping("/articleLikeList")
+	@ApiOperation(value="좋아요한 게시글 목록 조회")
+	public ResponseEntity<List<ArticleResponse>> getArticleLikeList(HttpServletRequest request) {
+		int userSeq = Integer.parseInt(request.getHeader("userSeq"));
+		return new ResponseEntity<List<ArticleResponse>>(articleService.getArticleLikeList(userSeq),HttpStatus.OK);
 	}
 	
 

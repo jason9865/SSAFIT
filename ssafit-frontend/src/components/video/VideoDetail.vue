@@ -1,15 +1,21 @@
 <template>
-  <div class="container">
+  <div class="container text-center pt-4">
     <iframe
-        width="1000"
-        height="500"
-        :src="videoURL"
-        title="YouTube video player"
-        frameborder="1"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen
-      ></iframe>
-    
+    width="1000"
+    height="500"
+    :src="videoURL"
+    title="YouTube video player"
+    frameborder="1"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen
+    ></iframe>
+  </div>
+  <div class="container">
+    <VideoLike :video-id="route.params.videoId"/>
+  </div>
+  <div class="container">
+    <hr>
+    <VideoCommentList :video-id="route.params.videoId"/>
   </div>
 </template>
   
@@ -18,6 +24,8 @@ import {ref,onMounted} from 'vue'
 import {useRouter, useRoute} from 'vue-router'
 import {useVideoStore} from '@/stores/video'
 import axios from 'axios';
+import VideoLike from './VideoLike.vue';
+import VideoCommentList from '../comment/VideoCommentList.vue';
 
 const route = useRoute();
 const store = useVideoStore()

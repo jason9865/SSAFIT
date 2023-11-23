@@ -11,4 +11,12 @@ public interface VideoService {
 
     Video getVideoById(String videoId);
 
+    List<Video> getVideoLikeList(int userSeq);
+
+    int checkVideoLike(int userSeq, String videoId);
+
+    boolean doVideoLike(int userSeq, String videoId);
+
+    boolean undoVideoLike(int userSeq, String videoId);
+
 }

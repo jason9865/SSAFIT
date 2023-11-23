@@ -15,21 +15,7 @@ export const useArticleStore = defineStore('article', () => {
     const isLiked = ref('');
     const articleDislikeCount = ref('')
     const isDisliked = ref('');
-
-    const getArticle = function(articleId) {
-        axios({
-            url : `${REST_API}/${articleId}`,
-            method : "GET"
-        })
-        .then((res) => {
-            article.value = res.data
-        })
-        .catch((err) => {
-            console.log(err)
-            alert("서버 에러")
-          })
-    }
-
+    
     const writeArticle = function(article) {
         console.log("article의 boardID가 뭘까",article.boardId)
         axios({
@@ -132,7 +118,7 @@ export const useArticleStore = defineStore('article', () => {
         .then((res) => {
             // alert("좋아요 완료")
             getArticleLike(articleId)
-            checkLiked(articleId)
+            checkLiked(articleId)   
         })
         .catch((err)=> {
             console.log(err);
@@ -231,12 +217,83 @@ export const useArticleStore = defineStore('article', () => {
         })
     }
 
+    const getArticle = function(articleId) {
+        axios({
+            url : `${REST_API}/${articleId}`,
+            method : "GET"
+        })
+        .then((res) => {
+            article.value = res.data
+        })
+        .catch((err) => {
+            console.log(err)
+            alert("서버 에러")
+          })
+    }
 
+    const videoLikeList = ref([])
+    
+    const getVideoLikeList = () => {
+        axios({
+            url : `${REST_API}/videoLikeList`,
+            method : "GET",
+            headers : {
+                "userSeq" : sessionStorage.getItem("userSeq")
+            },
+        })
+        .then((res) => {
+            videoLikeList.value = res.data
+        })
+        .catch((err) => {
+            console.log(err);
+            alert("서버 에러")
+        })
+    }
+
+    const articleLikeList = ref([])
+    
+    const getArticleLikeList = () => {
+        axios({
+            url : `${REST_API}/articleLikeList`,
+            method : "GET",
+            headers : {
+                "userSeq" : sessionStorage.getItem("userSeq")
+            },
+        })
+        .then((res) => {
+            articleLikeList.value = res.data
+        })
+        .catch((err) => {
+            console.log(err);
+            alert("서버 에러")
+        })
+    }
+
+    const myArticleList = ref([])
+    const getMyArticleList = () => {
+        axios({
+            url : `${REST_API}/myArticleList`,
+            method : "GET",
+            headers : {
+                "userSeq" : sessionStorage.getItem("userSeq")
+            },
+        })
+        .then((res) => {
+            myArticleList.value = res.data
+        })
+        .catch((err) => {
+            console.log(err);
+            alert("서버 에러")
+        })
+    }
 
     return {
         article,articleLikeCount, isLiked,articleDislikeCount,isDisliked,
         getArticle,writeArticle,updateArticle,deleteArticle,
         checkLiked,getArticleLike,doArticleLike, undoArticleLike,
         checkDisliked,getArticleDislike,doArticleDislike,undoArticleDislike,
+        videoLikeList,getVideoLikeList,
+        articleLikeList, getArticleLikeList,
+        myArticleList, getMyArticleList
     }
 })

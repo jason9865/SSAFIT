@@ -46,6 +46,7 @@
 		    ON b.board_id = a.board_id
 		    LEFT JOIN user u
 			ON a.user_seq = u.user_seq
+		ORDER BY modified_at desc
 		;
  	</select>
  	
@@ -59,6 +60,7 @@
 		    LEFT JOIN user u
 			ON a.user_seq = u.user_seq
 		WHERE b.board_id = #{boardId}
+		ORDER BY modified_at desc
 		;
  	</select>
  	
@@ -72,10 +74,68 @@
 		    LEFT JOIN user u
 			ON a.user_seq = u.user_seq
 		WHERE b.board_id = #{boardId}
+		ORDER BY modified_at desc
 		LIMIT #{articlePerPage}
 		OFFSET #{offsetParam}
 		;
  	</select>
+	
+	<select id="searchArticles" resultType="Article" parameterType="Map">
+		SELECT *
+		FROM
+			board b
+		    RIGHT JOIN article a
+		    ON b.board_id = a.board_id
+		    LEFT JOIN user u
+			ON a.user_seq = u.user_seq
+		<!-- 검색 조건 (동적쿼리), key == 'writer'인 경우, article에 nickname이 없기 때문에-->
+		<if test="key == 'writer'">
+			WHERE b.board_id = #{boardId}
+				and u.nickname LIKE concat('%', #{word}, '%')
+		</if>
+		<if test="key != 'writer'">
+			WHERE b.board_id = #{boardId}
+				and ${key} LIKE concat('%', #{word}, '%')
+		</if>
+		<!-- 어떤 기준으로 어떤 방향으로 정렬 -->
+		<if test="orderBy != 'none'">
+			ORDER BY ${orderBy} ${orderByDir}
+		</if>
+	</select>
+	
+	<select id="searchArticlesPaging" resultType="Article" parameterType="Map">
+		SELECT *
+		FROM
+			board b
+		    RIGHT JOIN article a
+		    ON b.board_id = a.board_id
+		    LEFT JOIN user u
+			ON a.user_seq = u.user_seq
+		<!-- 검색 조건 (동적쿼리), key == 'writer'인 경우, article에 nickname이 없기 때문에-->
+		<if test="key == 'writer'">
+			WHERE b.board_id = #{boardId}
+				and u.nickname LIKE concat('%', #{word}, '%')
+		</if>
+		<if test="key != 'writer'">
+			WHERE b.board_id = #{boardId}
+				and ${key} LIKE concat('%', #{word}, '%')
+		</if>
+		<!-- 어떤 기준으로 어떤 방향으로 정렬 -->
+		<if test="orderBy != 'none'">
+			ORDER BY ${orderBy} ${orderByDir}
+		</if>
+		LIMIT #{articlePerPage}
+		OFFSET #{offsetParam}
+	</select>
+	
+	<select id="selectByUserSeq" parameterType="int">
+		SELECT *
+		FROM article
+		WHERE
+		user_seq = #{userSeq}
+		ORDER BY modified_at desc
+		;
+	</select>
  	
  	<select id="selectById" parameterType="int" resultMap="articleMap">
 		SELECT
@@ -118,6 +178,12 @@
  	</delete>
 
 	<!-- 좋아요 -->
+	<select id="selectArticleLikeList" parameterType="int">
+		SELECT article_id
+		FROM article_like
+		WHERE user_seq = #{userSeq}
+		;
+	</select>
 
 	<select id="findLike" parameterType="Map">
 		SELECT COUNT(*)

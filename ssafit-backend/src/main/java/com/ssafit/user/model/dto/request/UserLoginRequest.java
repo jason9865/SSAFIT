@@ -14,5 +14,4 @@ public class UserLoginRequest {
     @NotBlank(message = "비밀번호를 반드시 입력해주세요.")
     private String userPwd;
 
-
 }

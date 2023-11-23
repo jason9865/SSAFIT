@@ -226,23 +226,68 @@ CREATE TABLE IF NOT EXISTS `video` (
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
+-- Table `video`
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `video_like` (
+	`video_like_id` INT NOT NULL AUTO_INCREMENT,
+    `video_id` VARCHAR(100) NOT NULL,
+    `user_seq` INT NOT NULL,
+    PRIMARY KEY (`video_like_id`),
+    CONSTRAINT `fk_video_id`
+		FOREIGN KEY (`video_id`)
+        REFERENCES `video` (`video_id`)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION,
+	CONSTRAINT `fk_video_like_user_seq`
+		FOREIGN KEY (`user_seq`)
+        REFERENCES `user`(`user_seq`)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION)
+ENGINE=InnoDB;
+	
+-- -----------------------------------------------------
 -- Table `follow`
 -- -----------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS 	`follow` (
 	`follow_id` INT NOT NULL AUTO_INCREMENT,
-    `user_seq` INT NOT NULL,
-    `target_user_seq` INT NOT NULL,
+    `from_user_seq` INT NOT NULL,
+    `to_user_seq` INT NOT NULL,
     PRIMARY KEY (`follow_id`),
-    CONSTRAINT `fk_user_seq`
-		FOREIGN KEY (`user_seq`)
+    CONSTRAINT `fk_from_user_seq`
+		FOREIGN KEY (`from_user_seq`)
         REFERENCES `user`(`user_seq`)
         ON DELETE CASCADE
         ON UPDATE NO ACTION,
-	CONSTRAINT `fk_target_user_seq`
-		FOREIGN KEY (`target_user_seq`)
+	CONSTRAINT `fk_to_user_seq`
+		FOREIGN KEY (`to_user_seq`)
         REFERENCES `user`(`user_seq`)
 		ON DELETE CASCADE
         ON UPDATE NO ACTION
 )
 ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `video_comment`
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `video_comment` (
+	video_comment_id INT NOT NULL AUTO_INCREMENT,
+    content VARCHAR(400) NOT NULL,
+    user_seq INT NOT NULL,
+    video_id VARCHAR(100) NOT NULL,
+    created_at DATETIME NULL DEFAULT NOW(),
+    PRIMARY KEY (`video_comment_id`),
+    CONSTRAINT `fk_video_comment_user_seq`
+		FOREIGN KEY (`user_seq`)
+        REFERENCES `user`(`user_seq`)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION,
+	CONSTRAINT `fk_video_comment_video_id`
+		FOREIGN KEY (`video_id`)
+        REFERENCES `video`(`video_id`)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION
+)
+ENGINE=InnoDB;

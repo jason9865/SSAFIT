@@ -1,7 +1,8 @@
 <template>
-    <div class="container">
-        <h1 class="text-center">히히 카카오맵 발사</h1>
-        <KaKaoMapWorkout/>
+    <div class="container my-5">
+        <div>
+            <KaKaoMapWorkout/>
+        </div>
     </div>
 </template>
 

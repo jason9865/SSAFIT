@@ -5,8 +5,12 @@ import com.ssafit.article.model.dto.request.ArticleRegistRequest;
 import com.ssafit.article.model.dto.response.ArticleResponse;
 import com.ssafit.article.model.entity.ArticleDislike;
 import com.ssafit.article.model.entity.ArticleLike;
+import com.ssafit.board.model.entity.Board;
+import com.ssafit.board.model.entity.SearchCondition;
+
 import org.springframework.http.HttpStatus;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface ArticleService {
@@ -16,7 +20,15 @@ public interface ArticleService {
 	List<ArticleResponse> getArticleList(int boardId);
 	
 	List<ArticleResponse> getArticleList(int boardId, int currentPage);
+
+	List<ArticleResponse> getArticleListByUser(int userSeq);
+
+	List<ArticleResponse> getArticleLikeList(int userSeq);
 	
+	List<ArticleResponse> searchArticles(int boardId, SearchCondition condition);
+	
+	List<ArticleResponse> searchArticles(int boardId, int currentPage, SearchCondition condition);
+
 	ArticleResponse getArticle(int articleId);
 	
 	ArticleResponse readArticle(int articleId);

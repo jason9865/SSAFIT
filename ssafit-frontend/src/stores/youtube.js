@@ -22,6 +22,7 @@ export const useYoutubeStore = defineStore("youtube", () => {
     })
       .then((response) => {
         videos.value = response.data.items;
+        selectedVideo.value = videos.value[0]
       })
       .catch(() => {});
   };

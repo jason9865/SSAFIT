@@ -7,6 +7,7 @@ const REST_API = 'http://localhost:8080/board'
 export const useBoardStore = defineStore('board', () => {
 
     const board = ref(null)
+    const boardId = ref(null)
 
     const getBoard = (boardId) => {
       axios({
@@ -38,6 +39,8 @@ export const useBoardStore = defineStore('board', () => {
     }
 
     const articleList = ref([])
+    const articleListLength = ref(null)
+    const currentPage = ref(1)
 
     const getArticleList = (boardId) => {
         axios({
@@ -51,7 +54,66 @@ export const useBoardStore = defineStore('board', () => {
             console.log(err)
           })
 
-        getBoard(boardId)
+    }
+
+    const getArticlesByPage = function(currentPage, boardId) {
+      axios({
+          url : `${REST_API}/${boardId}`,
+          method : "GET", 
+          headers : {
+              'currentPage' : currentPage,
+          }
+      })
+        .then((res) => {
+          articleList.value = res.data
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+
+    const searchCondition = ref(null)
+
+    const getArticlesBySearchInfo = function(searchInfo) {
+      axios({
+        url : `${REST_API}/${boardId.value}`,
+        method : "GET",
+        params : {
+          "key" : searchInfo.key,
+          "word" : searchInfo.word,
+          "orderBy" : searchInfo.orderBy,
+          "orderByDir" : searchInfo.orderByDir,
+        }
+    })
+      .then((res) => {
+        articleListLength.value = res.data.length
+        currentPage.value = 1
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    }
+
+    const getArticlesBySearchInfoWithPage = function(currentPage) {
+      axios({
+        url : `${REST_API}/${boardId.value}`,
+        method : "GET",
+        headers : {
+          'currentPage' : currentPage,
+        },
+        params : {
+          "key" : searchCondition.value.key,
+          "word" : searchCondition.value.word,
+          "orderBy" : searchCondition.value.orderBy,
+          "orderByDir" : searchCondition.value.orderByDir,
+        }
+    })
+      .then((res) => {
+        articleList.value = res.data
+      })
+      .catch((err) => {
+        console.log(err)
+      })
     }
 
     return {
@@ -60,6 +122,13 @@ export const useBoardStore = defineStore('board', () => {
         getBoardList,
         articleList,
         getArticleList,
+        articleListLength,
         getBoard,
+        boardId,
+        getArticlesByPage,
+        searchCondition,
+        getArticlesBySearchInfo,
+        getArticlesBySearchInfoWithPage,
+        currentPage,
     }
 })

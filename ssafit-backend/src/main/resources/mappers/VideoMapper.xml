@@ -37,19 +37,6 @@
         order by view_cnt desc
         ;
     </select>
-    
-    <!-- <insert id="insertVideo" parameterType="video">
-        INSERT INTO
-        video(title,part,channel,name,url)
-        VALUES(#{title}, #{part}, #{channel}, #{name},#{url})
-        ;
-    </insert>
-
-    <delete id="deleteVideo" parameterType="int">
-        DELETE FROM video
-        WHERE video_id=#{videoId}
-        ;
-    </delete> -->
 
     <update id="updateViewCnt" parameterType="String">
         UPDATE video
@@ -57,5 +44,38 @@
         WHERE video_id = #{videoId}
         ;
     </update>
+
+    <select id="selectVideoLikeList" parameterType="int">
+        SELECT video_id
+        FROM video_like
+        WHERE
+            user_seq = #{userSeq}
+        ;
+    </select>
+
+    <select id="findVideoLike" parameterType="Map">
+        SELECT COUNT(*)
+        FROM video_like
+        WHERE
+            user_seq = #{userSeq}
+        AND
+            video_id = #{videoId}
+        ;
+    </select>
+
+    <insert id="doVideoLike" parameterType="Map">
+        INSERT INTO video_like (video_id,user_seq)
+        VALUES (#{videoId}, #{userSeq})
+        ;
+    </insert>
+
+    <delete id="undoVideoLike" parameterType="Map">
+        DELETE FROM video_like
+        WHERE
+            video_id = #{videoId}
+        AND
+            user_seq = #{userSeq}
+        ;
+    </delete>
 
 </mapper>

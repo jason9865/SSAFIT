@@ -1,8 +1,8 @@
 <template>
-  <div v-if="store.selectedVideo" class="container">
+  <div v-if="store.selectedVideo" class="container text-center">
     <iframe
-      width="560"
-      height="315"
+      width="1008"
+      height="566"
       :src="videoURL"
       title="YouTube video player"
       frameborder="0"
@@ -21,6 +21,7 @@ const videoURL = computed(()=>{
     const videoId = store.selectedVideo.id.videoId
     return `https://www.youtube.com/embed/${videoId}`
 })
+
 
 </script>
 

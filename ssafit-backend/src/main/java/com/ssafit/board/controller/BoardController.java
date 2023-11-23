@@ -1,10 +1,14 @@
 package com.ssafit.board.controller;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ssafit.article.model.dto.response.ArticleResponse;
 import com.ssafit.article.model.entity.Article;
 import com.ssafit.board.model.entity.Board;
+import com.ssafit.board.model.entity.SearchCondition;
 import com.ssafit.article.service.ArticleService;
 import com.ssafit.board.service.BoardService;
+import com.ssafit.comment.model.entity.Comment;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,18 +48,38 @@ public class BoardController {
 
 	@GetMapping("/{boardId}")
 	@ApiOperation(value="게시판 별 게시글", notes="게시판 별 게시글을 보여줍니다. 헤더에 페이지 정보를 읽어 ")
-	public ResponseEntity<List<ArticleResponse>> boardDetail(@PathVariable int boardId, HttpServletRequest request) {
+	public ResponseEntity<List<ArticleResponse>> boardDetail(@PathVariable int boardId, HttpServletRequest request, 
+									String key, String word, String orderBy, String orderByDir) {
 		List<ArticleResponse> articleList = new ArrayList<>();
 		
-		if(request.getHeader("currentPage")==null) {
-			articleList = articleService.getArticleList(boardId).stream().
-					filter(a -> a.getBoardId() == boardId).
-					collect(Collectors.toList());
+		if(key != null) {
+			SearchCondition condition = SearchCondition.builder()
+											.key(key)
+											.word(word)
+											.orderBy(orderBy)
+											.orderByDir(orderByDir)
+											.build();
+			if(request.getHeader("currentPage") == null) {
+				articleList = articleService.searchArticles(boardId, condition).stream()
+								.filter(a -> a.getBoardId() == boardId)
+								.collect(Collectors.toList());
+			} else {
+				int currentPage = Integer.parseInt(request.getHeader("currentPage"));
+				articleList = articleService.searchArticles(boardId, currentPage, condition).stream()
+						.filter(a -> a.getBoardId() == boardId)
+						.collect(Collectors.toList());
+			}
 		} else {
-			int currentPage = Integer.parseInt(request.getHeader("currentPage"));
-			articleList = articleService.getArticleList(boardId, currentPage).stream().
-					filter(a -> a.getBoardId() == boardId).
-					collect(Collectors.toList());
+			if(request.getHeader("currentPage")==null) {
+				articleList = articleService.getArticleList(boardId).stream().
+						filter(a -> a.getBoardId() == boardId).
+						collect(Collectors.toList());
+			} else {
+				int currentPage = Integer.parseInt(request.getHeader("currentPage"));
+				articleList = articleService.getArticleList(boardId, currentPage).stream().
+						filter(a -> a.getBoardId() == boardId).
+						collect(Collectors.toList());
+			}
 		}
 
 		return new ResponseEntity<List<ArticleResponse>>(articleList,HttpStatus.OK);
@@ -94,7 +118,28 @@ public class BoardController {
 			return new ResponseEntity<Boolean>(isRemoved,HttpStatus.NO_CONTENT);
 		return new ResponseEntity<Boolean>(isRemoved,HttpStatus.ACCEPTED);
 	}
+	
+	@GetMapping("/{boardId}/search")
+	@ApiOperation(value="게시판 별 게시글", notes="게시판 별 게시글을 보여줍니다. 헤더에 페이지 정보를 읽어 ")
+	public ResponseEntity<List<ArticleResponse>> boardSearch(@PathVariable int boardId, HttpServletRequest request,
+															SearchCondition searchCondition) {
+		List<ArticleResponse> articleList = new ArrayList<>();
+		
+		System.out.println(searchCondition.toString());
+		
+		if(request.getHeader("currentPage")==null) {
+			articleList = articleService.getArticleList(boardId).stream().
+					filter(a -> a.getBoardId() == boardId).
+					collect(Collectors.toList());
+		} else {
+			int currentPage = Integer.parseInt(request.getHeader("currentPage"));
+			articleList = articleService.getArticleList(boardId, currentPage).stream().
+					filter(a -> a.getBoardId() == boardId).
+					collect(Collectors.toList());
+		}
 
+		return new ResponseEntity<List<ArticleResponse>>(articleList,HttpStatus.OK);
+	}
 
 
 }

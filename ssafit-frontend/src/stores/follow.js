@@ -1,11 +1,15 @@
+import axios from 'axios'
 import { defineStore } from "pinia";
+import {ref} from 'vue'
 
 const REST_API = 'http://localhost:8080'
 
 export const useFollowStore = defineStore('follow',()=>{
-    
+
+
+
     const followList = ref([]);
-    const isFollowed = ref('');
+    const isFollowing = ref('');
     
     const getFollowList = function(userSeq) {
         axios({
@@ -33,8 +37,8 @@ export const useFollowStore = defineStore('follow',()=>{
             }
         })
         .then((res) => {
-            console.log("checkFollow",res.data)
-            isFollowed.value = res.data
+            // console.log("checkFollow",res.data)
+            isFollowing.value = res.data
         })
         .catch((err) => {
             console.log(err)
@@ -51,6 +55,8 @@ export const useFollowStore = defineStore('follow',()=>{
         })
         .then((res) => {
             alert("팔로우 완료")
+            checkFollow(toUserSeq)
+            getFollowList(sessionStorage.getItem("userSeq"))
         })
         .catch((err) => {
             console.log(err)
@@ -68,6 +74,8 @@ export const useFollowStore = defineStore('follow',()=>{
         })
         .then((res) => {
             alert("언팔로우 완료")
+            checkFollow(toUserSeq)
+            getFollowList(sessionStorage.getItem("userSeq"))
         })
         .catch((err) => {
             console.log(err)
@@ -76,7 +84,7 @@ export const useFollowStore = defineStore('follow',()=>{
     }
 
     return{
-        followList,isFollowed,
+        followList,isFollowing,
         getFollowList,checkFollow,doFollow,doUnfollow
     }
 })

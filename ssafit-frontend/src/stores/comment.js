@@ -32,7 +32,7 @@ export const useCommentStore = defineStore('comment', () => {
 
     const getComment = function(commentId) {
         axios({
-            url : `${REST_API}/detail/${commentId}`,
+            url : `${REST_API}/${commentId}/detail`,
             method : "GET"
         })
         .then((res) => {
@@ -47,7 +47,7 @@ export const useCommentStore = defineStore('comment', () => {
     // 댓글 작성
     const createComment = function(comment) {
         axios({
-            url : `${REST_API}/${comment.articleId}`,
+            url : `${REST_API}/${comment.articleId}/write`,
             method : "POST",
             headers : {
                 'Content-Type' : 'application/json',
@@ -68,7 +68,7 @@ export const useCommentStore = defineStore('comment', () => {
     // 댓글 수정
     const updateComment = function(comment,articleId) {
         axios({
-            url : `${REST_API}/${comment.commentId}`,
+            url : `${REST_API}/${comment.commentId}/update`,
             method : 'PUT',
             headers : {
                 'Content-Type' : `application/json`,
@@ -89,7 +89,7 @@ export const useCommentStore = defineStore('comment', () => {
     // 댓글 삭제
     const deleteComment = function(commentId,articleId) {
         axios({
-            url : `${REST_API}/${commentId}`,
+            url : `${REST_API}/${commentId}/delete`,
             method : `DELETE`
         })
         .then((res)=>{
