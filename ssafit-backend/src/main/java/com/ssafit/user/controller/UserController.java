@@ -1,9 +1,7 @@
 package com.ssafit.user.controller;
 
-import com.ssafit.user.model.dto.request.FindPwRequest;
-import com.ssafit.user.model.dto.request.UserLoginRequest;
-import com.ssafit.user.model.dto.request.UserModifyRequest;
-import com.ssafit.user.model.dto.request.UserRegistRequest;
+import com.ssafit.user.model.dto.request.*;
+import com.ssafit.user.model.dto.response.UserIdCheckResponse;
 import com.ssafit.user.model.dto.response.UserResponse;
 import com.ssafit.user.model.entity.Mail;
 import com.ssafit.user.model.entity.User;
@@ -18,14 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -138,6 +133,7 @@ public class UserController {
 			return new ResponseEntity<Boolean>(isRemoved,HttpStatus.BAD_REQUEST);
 		return new ResponseEntity<Boolean>(isRemoved,HttpStatus.OK);
 	}
+
 	
 	@PostMapping("/sendMail")
 	@ApiOperation(value="비밀번호 찾기", notes="userId와 userEmail 유효성 검증 이후 이메일로 임시비밀번호 발급")
@@ -158,9 +154,27 @@ public class UserController {
 				message = "이메일을 확인해주세요.";
 			}
 		}
-		
-		
+
 		return new ResponseEntity<String>(message,HttpStatus.OK);
+	}
+
+
+	@PostMapping("/validateId")
+	@ApiOperation(value="아이디 중복 검사")
+	public ResponseEntity<UserIdCheckResponse> validateId(@RequestBody UserCheckRequest request){
+		return new ResponseEntity<UserIdCheckResponse>(userService.validateId(request),HttpStatus.OK);
+	}
+
+	@PostMapping("/validateEmail")
+	@ApiOperation(value="아이디 중복 검사")
+	public ResponseEntity<UserIdCheckResponse> validateEmail(@RequestBody UserCheckRequest request){
+		return new ResponseEntity<UserIdCheckResponse>(userService.validateEmail(request),HttpStatus.OK);
+	}
+
+	@PostMapping("/validateNickName")
+	@ApiOperation(value="아이디 중복 검사")
+	public ResponseEntity<UserIdCheckResponse> validateNickName(@RequestBody UserCheckRequest request){
+		return new ResponseEntity<UserIdCheckResponse>(userService.validateNickName(request),HttpStatus.OK);
 	}
 
 

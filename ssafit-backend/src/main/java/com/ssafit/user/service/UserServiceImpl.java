@@ -1,9 +1,11 @@
 package com.ssafit.user.service;
 
 import com.ssafit.user.model.dao.UserDao;
+import com.ssafit.user.model.dto.request.UserCheckRequest;
 import com.ssafit.user.model.dto.request.UserLoginRequest;
 import com.ssafit.user.model.dto.request.UserModifyRequest;
 import com.ssafit.user.model.dto.request.UserRegistRequest;
+import com.ssafit.user.model.dto.response.UserIdCheckResponse;
 import com.ssafit.user.model.dto.response.UserResponse;
 import com.ssafit.user.model.entity.Mail;
 import com.ssafit.user.model.entity.User;
@@ -12,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -59,6 +60,7 @@ public class UserServiceImpl implements UserService {
 	public boolean registUser(UserRegistRequest request) {
 		User newUser = User.builder().userId(request.getUserId()).userPwd(request.getUserPwd())
 				.userName(request.getUserName()).nickName(request.getNickName()).email(request.getEmail()).build();
+
 		return userDao.insertUser(newUser) > 0;
 	}
 
@@ -138,6 +140,40 @@ public class UserServiceImpl implements UserService {
 		map.put("pwd", pwd);
 		
 		userDao.updatePwd(map);
+	}
+
+	@Override
+	public UserIdCheckResponse validateId(UserCheckRequest request) {
+		User user = userDao.selectByUserId(request.getUserId());
+		String message = "사용이 가능한 아이디입니다.";
+		Boolean isValid = true;
+		if (user != null){
+			message = "이미 사용 중인 아이디입니다. 다른 아이디를 입력해주세요.";
+			isValid = false;
+		}
+		return new UserIdCheckResponse(message,isValid);
+	}
+
+	public UserIdCheckResponse validateEmail(UserCheckRequest request) {
+		User user = userDao.selectByEmail(request.getEmail());
+		String message = "사용이 가능한 이메일입니다.";
+		Boolean isValid = true;
+		if (user != null){
+			message = "이미 사용 중인 이메일입니다. 다른 이메일을 입력해주세요.";
+			isValid = false;
+		}
+		return new UserIdCheckResponse(message,isValid);
+	}
+
+	public UserIdCheckResponse validateNickName(UserCheckRequest request) {
+		User user = userDao.selectByNickName(request.getNickName());
+		String message = "사용이 가능한 닉네임입니다..";
+		Boolean isValid = true;
+		if (user != null){
+			message = "이미 사용 중인 닉네임입니다. 다른 닉네임을 입력해주세요.";
+			isValid = false;
+		}
+		return new UserIdCheckResponse(message,isValid);
 	}
 
 }

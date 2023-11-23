@@ -21,7 +21,7 @@ export const useUserStore = defineStore('user', () => {
             method : "GET"
         })
         .then((res) => {
-            console.log(res.data)
+            // console.log(res.data)
             userList.value = res.data
         })
         .catch((err) => {
@@ -152,6 +152,8 @@ export const useUserStore = defineStore('user', () => {
             window.location.replace("/login")
           })
       }
+
+      
 
     return {
         userList,
