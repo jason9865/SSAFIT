@@ -22,7 +22,7 @@
             </td>
             <td>
             <FollowItem :user-seq="article.userSeq" :nick-name="article.nickName" style="cursor:pointer;" >
-                {{ article.nickName }}
+                <p>{{ article.nickName }}</p>
             </FollowItem>
             </td>
             <td>{{ article.viewCnt }}</td>

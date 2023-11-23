@@ -7,7 +7,7 @@
                   {{ comment.nickName }}
                 </FollowItem>
             </div>
-            <p style="font-size: large; margin: 0; padding: 5px;">{{ comment.content  }}</p>
+            <p style="font-size: medium; margin: 0; padding: 5px;">{{ comment.content  }}</p>
             <p style="font-size: small; margin: 0; padding: 5px;">{{ comment.createdAt }}</p>
 
             <div v-show="currUserSeq === comment.userSeq" style="padding:5px">

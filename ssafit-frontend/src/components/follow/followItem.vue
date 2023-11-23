@@ -1,9 +1,9 @@
 <template>
     <div>
         <!-- Button trigger modal 누르면 모달창이 뜸 -->
-        <h4 style="padding:5px" @click="seeUserInfo" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <b style="padding:5px" @click="seeUserInfo" data-bs-toggle="modal" data-bs-target="#exampleModal">
             {{ nickName }}
-        </h4>
+        </b>
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

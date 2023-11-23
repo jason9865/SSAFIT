@@ -6,7 +6,7 @@
                     {{ videoComment.nickName }}
                 </FollowItem>
             </div>
-            <p style="font-size: large; margin: 0; padding: 5px">{{ videoComment.content  }}</p>
+            <p style="font-size: medium; margin: 0; padding: 5px">{{ videoComment.content  }}</p>
             <p style="font-size: small; margin: 0; padding: 5px">{{ videoComment.createdAt }}</p>
             <div v-show="currUserSeq === videoComment.userSeq" style="padding:5px;">
                 <button title="Button fade blue/green" class="button btnFade btnBlueGreen" @click="modifyModeChange">수정</button>
