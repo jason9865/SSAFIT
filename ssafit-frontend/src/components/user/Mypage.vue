@@ -2,17 +2,24 @@
     <div container>
 
         <div class="row" >
-            <div class="col-2" style="margin-left:30px;">
+            <div class="col-2 m-3">
                 <Sidebar/>
             </div>
-            <div id="userInfo" class="card border-dark col-9" style="margin-top:100px;margin-bottom:200px;">
+            <div class="col-1" style=""></div>
+            <div id="userInfo" class="card border-dark col-6" style="margin-top:100px;margin-bottom:200px;">
                 <div class="card-header"><h3>마이페이지</h3></div>
                 <div class="card-body text-dark">
+                    <br>
                     <h5>회원 아이디 : {{ user.userId }}</h5>
+                    <br>
                     <h5>회원 이름 : {{ user.userName }}</h5>
+                    <br>
                     <h5>회원 닉네임 : {{ user.nickName }}</h5>
+                    <br>
                     <h5>회원 이메일 : {{ user.email }}</h5>
+                    <br>
                     <h5>최근 등록/수정날짜 : {{ user.joinedAt }}</h5>
+                    <br>
                 </div>
             </div>
     

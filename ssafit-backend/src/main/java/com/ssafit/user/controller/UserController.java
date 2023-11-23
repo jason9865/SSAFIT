@@ -143,8 +143,6 @@ public class UserController {
 	@ApiOperation(value="비밀번호 찾기", notes="userId와 userEmail 유효성 검증 이후 이메일로 임시비밀번호 발급")
 	public ResponseEntity<String> sendMail(@RequestBody FindPwRequest FindPwRequest) {
 		String message = "이메일로 임시비밀번호가 발급되었습니다.";
-		System.out.println(FindPwRequest.getUserId());
-		System.out.println(FindPwRequest.getEmail());
 		
 		String userId = FindPwRequest.getUserId();
 		String email = FindPwRequest.getEmail();
