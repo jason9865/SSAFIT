@@ -49,6 +49,6 @@
  <img alt="Static Badge" src="https://img.shields.io/badge/git-F05032.svg?style=for-the-badge&logo=git&logoColor=white"> <img alt="Static Badge" src="https://img.shields.io/badge/github-181717.svg?style=for-the-badge&logo=github&logoColor=white"> <img alt="Static Badge" src="https://img.shields.io/badge/mattermost-0058CC.svg?style=for-the-badge&logo=mattermost&logoColor=white">
 
 ## 시스템 구성도
-
+![시스템 구성도](https://github.com/jshEIT/ssafit_final_project/assets/31498000/5b33ceff-662e-4204-934e-01c34967275c)
 
 ## 첨부 자료
