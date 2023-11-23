@@ -14,7 +14,13 @@ public interface UserDao {
 	
 	// id로 유저 찾기
 	User selectByUserId(String userId);
-	
+
+	// 이메일로 유저 찾기
+	User selectByEmail(String email);
+
+	// 닉네임으로 유저 찾기
+	User selectByNickName(String nickName);
+
 	// 이름으로 유저 찾기
 	User selectByName(String name);
 	

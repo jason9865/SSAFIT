@@ -5,8 +5,11 @@
           <div id="sign-up-container">
             <h3>회원 가입</h3>
             <fieldset style="width:500px">
+              <div>
                 <label for="id">아이디</label>
                 <input type="text" id="id" v-model="id" class="form-control" /><br />
+                <button @click="checkId(id)">중복 확인</button><br>
+              </div>
                 <label for="password">비밀번호</label>
                 <input type="password" id="password" v-model="password" class="form-control" /><br />
                 <label for="password">비밀번호 확인</label>
@@ -30,6 +33,7 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
 import { useUserStore } from "../../stores/user";
+import axios from 'axios'
 
 const userStore = useUserStore()
 
@@ -40,6 +44,51 @@ const name = ref("");
 const email = ref("");
 const nickName = ref("");
 const users = computed(() => userStore.users);
+const isUserIdValid = ref("");
+const isEmailUsable = ref("");
+const isNickNameUsable = ref("");
+
+const checkId = (userId) => {
+      axios({
+          url : `http://localhost:8080/user/validateId`,
+          method : "POST",
+          data : {
+              userId : userId
+          }
+      })
+      .then((res) => {
+          console.log("checkId => ",res.data)
+          isUserIdValid.value = res.data.isValid;
+          alert(res.data.message)
+      })
+    }
+
+const checkEmail = (email) => {
+  axios({
+      url : `http://localhost:8080/user/validateEmail`,
+      method : "POST",
+      data : {
+          email : email
+      }
+  })
+  .then((res) => {
+      console.log("checkEmail => ", res.data)
+      isEmailUsable.value = res.data.isValid;
+  })
+}
+
+const checkNickName = (nickName) => {
+    axios({
+        url : `http://localhost:8080/user/validateNickName`,
+        method : "POST",
+        data : {
+            nickName : nickName
+        }
+    })
+    .then((res) => {
+        isNickNameUsable.value = res.data.isValid;
+    })
+  }
 
 onMounted(() => {
     userStore.getUserList()
@@ -86,6 +135,25 @@ const regist = () => {
 
   if (!isEmailValid(email.value)) {
     alert("올바른 이메일 형식을 입력해주세요.");
+    return;
+  }
+
+
+
+  if (!isUserIdValid.value) {
+    alert("이미 사용 중인 아이디입니다. 다른 아이디를 사용해주세요.")
+    return;
+  }
+
+  checkEmail(email.value)
+  if (!isEmailUsable.value){
+    alert("이미 사용 중인 이메일입니다. 다른 이메일을 사용해주세요.")
+    return;
+  }
+
+  checkNickName(nickName.value)
+  if (!isNickNameUsable.value) {
+    alert("이미 사용 중인 닉네임입니다. 다른 닉네임을 사용해주세요.")
     return;
   }
 
