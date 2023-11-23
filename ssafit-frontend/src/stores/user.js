@@ -52,11 +52,14 @@ export const useUserStore = defineStore('user', () => {
             data : user
         })
         .then((res) => {
-            res.data === true ? 
-            alert("회원 가입 완료!") :
-            alert("회원 가입 실패")
+            alert(res.data)
+            if(res.data === "회원가입 성공!") {
+                router.push("/")    
+            }
+            // res.data === true ? 
+            // alert("회원 가입 완료!") :
+            // alert("회원 가입 실패")
 
-            router.push("/")
         })
         .catch((err) => {
             console.log(err);

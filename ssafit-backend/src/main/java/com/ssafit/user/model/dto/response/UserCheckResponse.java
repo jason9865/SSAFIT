@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserIdCheckResponse {
+public class UserCheckResponse {
     private String message;
     private Boolean isValid;
 
