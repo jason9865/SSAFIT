@@ -59,7 +59,7 @@ const checkId = (userId) => {
     .then((res) => {
       // console.log("checkId => ", res.data)
       isUserIdValid.value = res.data.isValid; // 아이디 중복체크
-      userIdDuplCheck.value = true            // 중복체크 실시 여부
+      userIdDuplCheck.value = res.data.isValid   // 중복체크 실시 여부
       alert(res.data.message)
     })
 }
