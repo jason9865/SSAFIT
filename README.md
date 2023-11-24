@@ -52,3 +52,23 @@
 ![image](https://github.com/jshEIT/ssafit_final_project/assets/31498000/5b33ceff-662e-4204-934e-01c34967275c)
 
 ## 첨부 자료
+- 메인페이지
+![image](https://github.com/jshEIT/SSAFIT/assets/31498000/24bf50a0-fb04-43f4-95e9-931f588e42ad)
+
+- 로그인
+![image](https://github.com/jshEIT/SSAFIT/assets/31498000/97c30cc4-5ff6-40b0-861e-9d870d832da7)
+
+- 회원가입
+![image](https://github.com/jshEIT/SSAFIT/assets/31498000/88bfe0b6-af76-45ab-86bf-a508156dc661)
+
+- 커뮤니티
+![image](https://github.com/jshEIT/SSAFIT/assets/31498000/3596a6c3-03bf-4eaf-bb86-f01b4a7d7d2b)
+
+- 운동영상
+![image](https://github.com/jshEIT/SSAFIT/assets/31498000/c70b69b9-d203-43f5-84a9-ef139c17b75a)
+
+- 영상검색
+![image](https://github.com/jshEIT/SSAFIT/assets/31498000/43f11b0b-1cea-4d56-afa5-53426b3a5a3a)
+
+- 위치검색
+![image](https://github.com/jshEIT/SSAFIT/assets/31498000/1db80fcd-47f6-4af6-bd99-d07e2ba8a8e5)
