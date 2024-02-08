@@ -25,7 +25,6 @@
 
 ## 개발 환경
  - `Java 11`
- - `JDK 1.8.0_192`
  - **IDE** : `STS 3.9.14`, `Vidsual Studeo Code 1.84.2`
  - **Framework** : `Springboot 2.7.17` `Vue3`
  - **Database** : `MySQL 8.0.21`
